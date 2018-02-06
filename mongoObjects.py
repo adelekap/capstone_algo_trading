@@ -1,5 +1,4 @@
 from pymongo import MongoClient,collection,database
-import apiCall as api
 
 class CollectionManager(object):
     """
@@ -45,9 +44,3 @@ class FiveYearDocument(object):
         for field in unwantedFields:
             del json[field]
         return json
-
-ticker = 'aapl'
-newDoc = FiveYearDocument(api.iex_5y(ticker)[0],ticker)
-manager = CollectionManager('5Y_technicals',MongoClient()['AlgoTradingDB'])
-manager.insert(newDoc)
-
