@@ -1,4 +1,5 @@
 from pymongo import MongoClient,collection,database
+import pandas as pd
 
 class CollectionManager(object):
     """
@@ -13,11 +14,15 @@ class CollectionManager(object):
         :param db: mongo database
         """
         self.name = name
-        self.db = db
+        self.db:database = db
         self.c:collection = db[name]
 
     def insert(self,*documents):
         self.c.insert_many([x.__dict__ for x in documents])
+
+    def find(self,query):
+        cursor = self.c.find(query)
+        return pd.DataFrame(list(cursor))
 
 
 class FiveYearDocument(object):
@@ -33,6 +38,7 @@ class FiveYearDocument(object):
         self.json = self.__get_fields(json)
         self.__dict__ = self.json
         self.ticker = ticker
+
 
     def __get_fields(self,json):
         """
