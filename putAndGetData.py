@@ -1,22 +1,22 @@
-from mongoObjects import CollectionManager, FiveYearDocument
+from mongoObjects import CollectionManager, MongoDocument
 import apiCall as api
 from pymongo import MongoClient
 import pandas as pd
 
-def add_5y_stock_data(manager,ticker):
+def get_stock_data(manager, ticker, unwantedFields,function=api.iex_5y):
     """
     Adds 5-year technicals to the 'AlgoTradingDB' database
     for the specified stock.
     :param ticker: stock ticker
     :return: None
     """
-    stockData = api.iex_5y(ticker)
+    stockData = function(ticker)
     for datapoint in stockData:
-        newDoc = FiveYearDocument(datapoint, ticker)
+        newDoc = MongoDocument(datapoint, ticker,unwantedFields)
         manager.insert(newDoc)
 
 
-def add_data(manager,function):
+def add_data(manager,function,unwantedFields):
     """
     Adds data to the database for all of the S&P 500 stocks.
     :param function: the function that will add the data to the database
@@ -25,7 +25,7 @@ def add_data(manager,function):
     stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
     for stock in stocks:
         try:
-            function(manager,stock)
+            get_stock_data(manager,stock,unwantedFields,function)
         except ValueError:  # includes simplejson.decoder.JSONDecodeError
             print('Decoding JSON has failed: adding stock data for ' + stock + ' was unsuccessful!')
 
@@ -34,5 +34,6 @@ def add_data(manager,function):
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
-    mmData = manager.find({'ticker':'mmm'})
-    # add_data(manager,add_5y_stock_data)
+    add_data(manager,api.iex_5y,unwantedFields=['unadjustedVolume', 'change',
+                                               'changePercent', 'label', 'changeOverTime'])
+

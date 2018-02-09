@@ -89,7 +89,8 @@ def fit_arima(series, p, d, q,dates):
         output = model_fit.forecast()
         yhat = output[0]
         predictions.append(yhat)
-        obs = test[t]
+        # obs = test[t]
+        obs = yhat
         train.append(obs)
     error = mean_squared_error(test, predictions)
     print('Test MSE: %.3f' % error)
@@ -101,6 +102,7 @@ def fit_arima(series, p, d, q,dates):
     plt.legend(loc=4)
     plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
     plt.title('{0} ARIMA({1},{2},{3})'.format(ticker,p,d,q))
+    plt.xlim(testDates[0],testDates[len(testDates)])
     plt.savefig(ticker+'Arima.pdf')
     plt.show()
 

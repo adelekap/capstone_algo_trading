@@ -25,28 +25,28 @@ class CollectionManager(object):
         return pd.DataFrame(list(cursor))
 
 
-class FiveYearDocument(object):
+class MongoDocument(object):
     """
     A python representation of a mongo document for
     records containing 5-year daily stock technicals.
     """
-    def __init__(self,json:dict,ticker:str):
+    def __init__(self,json:dict,ticker:str,unwantedFields):
         """
         :param json: dictionary of response from
         IEX api call for 5-year data
         """
-        self.json = self.__get_fields(json)
+        self.json = self.__get_fields(json,unwantedFields)
         self.__dict__ = self.json
         self.ticker = ticker
 
 
-    def __get_fields(self,json):
+    def __get_fields(self,json,unwantedFields):
         """
         Deletes unnecessary fields
         :param json: dictionary passed to class
         :return: filtered dictionary
         """
-        unwantedFields = ['unadjustedVolume', 'change', 'changePercent', 'label', 'changeOverTime']
         for field in unwantedFields:
             del json[field]
         return json
+
