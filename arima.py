@@ -84,21 +84,20 @@ def fit_arima(series, p, d, q,dates,window=0,plot=True):
     train, test = series[0:size], series[size:len(series)]
     predictions = list()
     w = 0
-    for t in range(len(test)):
+    for t in range(len(test)+1):
         model = ARIMA(train, order=(p, d, q))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast()
         yhat = output[0][0]
         predictions.append(yhat)
-        # obs = test[t]
         obs = yhat
-        if w == window:
+        if w == window and t != len(test):
             train.append(test[t])
             w = 0
         else:
             train.append(obs)
             w += 1
-    error = mean_squared_error(test, predictions)
+    error = mean_squared_error(test, predictions[:len(test)])
 
     # plot
     if plot:
@@ -109,12 +108,13 @@ def fit_arima(series, p, d, q,dates,window=0,plot=True):
         testDates = dates[size:]
         ax1.plot(dates[:size+1],train[:size+1],label='Training data',color='black')
         ax2.plot(testDates,test, label='Test data',color = 'blue')
-        ax3.plot(testDates,predictions, color='red', label='ARIMA Predictions')
+        ax3.plot(testDates,predictions[:len(testDates)], color='red', label='ARIMA Predictions')
         plt.legend()
         plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
         plt.title('{0} ARIMA({1},{2},{3})'.format(ticker,p,d,q))
         plt.savefig(ticker+'Arima_'+str(window)+'lag.pdf')
         plt.close()
+        print(predictions[len(testDates)])  # Next day's prediction
     return error
 
 
