@@ -40,22 +40,22 @@ def parameterize_arima(series, ticker):
     # Plot time series
     plt.plot(range(1, len(series) + 1), series)
     plt.title(ticker)
-    plt.show()
+    plt.close()
 
     # Plot autocorrelation plot
     pdplot.autocorrelation_plot(series)
     plt.title(ticker + ' Autocorrelation Plot')
     plt.savefig(ticker+'Autocor.png')
-    plt.show()
+    plt.close()
 
     # Plot Partial Autocorrelation
     plot_pacf(series, lags=50)
     plt.title(ticker+' Partial Autocorrelation')
     plt.savefig(ticker+'ParAutocor.png')
-    plt.show()
+    plt.close()
 
     # Fit Model
-    model = ARIMA(series, order=(2, 1, 0))
+    model = ARIMA(series, order=(1, 1, 0))
     model_fit = model.fit(disp=0)
     print(model_fit.summary())
 
@@ -63,15 +63,15 @@ def parameterize_arima(series, ticker):
     residuals = pd.DataFrame(model_fit.resid)
     residuals.plot()
     plt.title(ticker + ' ARIMA residuals')
-    plt.show()
+    plt.close()
     residuals.plot(kind='kde')
     plt.title(ticker + ' ARIMA residual density plot')
     plt.savefig(ticker+'Resid.png')
-    plt.show()
+    plt.close()
     print(residuals.describe())
 
 
-def fit_arima(series, p, d, q,dates):
+def fit_arima(series, p, d, q,dates,window=0,plot=True):
     """
     Fits the timeseries data to an ARIMA model.
     :param series: timeseries data
@@ -83,35 +83,62 @@ def fit_arima(series, p, d, q,dates):
     size = int(len(series) * 0.66)
     train, test = series[0:size], series[size:len(series)]
     predictions = list()
+    w = 0
     for t in range(len(test)):
         model = ARIMA(train, order=(p, d, q))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast()
-        yhat = output[0]
+        yhat = output[0][0]
         predictions.append(yhat)
         # obs = test[t]
         obs = yhat
-        train.append(obs)
+        if w == window:
+            train.append(test[t])
+            w = 0
+        else:
+            train.append(obs)
+            w += 1
     error = mean_squared_error(test, predictions)
-    print('Test MSE: %.3f' % error)
+
     # plot
-    testDates = dates[size:]
-    plt.plot(dates,train,label='Training data',color='black')
-    plt.plot(testDates,test, label='Test data',color = 'blue')
-    plt.plot(testDates,predictions, color='red', label='ARIMA Predictions')
-    plt.legend(loc=4)
-    plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
-    plt.title('{0} ARIMA({1},{2},{3})'.format(ticker,p,d,q))
-    plt.xlim(testDates[0],testDates[len(testDates)])
-    plt.savefig(ticker+'Arima.pdf')
-    plt.show()
+    if plot:
+        fig = plt.figure()
+        ax1 = fig.add_subplot(111)
+        ax2 = ax1
+        ax3 = ax1
+        testDates = dates[size:]
+        ax1.plot(dates[:size+1],train[:size+1],label='Training data',color='black')
+        ax2.plot(testDates,test, label='Test data',color = 'blue')
+        ax3.plot(testDates,predictions, color='red', label='ARIMA Predictions')
+        plt.legend()
+        plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
+        plt.title('{0} ARIMA({1},{2},{3})'.format(ticker,p,d,q))
+        plt.savefig(ticker+'Arima_'+str(window)+'lag.pdf')
+        plt.close()
+    return error
 
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
-    ticker = 'gd'
+    ticker = 'mcd'
     test = create_timeseries(manager,ticker)
 
     series,dates = create_timeseries(manager,ticker)
     parameterize_arima(series,ticker)
-    fit_arima(series,2,1,0,dates)
+
+    ar = 1  # base predictions on last day
+    i = 1  # single differencing
+    ma = 0  # only autoregressive components
+    fit_arima(series,ar,i,ma,dates)
+
+    # mses =[]
+    # lags = [0]
+    # for lag in lags:
+    #     mses.append(fit_arima(series,5,1,0,dates,lag,True))
+    #
+    # print(mses)
+    # plt.plot(lags,mses)
+    # plt.ylabel('MSE')
+    # plt.xlabel('Lag')
+    # plt.savefig(ticker+'_lags.png')
+    # plt.show()
