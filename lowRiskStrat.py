@@ -3,27 +3,44 @@ from pymongo import MongoClient
 from putAndGetData import get_day_stats
 from arima import fit_arima
 
-def daily_avg_price(manager,ticker,date):
-    close,high,low = get_day_stats(manager, ticker, date)
-    return (close + high + low) / 3.0
+class Strategy(object):
+    def __init__(self,predictionFunction,manager,ticker,currentDate):
+        self.predFunc = predictionFunction
+        self.manager = manager
+        self.ticker = ticker
+        self.currentDate = currentDate
 
-def percent_variation(close,predictionFunc,*args):
-    P = predictionFunc(*args)
-    return(P-close)/close
+    def daily_avg_price(self,close,high,low):
+        close, high, low = get_day_stats(self.manager, self.ticker, self.currentDate)
+        return (close + high + low) / 3.0
+
+    def percent_variation(self,close, *args):
+        P = self.predFunc(*args)
+        return ((P - close) / close)
+
+    def arithmetic_returns(self, k, *args):
+        dailyAvgPrice = self.daily_avg_price(self.manager, self.ticker, self.currentDate)
+        Vi = []
+        for j in range(1, k + 1):
+            d = laterDate(self.currentDate, j)
+            predictedPrice = self.predFunc(*args)
+            Vi.append(self.daily_avg_price(self.manager, self.ticker, d))
+
+class LowRisk(Strategy):
+
+
+
+
+
 
 def laterDate(date,j):
     return date #ToDo: return later date k days later
 
-def arithmetic_returns(manager,ticker,date,k,predictionFunc,*args):
-    dailyAvgPrice = daily_avg_price(manager,ticker,date)
-    Vi = []
-    for j in range(1,k+1):
-        d = laterDate(date,j)
-        predictedPrice = predictionFunc(*args)
-        Vi.append(daily_avg_price(manager,ticker,d))
+
 
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
     ticker = 'googl'
-    arithmetic_returns(manager,ticker,'2017-02-02',1,fit_arima)
+    date = '2017-02-02'
+    strat = Strategy(fit_arima,manager,ticker,date)
