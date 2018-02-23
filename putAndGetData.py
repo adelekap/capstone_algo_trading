@@ -54,6 +54,20 @@ def get_day_stats(manager,ticker,date):
     mmData = manager.find({'ticker': ticker,'date':date})
     return mmData['close'][0],mmData['high'][0],mmData['low'][0]
 
+def get_closes_highs_lows(manager,ticker):
+    mmData = manager.find({'ticker': ticker})
+    closes = []
+    highs = []
+    lows = []
+    dates = []
+    for index, row in mmData.iterrows():
+        closes.append(row['close'])
+        highs.append(row['high'])
+        lows.append(row['low'])
+        dates.append(dt.datetime.strptime(row['date'], "%Y-%m-%d"))
+    return closes,highs,lows,dates
+
+
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
     add_data(manager,api.iex_5y,unwantedFields=['unadjustedVolume', 'change',

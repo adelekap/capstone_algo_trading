@@ -45,43 +45,34 @@ class ArimaModel(object):
         plt.close()
         print(residuals.describe())
 
-    def fit_arima(self,series,dates,window=0,plot=True):
-        size = int(len(series) * 0.66)
-        train, test = series[0:size], series[size:len(series)]
-        predictions = list()
+    def fit(self,train):
         w = 0
-        for t in range(len(test)+1):
-            model = ARIMA(train, order=(self.p, self.d, self.q))
-            model_fit = model.fit(disp=0)
-            output = model_fit.forecast()
-            yhat = output[0][0]
-            predictions.append(yhat)
-            obs = yhat
-            if w == window and t != len(test):
-                train.append(test[t])
-                w = 0
-            else:
-                train.append(obs)
-                w += 1
-        error = mean_squared_error(test, predictions[:len(test)])
-        testDates = dates[size:]
+        model = ARIMA(train, order=(self.p, self.d, self.q))
+        model_fit = model.fit(disp=0)
+        output = model_fit.forecast()
+        nextDaysPred = output[0][0]
+        return nextDaysPred
 
-        # plot
-        if plot:
-            fig = plt.figure()
-            ax1 = fig.add_subplot(111)
-            ax2 = ax1
-            ax3 = ax1
-            ax1.plot(dates[:size+1],train[:size+1],label='Training data',color='black')
-            ax2.plot(testDates,test, label='Test data',color = 'blue')
-            ax3.plot(testDates,predictions[:len(testDates)], color='red', label='ARIMA Predictions')
-            plt.legend()
-            plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
-            plt.title('{0} ARIMA({1},{2},{3})'.format(self.ticker,self.p,self.d,self.q))
-            plt.savefig('plots/ARIMA/{0}Arima.pdf'.format(self.ticker))
-            plt.close()
-        nextDaysPred = predictions[len(testDates)]
-        return error,nextDaysPred
+    def fit_and_plot(self):
+        pass
+    # error = mean_squared_error(test, predictions[:len(test)])
+
+        # # plot
+        # if plot:
+        #     fig = plt.figure()
+        #     ax1 = fig.add_subplot(111)
+        #     ax2 = ax1
+        #     ax3 = ax1
+        #     ax1.plot(dates[:size+1],train[:size+1],label='Training data',color='black')
+        #     ax2.plot(testDates,test, label='Test data',color = 'blue')
+        #     ax3.plot(testDates,predictions[:len(testDates)], color='red', label='ARIMA Predictions')
+        #     plt.legend()
+        #     plt.text(min(dates),max(train), 'Test MSE = ' + str(error))
+        #     plt.title('{0} ARIMA({1},{2},{3})'.format(self.ticker,self.p,self.d,self.q))
+        #     plt.savefig('plots/ARIMA/{0}Arima.pdf'.format(self.ticker))
+        #     plt.close()
+        # nextDaysPred = predictions[len(testDates)]
+
 
 
 if __name__ == '__main__':
@@ -95,6 +86,4 @@ if __name__ == '__main__':
     ma = 0  # only autoregressive components
 
     model = ArimaModel(ar,i,ma,ticker)
-    mse,prediction = model.fit_arima(series,dates)
-
-    print('debug')
+    mse,prediction = model.fit(series)
