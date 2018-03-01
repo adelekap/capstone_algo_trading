@@ -4,14 +4,26 @@ from putAndGetData import get_day_stats
 from arima import ArimaModel
 from putAndGetData import get_closes_highs_lows
 import datetime
-
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from math import log
 
 class Strategy(object):
-    def __init__(self,predictionModel,manager,ticker,currentDate):
+    def __laterDate(self,date, j):
+        ds = [int(d) for d in date.split('-')]
+        date = datetime.datetime(ds[0], ds[1], ds[2])
+        return date + datetime.timedelta(days=j)
+
+    def __init__(self,predictionModel,manager,ticker,currentDate,stopLoss,p=0.02):
         self.predModel = predictionModel
         self.manager = manager
         self.ticker = ticker
         self.currentDate = currentDate
+        self.p = p
+        self.stopLoss = stopLoss
+        self.closes, self.highs, self.lows, self.dates = get_closes_highs_lows(manager, ticker)
 
     def daily_avg_price(self,date,close=None,high=None,low=None):
         if not close:
@@ -22,42 +34,46 @@ class Strategy(object):
         P = self.predModel(*args)
         return ((P - close) / close)
 
-    def arithmetic_returns(self, k,closes,highs,lows,dates,p=.02):
+    def arithmetic_returns(self, k,closes,highs,lows):
         Vi = []
         close, high, low = get_day_stats(self.manager, self.ticker, self.currentDate)
         for j in range(1, k + 1):
-            d = laterDate(self.currentDate, j)
+            d = self.__laterDate(self.currentDate, j)
             predictedClose = self.predModel.fit(closes)
             predictedHigh = self.predModel.fit(highs)
             predictedLow = self.predModel.fit(lows)
             predictedAvgPrice = self.daily_avg_price(d,predictedClose,predictedHigh,predictedLow)
             Vi.append((predictedAvgPrice-close)/close)
-        print(Vi)
-
-class LowRisk(Strategy):
-    def __init__(self,p,stopLoss,days):
-        self.p = p
-        self.stopLoss = stopLoss
-        self.days = days
-
-
-
-def laterDate(date,j):
-    ds = [int(d) for d in date.split('-')]
-    date = datetime.datetime(ds[0],ds[1],ds[2])
-    return date + datetime.timedelta(days=j)
-
+        significantReturns = [v for v in Vi if abs(v) > self.p]
+        return(sum(significantReturns))
 
 
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+    # tickers = [t.lower() for t in list(pd.read_csv('stocks.csv')['Symbol'])]
     ticker = 'googl'
+    k=5
+    days=(365,450)
+    model = ArimaModel(1, 1, 0, ticker)
+    stopLoss = 100  # Todo: determine this?
+    dates = manager.dates()
+    p = 0.01  #Todo: Grid search to determine this
+    for d in range(days[0],days[1]):
+        date = dates[d]
+        strat = Strategy(model,manager,ticker,date,stopLoss,p)
+        print(strat.arithmetic_returns(k, strat.closes[:d], strat.highs[:d], strat.lows[:d]))
 
-    closes,highs,lows,dates = get_closes_highs_lows(manager,ticker)
 
-
-    for date in range(365,380):
-        d = str(dates[date])[0:10]
-        strat = Strategy(ArimaModel(1, 1, 0, ticker), manager, ticker, d)
-        strat.arithmetic_returns(1, closes[:date], highs[:date], lows[:date], dates[:date])
+    # Plot distribution of Ts
+    with open('Ts.txt','r')as t:
+        lines = t.read().replace('/','')
+        Ts = lines.split(',')
+        Ts = [float(x) for x in Ts]
+    sns.distplot(Ts,75)
+    plt.xlim(-1,1.5)
+    plt.xticks(np.arange(-1,1.5,.25))
+    plt.title('Arithmetic Returns')
+    plt.xlabel('p%')
+    plt.savefig('/Users/adelekap/Documents/capstone_algo_trading/plots/arithReturnsDist.pdf')
+    plt.show()

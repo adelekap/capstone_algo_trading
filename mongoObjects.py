@@ -24,6 +24,9 @@ class CollectionManager(object):
         cursor = self.c.find(query)
         return pd.DataFrame(list(cursor))
 
+    def dates(self):
+        return list(self.c.distinct('date'))
+
 
 class MongoDocument(object):
     """

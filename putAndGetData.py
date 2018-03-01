@@ -51,10 +51,23 @@ def create_timeseries(manager, ticker):
 
 
 def get_day_stats(manager,ticker,date):
+    """
+    Gets the close, high and low for a specified date.
+    :param manager: collection manager
+    :param ticker: string of ticker
+    :param date: string of date 'YYYY-MM-DD'
+    :return: (close, high, low)
+    """
     mmData = manager.find({'ticker': ticker,'date':date})
     return mmData['close'][0],mmData['high'][0],mmData['low'][0]
 
 def get_closes_highs_lows(manager,ticker):
+    """
+    Gets all of the closes, highs, and lows for specified stock.
+    :param manager: collection manager
+    :param ticker: string of ticker
+    :return: (closes, highs, lows, dates)
+    """
     mmData = manager.find({'ticker': ticker})
     closes = []
     highs = []
