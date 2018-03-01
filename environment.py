@@ -3,6 +3,8 @@ from strategy import Strategy
 from agent import InvestorAgent
 from arima import ArimaModel
 import argparse
+import utils
+
 
 class Environment(object):
     def __init__(self,manager:CollectionManager,agent:InvestorAgent,startDay:int):
@@ -47,3 +49,17 @@ if __name__ == '__main__':
     tradingStrategy = Strategy(model, manager, args.ticker, currentDate, stopLoss, args.p)
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
     environment = Environment(manager, investor,startDay)
+
+    # Simulate Trading Environment
+    for d in range(startDay,len(dates)):
+        # If investor is already holding one or more positions
+        if len(investor.positions):
+            for position in investor.positions:
+                actionDay = utils.laterDate(position.startDate,position.holdTime)
+                if environment.currentDate == actionDay:
+                    position.trigger()
+                else:
+                    if position.at_trigger_point(investor.check_price(environment.currentDate)):
+                        position.trigger()
+        investor.strategy.arithmetic_returns(5,environment.currentDate)
+        environment.increment_day()

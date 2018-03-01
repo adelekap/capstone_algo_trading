@@ -3,18 +3,10 @@ from pymongo import MongoClient
 from putAndGetData import get_day_stats
 from arima import ArimaModel
 from putAndGetData import get_closes_highs_lows
-import datetime
 import utils
 
 class Strategy(object):
-    def __laterDate(self,date, j):
-        ds = [int(d) for d in date.split('-')]
-        date = datetime.datetime(ds[0], ds[1], ds[2])
-        return date + datetime.timedelta(days=j)
-
-
-    def __init__(self,predictionModel,manager,ticker,currentDate,stopLoss,p=0.02,train_size=0.8):
-
+    def __init__(self,predictionModel,manager,ticker,currentDate,stopLoss,p=0.02,train_size=0.8,patience=10):
         self.predModel = predictionModel
         self.manager = manager
         self.ticker = ticker
@@ -23,7 +15,7 @@ class Strategy(object):
         self.stopLoss = stopLoss
         self.closes, self.highs, self.lows, self.dates = get_closes_highs_lows(manager, ticker)
         self.train_size=train_size
-
+        self.patience = patience
 
     def daily_avg_price(self,date,close=None,high=None,low=None):
         if not close:
@@ -46,6 +38,8 @@ class Strategy(object):
             Vi.append((predictedAvgPrice-close)/close)
         significantReturns = [v for v in Vi if abs(v) > self.p]
         return(sum(significantReturns))
+
+    def significant
 
 
 
