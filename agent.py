@@ -21,11 +21,13 @@ class InvestorAgent(object):
             return -1
         return 0
 
-    def long(self,investment,date,ticker):
+    def long(self,shareNum,date,ticker):
         price = self.strategy.daily_avg_price(date)
+        investment = shareNum * price
         goal = price + (price * self.strategy.p)
         position = Position(date,ticker,investment,price,goal)
         self.positions.append(position)
+        self.capital_t -= investment
 
 
 if __name__ == '__main__':
@@ -36,11 +38,12 @@ if __name__ == '__main__':
     currentDate = '2017-11-15'
 
     day = dates.index(currentDate)
-    startingCapital = 1000
+    startingCapital = 5000
     stopLoss = .70 * startingCapital
     p = .1
     tradingStrategy = Strategy(model, manager, ticker, currentDate, stopLoss, .01)
     investor = InvestorAgent(startingCapital, tradingStrategy, day)
     instructions = investor.signal(5)
 
-    investor.long(100,currentDate,ticker)
+    investor.long(1,currentDate,ticker)
+    print('test')
