@@ -34,14 +34,14 @@ class Strategy(object):
         P = self.predModel(*args)
         return ((P - close) / close)
 
-    def arithmetic_returns(self, k,d):
+    def arithmetic_returns(self, k,date):
         Vi = []
         close, high, low = get_day_stats(self.manager, self.ticker, self.currentDate)
         for j in range(1, k + 1):
             d = self.__laterDate(self.currentDate, j)
-            predictedClose = self.predModel.fit(self.closes[:d])
-            predictedHigh = self.predModel.fit(self.highs[:d])
-            predictedLow = self.predModel.fit(self.lows[:d])
+            predictedClose = self.predModel.fit(self.closes[:date])
+            predictedHigh = self.predModel.fit(self.highs[:date])
+            predictedLow = self.predModel.fit(self.lows[:date])
             predictedAvgPrice = self.daily_avg_price(d,predictedClose,predictedHigh,predictedLow)
             Vi.append((predictedAvgPrice-close)/close)
         significantReturns = [v for v in Vi if abs(v) > self.p]

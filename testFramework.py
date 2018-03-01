@@ -15,5 +15,5 @@ startingCapital = 1000
 stopLoss = .70 * startingCapital
 p = .1
 tradingStrategy = Strategy(model,manager,ticker,currentDate,stopLoss,.1)
-investor = InvestorAgent(startingCapital,tradingStrategy)
+investor = InvestorAgent(startingCapital,tradingStrategy,day)
 
