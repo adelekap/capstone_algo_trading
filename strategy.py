@@ -28,19 +28,27 @@ class Strategy(object):
 
     def arithmetic_returns(self, k,date):
         Vi = []
-        close, high, low = get_day_stats(self.manager, self.ticker, self.currentDate)
+        close = self.closes[date]
+        predC = []
+        predH = []
+        predL = []
         for j in range(1, k + 1):
             d = utils.laterDate(self.currentDate, j)
-            predictedClose = self.predModel.fit(self.closes[:date])
-            predictedHigh = self.predModel.fit(self.highs[:date])
-            predictedLow = self.predModel.fit(self.lows[:date])
+            predictedClose = self.predModel.fit(self.closes[:date]+predC)
+            predictedHigh = self.predModel.fit(self.highs[:date]+predH)
+            predictedLow = self.predModel.fit(self.lows[:date]+predL)
             predictedAvgPrice = self.daily_avg_price(d,predictedClose,predictedHigh,predictedLow)
             Vi.append((predictedAvgPrice-close)/close)
+            predC.append(predictedClose)
+            predH.append(predictedHigh)
+            predL.append(predictedLow)
         significantReturns = [v for v in Vi if abs(v) > self.p]
         return(sum(significantReturns))
 
-    def make_position(self,agent,signal,date,stopLoss,shareCap=1):
-        shareNum = int(agent.buying_power(date)*shareCap)
+    def make_position(self,agent,signal,date,stopLoss,sharePercent=1):
+        shareNum = int(agent.buying_power(date)*sharePercent)
+        if shareNum == 0:
+            return None
         if signal == 1:
             agent.long(shareNum,date,stopLoss)
         if signal == -1:

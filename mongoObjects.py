@@ -25,7 +25,9 @@ class CollectionManager(object):
         return pd.DataFrame(list(cursor))
 
     def dates(self):
-        return list(self.c.distinct('date'))
+        dates = list(self.c.distinct('date'))
+        sortedDates = dates[:1259]
+        return sortedDates
 
 
 class MongoDocument(object):

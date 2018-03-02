@@ -1,14 +1,19 @@
 
+
 class Position(object):
     def __init__(self,startDate:str,ticker:str,investment:float,purchasePrice:float,goal:float,holdTime:int,shares:int):
         self.startDate = startDate
         self.ticker = ticker
-        self.investment = investment
+        self.initialInvestment = investment
+        self.currentInvestment = investment
         self.purchasePrice = purchasePrice
         self.goal = goal
         self.holdTime = holdTime
         self.shares = shares
 
+    def update_investment(self,agent,date):
+        price = agent.check_price(date)
+        self.currentInvestment = price * self.shares
 
 class Long(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):

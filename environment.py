@@ -14,21 +14,30 @@ class Environment(object):
         self.day = startDay
         self.currentDate = self.timeperiod[self.day]
 
-    def increment_day(self):
+    def increment_day(self,strategy):
         self.day += 1
         self.currentDate = self.timeperiod[self.day]
+        strategy.currentDate = self.timeperiod[self.day]
 
+    def update_total_assets(self,agent:InvestorAgent):
+        liquid = agent.capital_t
+        investments = []
+        for pos in agent.positions:
+            pos.update_investment(agent,self.currentDate)
+            investments.append(pos.currentInvestment)
+        agent.update_assets(sum(investments)+liquid)
 
 if __name__ == '__main__':
     """Arguments"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', choices=['Arima'], metavar='M',
                         help='predictive model to use',default='Arima',required=False) #Todo: add other choices
-    parser.add_argument('--startDate', help='start date YYYY-MM-DD',default='2017-11-15',required=False,type=str)
+    parser.add_argument('--startDate', help='start date YYYY-MM-DD',default='2017-01-05',required=False,type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with',default=5000.00,type=float,required=False)
     parser.add_argument('--loss', help='percent of money you are willing to lose',default=.30,type=float,required=False)
-    parser.add_argument('--p',help='percent change to flag',default=0.015,type=float,required=False)
+    parser.add_argument('--p',help='percent change to flag',default=0.03,type=float,required=False)
     parser.add_argument('--ticker',help='stock to consider',default='aapl',type=str,required=False)
+    parser.add_argument('--sharePer',help='percent possible shares to buy',default=1.0,type=float,required=False)
     args = parser.parse_args()
 
 
@@ -41,6 +50,7 @@ if __name__ == '__main__':
     currentDate = args.startDate
     startDay = dates.index(currentDate)
 
+
     # Predictive Model
     if args.model == 'Arima':
         model = ArimaModel(1, 1, 0, args.ticker)
@@ -51,8 +61,11 @@ if __name__ == '__main__':
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
     environment = Environment(manager, investor,startDay)
 
+    stopDay = len(dates)-1 #Todo: this should be set to this
     # Simulate Trading Environment
-    for d in range(startDay,len(dates)):
+    for d in range(startDay,stopDay):
+        if d == 1261:
+            print('uh oh')
         # If investor is already holding one or more positions
         if len(investor.positions):
             for position in investor.positions:
@@ -63,9 +76,17 @@ if __name__ == '__main__':
                 else:
                     if position.at_trigger_point(currentPrice):
                         investor.sell(position,currentPrice)
-        else:
-            T = investor.strategy.arithmetic_returns(5,environment.day)
-            sig = investor.signal()
-            if sig != 0:
-                investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss)
-        environment.increment_day()
+
+        T = investor.strategy.arithmetic_returns(5,environment.day)
+        sig = investor.signal(T)
+        if sig != 0:
+            investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss,args.sharePer)
+        environment.update_total_assets(investor)
+        environment.increment_day(investor.strategy)
+
+
+    print(str(round(((investor.capitalHistory[len(investor.capitalHistory)-
+                                              1]-args.startingCapital)/args.startingCapital)*100))+'%')
+
+    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker)
+

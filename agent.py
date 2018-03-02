@@ -9,15 +9,17 @@ class InvestorAgent(object):
         self.capital_t = startingCapital
         self.strategy = strat
         self.gains = 0
-        self.positions = []  # will populate with positions once the agent holds one
+        self.positions = []
         self.dateIndex = dateIndex
+        self.profits = []
+        self.capitalHistory = []
+        self.totalAssetHistory = []
 
     def check_price(self,date):
         return self.strategy.daily_avg_price(date)
 
-    def signal(self,k=5):
+    def signal(self,T,k=5):
         threshold = k * 0.5 * self.strategy.p
-        T = self.strategy.arithmetic_returns(k,self.dateIndex)
         if abs(T) >= threshold:
             if T > 0:
                 return 1
@@ -38,10 +40,15 @@ class InvestorAgent(object):
 
     def sell(self,position,price):
         sellReturn = position.shares * price
-        profit = sellReturn - position.investment
+        profit = sellReturn - position.initialInvestment
         self.capital_t += sellReturn
-        perProfit = profit / position.investment
+        percentProfit = profit / position.initialInvestment
         self.positions.remove(position)
+        self.profits.append(percentProfit)
+        self.capitalHistory.append(self.capital_t)
+
+    def update_assets(self,update):
+        self.totalAssetHistory.append(update)
 
 
 
