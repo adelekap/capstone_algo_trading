@@ -50,7 +50,5 @@ class InvestorAgent(object):
     def update_assets(self,update):
         self.totalAssetHistory.append(update)
 
-
-
     def short(self):
         pass #Todo:implement!

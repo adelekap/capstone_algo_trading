@@ -2,6 +2,7 @@ from mongoObjects import CollectionManager,MongoClient
 from strategy import Strategy
 from agent import InvestorAgent
 from arima import ArimaModel
+from putAndGetData import avg_price_timeseries
 import argparse
 import utils
 
@@ -38,6 +39,7 @@ if __name__ == '__main__':
     parser.add_argument('--p',help='percent change to flag',default=0.03,type=float,required=False)
     parser.add_argument('--ticker',help='stock to consider',default='aapl',type=str,required=False)
     parser.add_argument('--sharePer',help='percent possible shares to buy',default=1.0,type=float,required=False)
+    parser.add_argument('--stop', help='stop date YYYY-MM-DD',default='2018-02-05',required=False,type=str)
     args = parser.parse_args()
 
 
@@ -49,6 +51,7 @@ if __name__ == '__main__':
     dates = manager.dates()
     currentDate = args.startDate
     startDay = dates.index(currentDate)
+    stopDay = dates.index(args.stop)
 
 
     # Predictive Model
@@ -61,11 +64,8 @@ if __name__ == '__main__':
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
     environment = Environment(manager, investor,startDay)
 
-    stopDay = len(dates)-1 #Todo: this should be set to this
     # Simulate Trading Environment
     for d in range(startDay,stopDay):
-        if d == 1261:
-            print('uh oh')
         # If investor is already holding one or more positions
         if len(investor.positions):
             for position in investor.positions:
@@ -84,9 +84,9 @@ if __name__ == '__main__':
         environment.update_total_assets(investor)
         environment.increment_day(investor.strategy)
 
-
+    actualPrice = avg_price_timeseries(manager,args.ticker,dates[startDay:stopDay])
     print(str(round(((investor.capitalHistory[len(investor.capitalHistory)-
                                               1]-args.startingCapital)/args.startingCapital)*100))+'%')
 
-    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker)
+    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice)
 

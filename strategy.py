@@ -69,19 +69,3 @@ if __name__ == '__main__':
         date = dates[d]
         strat = Strategy(model,manager,ticker,date,stopLoss,p)
         print(strat.arithmetic_returns(k, d))
-
-
-
-    #
-    # # Plot distribution of Ts
-    # with open('Ts.txt','r')as t:
-    #     lines = t.read().replace('/','')
-    #     Ts = lines.split(',')
-    #     Ts = [float(x) for x in Ts]
-    # sns.distplot(Ts,75)
-    # plt.xlim(-1,1.5)
-    # plt.xticks(np.arange(-1,1.5,.25))
-    # plt.title('Arithmetic Returns')
-    # plt.xlabel('p%')
-    # plt.savefig('/Users/adelekap/Documents/capstone_algo_trading/plots/arithReturnsDist.pdf')
-    # plt.show()

@@ -80,6 +80,17 @@ def get_closes_highs_lows(manager,ticker):
         dates.append(dt.datetime.strptime(row['date'], "%Y-%m-%d"))
     return closes,highs,lows,dates
 
+def avg_price_timeseries(manager,ticker,dates):
+    series = []
+    for date in dates:
+        data = manager.find({'ticker':ticker,'date':date})
+        c = data['close']
+        h = data['high']
+        l = data['low']
+        avg = (c+h+l)/3.0
+        series.append(avg)
+    return series
+
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
