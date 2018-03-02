@@ -41,8 +41,8 @@ class InvestorAgent(object):
         profit = sellReturn - position.investment
         self.capital_t += sellReturn
         perProfit = profit / position.investment
-        print(profit, perProfit)  # Todo:Make action
         self.positions.remove(position)
+
 
 
     def short(self):

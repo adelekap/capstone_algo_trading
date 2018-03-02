@@ -63,8 +63,9 @@ if __name__ == '__main__':
                 else:
                     if position.at_trigger_point(currentPrice):
                         investor.sell(position,currentPrice)
-        T = investor.strategy.arithmetic_returns(5,environment.day)
-        sig = investor.signal()
-        if sig != 0:
-            investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss)
+        else:
+            T = investor.strategy.arithmetic_returns(5,environment.day)
+            sig = investor.signal()
+            if sig != 0:
+                investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss)
         environment.increment_day()
