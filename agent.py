@@ -1,5 +1,6 @@
 from strategy import Strategy
-from position import Position
+from position import Long
+from position import Short
 
 
 class InvestorAgent(object):
@@ -14,7 +15,7 @@ class InvestorAgent(object):
     def check_price(self,date):
         return self.strategy.daily_avg_price(date)
 
-    def signal(self,k):
+    def signal(self,k=5):
         threshold = k * 0.5 * self.strategy.p
         T = self.strategy.arithmetic_returns(k,self.dateIndex)
         if abs(T) >= threshold:
@@ -27,10 +28,13 @@ class InvestorAgent(object):
         price = self.check_price(date)
         return int(self.capital_t/price)
 
-    def long(self,shareNum,date):
+    def long(self,shareNum,date,stopLoss):
         price = self.strategy.daily_avg_price(date)
         investment = shareNum * price
         goal = price + (price * self.strategy.p)
-        position = Position(date,self.strategy.ticker,investment,price,goal,self.strategy.patience)
+        position = Long(date,self.strategy.ticker,investment,price,goal,self.strategy.patience,stopLoss)
         self.positions.append(position)
         self.capital_t -= investment
+
+    def short(self):
+        pass #Todo:implement!

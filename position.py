@@ -10,7 +10,8 @@ class Position(object):
 
 
 class Long(Position):
-    def __init__(self,stopLoss):
+    def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss):
+        Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime)
         self.stopLoss = stopLoss
 
     def at_trigger_point(self,price):
@@ -18,8 +19,10 @@ class Long(Position):
             return True
         return False
 
-    def trigger(self):
-        pass #Todo:Make action
+    def trigger(self,price):
+        profit = price - self.purchasePrice
+        perProfit = profit/self.purchasePrice
+        print(profit,perProfit) #Todo:Make action
 
 
 class Short(Position):

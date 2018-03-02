@@ -30,7 +30,7 @@ class Strategy(object):
         Vi = []
         close, high, low = get_day_stats(self.manager, self.ticker, self.currentDate)
         for j in range(1, k + 1):
-            d = self.__laterDate(self.currentDate, j)
+            d = utils.laterDate(self.currentDate, j)
             predictedClose = self.predModel.fit(self.closes[:date])
             predictedHigh = self.predModel.fit(self.highs[:date])
             predictedLow = self.predModel.fit(self.lows[:date])
@@ -39,8 +39,12 @@ class Strategy(object):
         significantReturns = [v for v in Vi if abs(v) > self.p]
         return(sum(significantReturns))
 
-    def significant
-
+    def make_position(self,agent,signal,date,stopLoss,shareCap=1):
+        shareNum = int(agent.buying_power(date)*shareCap)
+        if signal == 1:
+            agent.long(shareNum,date,stopLoss)
+        if signal == -1:
+            agent.short()
 
 
 if __name__ == '__main__':

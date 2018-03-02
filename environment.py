@@ -8,14 +8,15 @@ import utils
 
 class Environment(object):
     def __init__(self,manager:CollectionManager,agent:InvestorAgent,startDay:int):
-        timeperiod = manager.dates()
+        self.timeperiod = manager.dates()
         self.manager = manager
         self.agent = agent
         self.day = startDay
-        self.currentDate = timeperiod[self.day]
+        self.currentDate = self.timeperiod[self.day]
 
     def increment_day(self):
         self.day += 1
+        self.currentDate = self.timeperiod[self.day]
 
 
 if __name__ == '__main__':
@@ -56,10 +57,14 @@ if __name__ == '__main__':
         if len(investor.positions):
             for position in investor.positions:
                 actionDay = utils.laterDate(position.startDate,position.holdTime)
+                currentPrice = investor.check_price(environment.currentDate)
                 if environment.currentDate == actionDay:
-                    position.trigger()
+                    position.trigger(currentPrice)
                 else:
-                    if position.at_trigger_point(investor.check_price(environment.currentDate)):
-                        position.trigger()
-        investor.strategy.arithmetic_returns(5,environment.currentDate)
+                    if position.at_trigger_point(currentPrice):
+                        position.trigger(currentPrice)
+        T = investor.strategy.arithmetic_returns(5,environment.day)
+        sig = investor.signal()
+        if sig != 0:
+            investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss)
         environment.increment_day()
