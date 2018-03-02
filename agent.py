@@ -32,9 +32,18 @@ class InvestorAgent(object):
         price = self.strategy.daily_avg_price(date)
         investment = shareNum * price
         goal = price + (price * self.strategy.p)
-        position = Long(date,self.strategy.ticker,investment,price,goal,self.strategy.patience,stopLoss)
+        position = Long(date,self.strategy.ticker,investment,price,goal,self.strategy.patience,stopLoss,shareNum)
         self.positions.append(position)
         self.capital_t -= investment
+
+    def sell(self,position,price):
+        sellReturn = position.shares * price
+        profit = sellReturn - position.investment
+        self.capital_t += sellReturn
+        perProfit = profit / position.investment
+        print(profit, perProfit)  # Todo:Make action
+        self.positions.remove(position)
+
 
     def short(self):
         pass #Todo:implement!
