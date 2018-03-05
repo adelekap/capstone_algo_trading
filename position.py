@@ -27,10 +27,13 @@ class Long(Position):
 
 
 class Short(Position):
+    def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
+        Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)
+        self.stopLoss = stopLoss
     def at_trigger_point(self,price):
         if price <= self.goal:
             return True
         return False
 
-    def trigger(self):
-        pass #Todo:Make action
+    def profit(self,price):
+        return (self.initialInvestment - price*self.shares)

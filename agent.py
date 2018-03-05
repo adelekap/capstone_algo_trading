@@ -50,5 +50,11 @@ class InvestorAgent(object):
     def update_assets(self,update):
         self.totalAssetHistory.append(update)
 
-    def short(self):
-        pass #Todo:implement!
+    def short(self,shareNum,date,stopLoss):
+       borrowPrice = self.strategy.daily_avg_price(date)
+       investment = shareNum * borrowPrice
+       goalPrice = (1 - self.strategy.p) * borrowPrice
+       position = Short(date,self.strategy.ticker,investment,borrowPrice,
+                        goalPrice,self.strategy.patience,stopLoss,shareNum)
+       self.positions.append(position)
+       self.capital_t -= investment
