@@ -14,13 +14,13 @@ def split(timeseries:list,percent:float):
     test = timeseries[index:]
     return train,test
 
-def plot_capital(capital:list,time:list,stock:str,actual:list):
+def plot_capital(capital:list,time:list,stock:str,actual:list,percentGain='',percentPossible=''):
     dates = [dt.datetime.strptime(d, "%Y-%m-%d") for d in time]
     f, axarr = plt.subplots(2, sharex=True)
     axarr[0].plot(dates,capital,color='blue',label='Investor')
-    axarr[0].set_title('Investments in '+stock)
+    axarr[0].set_title('Investments in '+stock+' : '+str(percentGain)+'%')
     axarr[1].plot(dates,actual,color='grey',label=stock+' Price')
-    plt.legend()
+    axarr[1].set_title(stock+' Price : '+str(percentPossible)+'%')
     plt.xticks(fontsize=9, rotation=45)
     plt.savefig('capital.png')
     plt.show()

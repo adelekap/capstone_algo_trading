@@ -26,7 +26,6 @@ class Long(Position):
         return False
 
 
-
 class Short(Position):
     def at_trigger_point(self,price):
         if price <= self.goal:

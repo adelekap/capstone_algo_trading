@@ -85,8 +85,10 @@ if __name__ == '__main__':
         environment.increment_day(investor.strategy)
 
     actualPrice = avg_price_timeseries(manager,args.ticker,dates[startDay:stopDay])
-    print(str(round(((investor.capitalHistory[len(investor.capitalHistory)-
-                                              1]-args.startingCapital)/args.startingCapital)*100))+'%')
+    gain = str(round(((investor.capitalHistory[len(investor.capitalHistory)-
+                                              1]-args.startingCapital)/args.startingCapital)*100))+'%'
+    print(gain)
+    possibleGain = (actualPrice[len(actualPrice)-1] - actualPrice[0])/actualPrice[0]
 
-    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice)
+    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice,gain,possibleGain)
 
