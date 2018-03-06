@@ -28,7 +28,11 @@ class InvestorAgent(object):
 
     def buying_power(self,date):
         price = self.check_price(date)
-        return int(self.capital_t/price)
+        trueCapital = self.capital_t
+        for pos in self.positions:
+            if type(pos) == Short:
+                trueCapital -= pos.initialInvestment
+        return int(trueCapital/price)
 
     def long(self,shareNum,date,stopLoss):
         price = self.strategy.daily_avg_price(date)
@@ -38,13 +42,6 @@ class InvestorAgent(object):
         self.positions.append(position)
         self.capital_t -= investment
 
-    def sell(self,position,price):
-        profit, sellReturn = position.profit()
-        self.capital_t += sellReturn
-        percentProfit = profit / position.initialInvestment
-        self.positions.remove(position)
-        self.profits.append(percentProfit)
-        self.capitalHistory.append(self.capital_t)
 
     def update_assets(self,update):
         self.totalAssetHistory.append(update)
@@ -56,4 +53,4 @@ class InvestorAgent(object):
        position = Short(date,self.strategy.ticker,investment,borrowPrice,
                         goalPrice,self.strategy.patience,stopLoss,shareNum)
        self.positions.append(position)
-       self.capital_t -= investment
+       self.capital_t += investment

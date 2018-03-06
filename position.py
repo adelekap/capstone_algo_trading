@@ -1,5 +1,4 @@
 
-
 class Position(object):
     def __init__(self,startDate:str,ticker:str,investment:float,purchasePrice:float,goal:float,holdTime:int,shares:int):
         self.startDate = startDate
@@ -25,11 +24,17 @@ class Long(Position):
         if price >= self.goal:
             return True
         return False
-    def profit(self,price):
-        sellReturn = self.shares*price
-        profit = sellReturn - self.initialInvestment
-        return profit, sellReturn
+    # def profit(self,price):
+    #     sellReturn = self.shares*price
+    #     profit = sellReturn - self.initialInvestment
+    #     return profit, sellReturn
 
+    def sell(self,agent,price):
+        sellReturn = self.shares * price
+        agent.capital_t += sellReturn
+        agent.positions.remove(self)
+        agent.profits.append((sellReturn-self.initialInvestment)/self.initialInvestment)
+        agent.capitalHistory.append(agent.capital_t)
 
 class Short(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
@@ -42,6 +47,12 @@ class Short(Position):
         return False
 
     def profit(self,price):
-        profit = self.initialInvestment - price*self.shares
-        sellReturn = profit
-        return profit, sellReturn
+        return self.initialInvestment - price*self.shares
+
+    def sell(self,agent,price):
+        profit = self.profit(price)
+        agent.capital_t += profit
+        agent.capital_t -= self.initialInvestment
+        agent.profits.append(profit)
+        agent.capitalHistory.append(agent.capital_t)
+        agent.positions.remove(self)

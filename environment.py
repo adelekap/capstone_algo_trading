@@ -71,11 +71,8 @@ if __name__ == '__main__':
             for position in investor.positions:
                 actionDay = utils.laterDate(position.startDate,position.holdTime)
                 currentPrice = investor.check_price(environment.currentDate)
-                if environment.currentDate == actionDay:
-                    investor.sell(position,currentPrice)
-                else:
-                    if position.at_trigger_point(currentPrice):
-                        investor.sell(position,currentPrice)
+                if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
+                    position.sell(investor,currentPrice)
 
         T = investor.strategy.arithmetic_returns(5,environment.day)
         sig = investor.signal(T)
