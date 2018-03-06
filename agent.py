@@ -39,8 +39,7 @@ class InvestorAgent(object):
         self.capital_t -= investment
 
     def sell(self,position,price):
-        sellReturn = position.shares * price
-        profit = sellReturn - position.initialInvestment
+        profit, sellReturn = position.profit()
         self.capital_t += sellReturn
         percentProfit = profit / position.initialInvestment
         self.positions.remove(position)

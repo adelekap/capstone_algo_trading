@@ -15,6 +15,7 @@ class Position(object):
         price = agent.check_price(date)
         self.currentInvestment = price * self.shares
 
+
 class Long(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
         Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)
@@ -24,16 +25,23 @@ class Long(Position):
         if price >= self.goal:
             return True
         return False
+    def profit(self,price):
+        sellReturn = self.shares*price
+        profit = sellReturn - self.initialInvestment
+        return profit, sellReturn
 
 
 class Short(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
         Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)
         self.stopLoss = stopLoss
+
     def at_trigger_point(self,price):
         if price <= self.goal:
             return True
         return False
 
     def profit(self,price):
-        return (self.initialInvestment - price*self.shares)
+        profit = self.initialInvestment - price*self.shares
+        sellReturn = profit
+        return profit, sellReturn

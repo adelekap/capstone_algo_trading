@@ -52,7 +52,7 @@ class Strategy(object):
         if signal == 1:
             agent.long(shareNum,date,stopLoss)
         if signal == -1:
-            agent.short()
+            agent.short(shareNum,date,stopLoss)
 
 
 if __name__ == '__main__':
