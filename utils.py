@@ -24,3 +24,17 @@ def plot_capital(capital:list,time:list,stock:str,actual:list,percentGain='',per
     plt.xticks(fontsize=9, rotation=45)
     plt.savefig('capital.png')
     plt.show()
+
+def MDD(series):
+    """Maximum Drawdown (MDD) is an indicator of downside
+    risk over a specified time period.
+    MDD = (TroughValue – PeakValue) ÷ PeakValue
+    """
+    trough = min(series)
+    peak = max(series)
+    mdd = (trough-peak)/peak
+    return mdd
+
+def sharpe_ratio(series):
+    """S(x) = (rx - Rf) / StdDev(x)"""
+    pass

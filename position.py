@@ -4,30 +4,23 @@ class Position(object):
         self.startDate = startDate
         self.ticker = ticker
         self.initialInvestment = investment
-        self.currentInvestment = investment
         self.purchasePrice = purchasePrice
         self.goal = goal
         self.holdTime = holdTime
         self.shares = shares
 
-    def update_investment(self,agent,date):
-        price = agent.check_price(date)
-        self.currentInvestment = price * self.shares
 
 
 class Long(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
         Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)
         self.stopLoss = stopLoss
+        self.currentInvestment = investment
 
     def at_trigger_point(self,price):
         if price >= self.goal:
             return True
         return False
-    # def profit(self,price):
-    #     sellReturn = self.shares*price
-    #     profit = sellReturn - self.initialInvestment
-    #     return profit, sellReturn
 
     def sell(self,agent,price):
         sellReturn = self.shares * price
@@ -36,10 +29,15 @@ class Long(Position):
         agent.profits.append((sellReturn-self.initialInvestment)/self.initialInvestment)
         agent.capitalHistory.append(agent.capital_t)
 
+    def update_investment(self,agent,date):
+        price = agent.check_price(date)
+        self.currentInvestment = price * self.shares
+
 class Short(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
         Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)
         self.stopLoss = stopLoss
+        self.currentInvestment = 0
 
     def at_trigger_point(self,price):
         if price <= self.goal:
@@ -56,3 +54,7 @@ class Short(Position):
         agent.profits.append(profit)
         agent.capitalHistory.append(agent.capital_t)
         agent.positions.remove(self)
+
+    def update_investment(self,agent,date):
+        price = agent.check_price(date)
+        self.currentInvestment = self.initialInvestment - price*self.shares

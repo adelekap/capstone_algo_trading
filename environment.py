@@ -85,7 +85,9 @@ if __name__ == '__main__':
     gain = str(round(((investor.capitalHistory[len(investor.capitalHistory)-
                                               1]-args.startingCapital)/args.startingCapital)*100))+'%'
     print(gain)
-    possibleGain = (actualPrice[len(actualPrice)-1] - actualPrice[0])/actualPrice[0]
+    possibleGain = round((actualPrice[len(actualPrice)-1] - actualPrice[0])/actualPrice[0])
 
     utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice,gain,possibleGain)
 
+    mdd = utils.MDD(investor.totalAssetHistory)
+    print('MDD: '+str(mdd))

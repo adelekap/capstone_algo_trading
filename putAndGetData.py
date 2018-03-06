@@ -84,9 +84,9 @@ def avg_price_timeseries(manager,ticker,dates):
     series = []
     for date in dates:
         data = manager.find({'ticker':ticker,'date':date})
-        c = data['close']
-        h = data['high']
-        l = data['low']
+        c = data['close'][0]
+        h = data['high'][0]
+        l = data['low'][0]
         avg = (c+h+l)/3.0
         series.append(avg)
     return series
