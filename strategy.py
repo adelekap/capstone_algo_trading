@@ -46,7 +46,7 @@ class Strategy(object):
         return(sum(significantReturns))
 
     def make_position(self,agent,signal,date,stopLoss,sharePercent=1):
-        shareNum = int(agent.buying_power(date)*sharePercent)
+        shareNum = int(agent.buying_power(date)*sharePercent) #Todo:Completely change based on T
         if shareNum == 0:
             return None
         if signal == 1:

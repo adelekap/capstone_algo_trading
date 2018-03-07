@@ -18,16 +18,17 @@ def split(timeseries: list, percent: float):
     return train, test
 
 
-def plot_capital(capital: list, time: list, stock: str, actual: list, percentGain=''):
+def plot_capital(capital: list, time: list, stock: str, actual: list, percentGain='', drawdown='', possible='',
+                 title='capital'):
     dates = [dt.datetime.strptime(d, "%Y-%m-%d") for d in time]
     f, axarr = plt.subplots(2, sharex=True)
     axarr[0].plot(dates, capital, color='blue', label='Investor')
-    axarr[0].set_title('Investments in ' + stock + ' : ' + str(percentGain))
+    axarr[0].set_title('Investments in {0}: {1}  MDD={2}'.format(stock, percentGain, drawdown))
     axarr[1].plot(dates, actual, color='grey', label=stock + ' Price')
-    axarr[1].set_title(stock + ' Price')
+    axarr[1].set_title('Price of {0}: {1}%'.format(stock,possible))
     plt.xticks(fontsize=9, rotation=45)
     plt.tight_layout()
-    plt.savefig('capital.png')
+    plt.savefig('{0}.png'.format(title))
     plt.show()
 
 
@@ -39,7 +40,7 @@ def MDD(series):
     trough = min(series)
     peak = max(series)
     mdd = (peak - trough) / peak
-    return mdd
+    return round(mdd,3)
 
 
 def sharpe_ratio(series):
@@ -53,3 +54,6 @@ def progress(newPercent, threshold):
         newThreshold = math.ceil(newPercent * 10) / 10
         return newThreshold
     return threshold
+
+class ProgressBar(object):
+    def __init__(self,totalDays):

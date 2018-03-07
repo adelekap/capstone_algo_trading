@@ -1,4 +1,4 @@
-from mongoObjects import CollectionManager,MongoClient
+from mongoObjects import CollectionManager, MongoClient
 from strategy import Strategy
 from agent import InvestorAgent
 from arima import ArimaModel
@@ -10,25 +10,25 @@ import sys
 
 
 class Environment(object):
-    def __init__(self,manager:CollectionManager,agent:InvestorAgent,startDay:int):
+    def __init__(self, manager: CollectionManager, agent: InvestorAgent, startDay: int):
         self.timeperiod = manager.dates()
         self.manager = manager
         self.agent = agent
         self.day = startDay
         self.currentDate = self.timeperiod[self.day]
 
-    def increment_day(self,strategy):
+    def increment_day(self, strategy):
         self.day += 1
         self.currentDate = self.timeperiod[self.day]
         strategy.currentDate = self.timeperiod[self.day]
 
-    def update_total_assets(self,agent:InvestorAgent):
+    def update_total_assets(self, agent: InvestorAgent):
         liquid = agent.capital_t
         investments = []
         for pos in agent.positions:
-            pos.update_investment(agent,self.currentDate)
+            pos.update_investment(agent, self.currentDate)
             investments.append(pos.currentInvestment)
-        agent.update_assets(sum(investments)+liquid)
+        agent.update_assets(sum(investments) + liquid)
 
 
 if __name__ == '__main__':
@@ -38,16 +38,17 @@ if __name__ == '__main__':
     """Arguments"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', choices=['Arima'], metavar='M',
-                        help='predictive model to use',default='Arima',required=False) #Todo: add other choices
-    parser.add_argument('--startDate', help='start date YYYY-MM-DD',default='2017-01-05',required=False,type=str)
-    parser.add_argument('--startingCapital', help='amount of money to start with',default=5000.00,type=float,required=False)
-    parser.add_argument('--loss', help='percent of money you are willing to lose',default=.30,type=float,required=False)
-    parser.add_argument('--p',help='percent change to flag',default=0.03,type=float,required=False)
-    parser.add_argument('--ticker',help='stock to consider',default='aapl',type=str,required=False)
-    parser.add_argument('--sharePer',help='percent possible shares to buy',default=1.0,type=float,required=False)
-    parser.add_argument('--stop', help='stop date YYYY-MM-DD',default='2018-02-05',required=False,type=str)
+                        help='predictive model to use', default='Arima', required=False)  # Todo: add other choices
+    parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-01-05', required=False, type=str)
+    parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,
+                        required=False)
+    parser.add_argument('--loss', help='percent of money you are willing to lose', default=.30, type=float,
+                        required=False)
+    parser.add_argument('--p', help='percent change to flag', default=0.03, type=float, required=False)
+    parser.add_argument('--ticker', help='stock to consider', default='aapl', type=str, required=False)
+    parser.add_argument('--sharePer', help='percent possible shares to buy', default=1.0, type=float, required=False)
+    parser.add_argument('--stop', help='stop date YYYY-MM-DD', default='2018-02-05', required=False, type=str)
     args = parser.parse_args()
-
 
     """Initialize Environment"""
     # Data
@@ -59,48 +60,52 @@ if __name__ == '__main__':
     startDay = dates.index(currentDate)
     stopDay = dates.index(args.stop)
 
-
     # Predictive Model
     if args.model == 'Arima':
         model = ArimaModel(1, 1, 0, args.ticker)
 
     # Investor, Strategy and Trading Environment
-    stopLoss = (1-args.loss) * args.startingCapital
+    stopLoss = (1 - args.loss) * args.startingCapital
     tradingStrategy = Strategy(model, manager, args.ticker, currentDate, stopLoss, args.p)
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
-    environment = Environment(manager, investor,startDay)
+    environment = Environment(manager, investor, startDay)
 
     totalDays = stopDay - startDay
     t = 1
     threshold = 0.1
     # Simulate Trading Environment
-    for d in range(startDay,stopDay):
+    for d in range(startDay, stopDay):
         # If investor is already holding one or more positions
         if len(investor.positions):
             for position in investor.positions:
-                actionDay = utils.laterDate(position.startDate,position.holdTime)
+                actionDay = utils.laterDate(position.startDate,
+                                            position.holdTime)  # Todo: perhaps get rid of actionDay with changing direction
                 currentPrice = investor.check_price(environment.currentDate)
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
-                    position.sell(investor,currentPrice)
+                    position.sell(investor, currentPrice)
 
-        T = investor.strategy.arithmetic_returns(5,environment.day)
+        T = investor.strategy.arithmetic_returns(5, environment.day)
         sig = investor.signal(T)
         if sig != 0:
-            investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss,args.sharePer)
+            investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
+                                            args.sharePer)  # Todo: if switching dir of position, close opposite dir
         environment.update_total_assets(investor)
         environment.increment_day(investor.strategy)
-        threshold = utils.progress((t/totalDays),threshold)
+        threshold = utils.progress((t / totalDays), threshold)  # Todo: Move progress bar to utils
         t += 1
         sys.stdout.flush()
+    sys.stdout.write('||')
+    sys.stdout.flush()
 
     """PLOTTING"""
-    actualPrice = avg_price_timeseries(manager,args.ticker,dates[startDay:stopDay])
-    gain = str(round(((investor.capitalHistory[len(investor.capitalHistory)-
-                                              1]-args.startingCapital)/args.startingCapital)*100))+'%'
-    print()
-    print(gain)
+    actualPrice = avg_price_timeseries(manager, args.ticker, dates[startDay:stopDay])
+    if not len(investor.capitalHistory):
+        gain = 0
+    else:
+        gain = str(round(((investor.capitalHistory[len(
+            investor.capitalHistory) - 1] - args.startingCapital) / args.startingCapital) * 100)) + '%'
 
-    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice,gain)
-
+    possible = round(((actualPrice[-1] - actualPrice[0]) / actualPrice[0]) * 100, 1)
     mdd = utils.MDD(investor.totalAssetHistory)
-    print('MDD: '+str(mdd))
+    utils.plot_capital(investor.totalAssetHistory, dates[startDay:stopDay], args.ticker, actualPrice, gain, mdd,
+                       possible)
