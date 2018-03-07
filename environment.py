@@ -5,6 +5,8 @@ from arima import ArimaModel
 from putAndGetData import avg_price_timeseries
 import argparse
 import utils
+import warnings
+import sys
 
 
 class Environment(object):
@@ -28,7 +30,11 @@ class Environment(object):
             investments.append(pos.currentInvestment)
         agent.update_assets(sum(investments)+liquid)
 
+
 if __name__ == '__main__':
+    warnings.filterwarnings("ignore")
+    print('||||||||||||||||||||')
+
     """Arguments"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', choices=['Arima'], metavar='M',
@@ -64,6 +70,9 @@ if __name__ == '__main__':
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
     environment = Environment(manager, investor,startDay)
 
+    totalDays = stopDay - startDay
+    t = 1
+    threshold = 0.1
     # Simulate Trading Environment
     for d in range(startDay,stopDay):
         # If investor is already holding one or more positions
@@ -80,14 +89,18 @@ if __name__ == '__main__':
             investor.strategy.make_position(investor,sig,environment.currentDate,stopLoss,args.sharePer)
         environment.update_total_assets(investor)
         environment.increment_day(investor.strategy)
+        threshold = utils.progress((t/totalDays),threshold)
+        t += 1
+        sys.stdout.flush()
 
+    """PLOTTING"""
     actualPrice = avg_price_timeseries(manager,args.ticker,dates[startDay:stopDay])
     gain = str(round(((investor.capitalHistory[len(investor.capitalHistory)-
                                               1]-args.startingCapital)/args.startingCapital)*100))+'%'
+    print()
     print(gain)
-    possibleGain = round((actualPrice[len(actualPrice)-1] - actualPrice[0])/actualPrice[0])
 
-    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice,gain,possibleGain)
+    utils.plot_capital(investor.totalAssetHistory,dates[startDay:stopDay],args.ticker,actualPrice,gain)
 
     mdd = utils.MDD(investor.totalAssetHistory)
     print('MDD: '+str(mdd))

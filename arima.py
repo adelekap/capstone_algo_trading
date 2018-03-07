@@ -1,12 +1,9 @@
 from matplotlib import pyplot as plt
 import pandas as pd
 import pandas.tools.plotting as pdplot
-from mongoObjects import CollectionManager
-from pymongo import MongoClient
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
 from statsmodels.graphics.tsaplots import plot_pacf
-from putAndGetData import create_timeseries
 
 
 class ArimaModel(object):
@@ -46,7 +43,6 @@ class ArimaModel(object):
         print(residuals.describe())
 
     def fit(self,train):
-        w = 0
         model = ARIMA(train, order=(self.p, self.d, self.q))
         model_fit = model.fit(disp=0)
         output = model_fit.forecast()
@@ -86,18 +82,3 @@ class ArimaModel(object):
         plt.title('{0} ARIMA({1},{2},{3})'.format(self.ticker, self.p, self.d, self.q))
         plt.savefig('plots/ARIMA/{0}Arima.pdf'.format(self.ticker))
         plt.close()
-
-
-
-if __name__ == '__main__':
-    manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
-    ticker = 'googl'
-
-    series,dates = create_timeseries(manager,ticker)
-
-    ar = 1  # base predictions on last day
-    i = 1  # single differencing
-    ma = 0  # only autoregressive components
-
-    model = ArimaModel(ar,i,ma,ticker)
-    mse,prediction = model.fit(series)
