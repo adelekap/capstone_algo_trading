@@ -48,12 +48,25 @@ def sharpe_ratio(series):
     pass
 
 
-def progress(newPercent, threshold):
-    if newPercent > threshold:
-        sys.stdout.write('||')
-        newThreshold = math.ceil(newPercent * 10) / 10
-        return newThreshold
-    return threshold
-
 class ProgressBar(object):
     def __init__(self,totalDays):
+        self.totalDays = totalDays
+        self.d = 1.0
+        self.threshold = 0.1
+
+    def initialize(self):
+        print('||||||||||||||||||||')
+        print('......PROGRESS......')
+
+    def progress(self):
+        if self.d == self.totalDays:
+            sys.stdout.write('||')
+            sys.stdout.flush()
+        percent = self.d/self.totalDays
+        if percent > self.threshold:
+            sys.stdout.write('||')
+            self.threshold = math.ceil(percent * 10) / 10
+        self.d += 1.0
+        sys.stdout.flush()
+
+

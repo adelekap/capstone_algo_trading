@@ -6,7 +6,6 @@ from putAndGetData import avg_price_timeseries
 import argparse
 import utils
 import warnings
-import sys
 
 
 class Environment(object):
@@ -33,7 +32,6 @@ class Environment(object):
 
 if __name__ == '__main__':
     warnings.filterwarnings("ignore")
-    print('||||||||||||||||||||')
 
     """Arguments"""
     parser = argparse.ArgumentParser()
@@ -59,6 +57,7 @@ if __name__ == '__main__':
     currentDate = args.startDate
     startDay = dates.index(currentDate)
     stopDay = dates.index(args.stop)
+    bar = utils.ProgressBar(stopDay - startDay)
 
     # Predictive Model
     if args.model == 'Arima':
@@ -70,10 +69,9 @@ if __name__ == '__main__':
     investor = InvestorAgent(args.startingCapital, tradingStrategy, startDay)
     environment = Environment(manager, investor, startDay)
 
-    totalDays = stopDay - startDay
-    t = 1
-    threshold = 0.1
+
     # Simulate Trading Environment
+    bar.initialize()
     for d in range(startDay, stopDay):
         # If investor is already holding one or more positions
         if len(investor.positions):
@@ -91,11 +89,8 @@ if __name__ == '__main__':
                                             args.sharePer)  # Todo: if switching dir of position, close opposite dir
         environment.update_total_assets(investor)
         environment.increment_day(investor.strategy)
-        threshold = utils.progress((t / totalDays), threshold)  # Todo: Move progress bar to utils
-        t += 1
-        sys.stdout.flush()
-    sys.stdout.write('||')
-    sys.stdout.flush()
+        bar.progress()
+
 
     """PLOTTING"""
     actualPrice = avg_price_timeseries(manager, args.ticker, dates[startDay:stopDay])
