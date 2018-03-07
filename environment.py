@@ -57,10 +57,13 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     for d in range(startDay, stopDay):
         if len(investor.positions):
             for position in investor.positions:
-                actionDay = utils.laterDate(position.startDate,
-                                            position.holdTime)  # Todo: perhaps get rid of actionDay with changing direction
                 currentPrice = investor.check_price(environment.currentDate)
-                if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
+                actionDay = utils.laterDate(position.startDate,
+                                            position.holdTime)  # Todo: hyperparameter?
+                if d != stopDay-1:
+                    if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
+                        position.sell(investor, currentPrice)
+                else:
                     position.sell(investor, currentPrice)
 
         T = investor.strategy.arithmetic_returns(5, environment.day)
@@ -70,7 +73,8 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
                                             sharePer)  # Todo: if switching dir of position, close opposite dir
             # investor.strategy.close_opposing_positions(investor.positions,investor,investor.check_price(dates[d]))
         environment.update_total_assets(investor)
-        environment.increment_day(investor.strategy)
+        if d!= stopDay-1:
+            environment.increment_day(investor.strategy)
         bar.progress()
 
     """PLOTTING"""
