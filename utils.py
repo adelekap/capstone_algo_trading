@@ -29,6 +29,8 @@ def plot_capital(capital: list, time: list, stock: str, actual: list, percentGai
     plt.xticks(fontsize=9, rotation=45)
     plt.tight_layout()
     plt.savefig('{0}.png'.format(title))
+    print()
+    print('COMPLETE')
     plt.show()
 
 
@@ -52,20 +54,19 @@ class ProgressBar(object):
     def __init__(self,totalDays):
         self.totalDays = totalDays
         self.d = 1.0
-        self.threshold = 0.1
+        self.threshold = 0.05
 
     def initialize(self):
-        print('||||||||||||||||||||')
-        print('......PROGRESS......')
+        print('||||||||||||||||||||||||||||||')
+        print('...........PROGRESS...........')
 
     def progress(self):
         if self.d == self.totalDays:
-            sys.stdout.write('||')
             sys.stdout.flush()
         percent = self.d/self.totalDays
         if percent > self.threshold:
-            sys.stdout.write('||')
-            self.threshold = math.ceil(percent * 10) / 10
+            sys.stdout.write('|||')
+            self.threshold = math.ceil(percent * 10.0) / 10.0
         self.d += 1.0
         sys.stdout.flush()
 
