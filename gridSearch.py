@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 from mongoObjects import CollectionManager, MongoDocument, MongoClient
 from environment import trade
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def save_results(dict, manager, ticker):
     newDoc = MongoDocument(dict, ticker, [])
@@ -36,6 +38,11 @@ class GridSearch(object):
             dfs.append(df)
         return pd.concat(dfs)
 
+    def plot_heatmap(self,dataframe, title, cmap):
+        sns.heatmap(dataframe, cmap=cmap)
+        plt.title(title)
+        plt.savefig('plots/GridSearch/{0}_grid_{1}.png'.format(self.ticker,title))
+        plt.show()
 
 
 if __name__ == '__main__':
