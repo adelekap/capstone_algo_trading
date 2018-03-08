@@ -62,8 +62,10 @@ def plot_3D(x,y,z,title):
     ax.scatter3D(x, y, z, color='b')
     plt.show()
 
-def plot_heatmap(x,y,z,title):
-    sns.heatmap(flights, annot=True, fmt="d", linewidths=.5, ax=ax)
+def plot_heatmap(dataframe,title,cmap):
+    sns.heatmap(dataframe,cmap=cmap)
+    plt.title(title)
+    plt.show()
 
 class ProgressBar(object):
     def __init__(self,totalDays):

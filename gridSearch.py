@@ -8,22 +8,22 @@ def save_results(dict, manager, ticker):
     manager.insert(newDoc)
 
 class GridSearch(object):
-    def __init__(self,manager,ticker):
+    def __init__(self,manager,ticker,ps,sharePers):
         self.manager = manager
         self.ticker = ticker
+        self.ps = ps
+        self.sharePers = sharePers
 
-    def get_grid_search_data(self,type,ps,sharePers):
+    def get_grid_search_data(self,type):
         """
         :param type: "MDD" or "return"
         :return: x,y,z
         """
-        # ps = [round(i,3) for i in self.manager.find_distinct({'ticker':self.ticker},"p")]
-        # sharePers = [round(j,2) for j in self.manager.find_distinct({'ticker':self.ticker},"sharePer")]
         dfs = []
-        for p in ps:
+        for p in self.ps:
             df = pd.DataFrame()
             ls = []
-            for sharePer in sharePers:
+            for sharePer in self.sharePers:
                 data = self.manager.find({'ticker':self.ticker,'p':p,'sharePer':sharePer})
                 if not len(data):
                     data = self.manager.find({'ticker':self.ticker,'p':p,'sharePer':sharePer+.01})
@@ -31,7 +31,7 @@ class GridSearch(object):
                     ls.append(row[type])
             px = [p for i in ls]
             df['p'] = px
-            df['sharePer'] = sharePers
+            df['sharePer'] = self.sharePers
             df[type] = ls
             dfs.append(df)
         return pd.concat(dfs)
