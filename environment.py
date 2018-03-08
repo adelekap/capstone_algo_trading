@@ -31,6 +31,7 @@ class Environment(object):
 
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, plotting=False):
+    warnings.filterwarnings("ignore")
     """Initialize Environment"""
     # Data
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
@@ -53,18 +54,16 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     environment = Environment(manager, investor, startDay)
 
     # Simulate Trading Environment
-    bar.initialize()
+    # print('{0}: p={1},sharePer={2}'.format(ticker,p,sharePer))
+    # bar.initialize()
     for d in range(startDay, stopDay):
         if len(investor.positions):
             for position in investor.positions:
                 currentPrice = investor.check_price(environment.currentDate)
                 actionDay = utils.laterDate(position.startDate,
                                             position.holdTime)  # Todo: hyperparameter?
-                if d != stopDay-1:
-                    if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
+                if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
                         position.sell(investor, currentPrice)
-                else:
-                    position.sell(investor, currentPrice)
 
         T = investor.strategy.arithmetic_returns(5, environment.day)
         sig = investor.signal(T)
@@ -75,15 +74,15 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         environment.update_total_assets(investor)
         if d!= stopDay-1:
             environment.increment_day(investor.strategy)
-        bar.progress()
+        # bar.progress()
 
     """PLOTTING"""
     actualPrice = avg_price_timeseries(manager, ticker, dates[startDay:stopDay])
     if not len(investor.capitalHistory):
         expReturn = 0
     else:
-        expReturn = round(((investor.capitalHistory[len(
-            investor.capitalHistory) - 1] - startingCapital) / startingCapital) * 100)
+        expReturn = round(((investor.totalAssetHistory[len(
+            investor.totalAssetHistory) - 1] - startingCapital) / startingCapital) * 100)
     gain = str(expReturn) + '%'
 
     possible = round(((actualPrice[-1] - actualPrice[0]) / actualPrice[0]) * 100, 1)
