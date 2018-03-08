@@ -24,6 +24,10 @@ class CollectionManager(object):
         cursor = self.c.find(query)
         return pd.DataFrame(list(cursor))
 
+    def find_distinct(self,query,field):
+        cursor = self.c.find(query).distinct(field)
+        return list(cursor)
+
     def dates(self):
         dates = list(self.c.distinct('date'))
         sortedDates = dates[:1259]

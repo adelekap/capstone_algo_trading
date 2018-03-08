@@ -5,6 +5,8 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from scipy.interpolate import interp1d
+import seaborn as sns
 
 def laterDate(date, j):
     ds = [int(d) for d in date.split('-')]
@@ -51,29 +53,17 @@ def sharpe_ratio(series):
     """S(x) = (rx - Rf) / StdDev(x)"""
     pass
 
-def plot_3D(x,y,z):
-    # xx, yy = np.meshgrid(x_range, x_range)
-    # z = formula(x_range,intercept,coefficients)
-    #
-    # fig = plt.figure(figsize=(14,10))
-    # ax = fig.gca(projection='3d')
-    # ax.scatter(xs=y_train, zs=x_train['Water Maze CIPL'], ys=x_train['Working Memory CIPL'])
-    # ax.plot_surface(X=z, Y=yy, Z=xx, color='r',alpha=0.5)
-    # ax.set_ylabel('Working Memory CIPL')
-    # ax.set_zlabel('Spatial Memory CIPL')
-    # ax.set_xlabel('Age (months)')
-    # props = dict(boxstyle='round', facecolor='g', alpha=0.5)
-    # ax.text(0.05,0.95,1.0,'age = {0} + {2}(Working) + {1}(Spatial)\nCross Validation:{3}'.format(str(intercept.round(2)),
-    #                                                                                              str(coefficients[0].round(2)),
-    #                                                                                              str(coefficients[1].round(2)),
-    #                                                                                              str(cv)),
-    #         transform=ax.transAxes,fontsize=18,verticalalignment='top',bbox=props,horizontalalignment='left')
-    # plt.savefig(dir+title+'.pdf')
-    # plt.show()
+def plot_3D(x,y,z,title):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.plot_surface(x, y, z, color='b')
+    plt.xlabel('p')
+    plt.ylabel('sharePer')
+    plt.title(title)
+    ax.scatter3D(x, y, z, color='b')
     plt.show()
+
+def plot_heatmap(x,y,z,title):
+    sns.heatmap(flights, annot=True, fmt="d", linewidths=.5, ax=ax)
 
 class ProgressBar(object):
     def __init__(self,totalDays):
@@ -94,5 +84,3 @@ class ProgressBar(object):
             self.threshold = math.ceil(percent * 10.0) / 10.0
         self.d += 1.0
         sys.stdout.flush()
-
-

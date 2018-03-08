@@ -3,10 +3,39 @@ import pandas as pd
 from mongoObjects import CollectionManager, MongoDocument, MongoClient
 from environment import trade
 
-
 def save_results(dict, manager, ticker):
     newDoc = MongoDocument(dict, ticker, [])
     manager.insert(newDoc)
+
+class GridSearch(object):
+    def __init__(self,manager,ticker):
+        self.manager = manager
+        self.ticker = ticker
+
+    def get_grid_search_data(self,type,ps,sharePers):
+        """
+        :param type: "MDD" or "return"
+        :return: x,y,z
+        """
+        # ps = [round(i,3) for i in self.manager.find_distinct({'ticker':self.ticker},"p")]
+        # sharePers = [round(j,2) for j in self.manager.find_distinct({'ticker':self.ticker},"sharePer")]
+        dfs = []
+        for p in ps:
+            df = pd.DataFrame()
+            ls = []
+            for sharePer in sharePers:
+                data = self.manager.find({'ticker':self.ticker,'p':p,'sharePer':sharePer})
+                if not len(data):
+                    data = self.manager.find({'ticker':self.ticker,'p':p,'sharePer':sharePer+.01})
+                for index,row in data.iterrows():
+                    ls.append(row[type])
+            px = [p for i in ls]
+            df['p'] = px
+            df['sharePer'] = sharePers
+            df[type] = ls
+            dfs.append(df)
+        return pd.concat(dfs)
+
 
 
 if __name__ == '__main__':
@@ -28,3 +57,4 @@ if __name__ == '__main__':
 
             result = trade(loss, model, p, sharePer, startDate, startingCapital, stop, stock)
             save_results(result, manager, stock)
+
