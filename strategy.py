@@ -6,6 +6,7 @@ from putAndGetData import get_closes_highs_lows
 import utils
 from datetime import datetime as dt
 from datetime import timedelta
+from putAndGetData import rel_volume
 
 
 class Strategy(object):
@@ -49,7 +50,9 @@ class Strategy(object):
         return (sum(significantReturns))
 
     def make_position(self, agent, signal, date, stopLoss, sharePercent=1):
-        shareNum = int(agent.buying_power(date) * sharePercent)  # Todo:Completely change based on T
+        v = rel_volume(self.manager, self.ticker, date) #higher means higher than average volume
+        buyingPower = agent.buying_power(date)
+        shareNum = int(v*buyingPower*sharePercent)
         if shareNum == 0:
             return None
         if signal == 1:

@@ -3,6 +3,7 @@ import apiCall as api
 from pymongo import MongoClient
 import pandas as pd
 import datetime as dt
+import numpy as np
 
 def get_stock_data(manager, ticker, unwantedFields,function=api.iex_5y):
     """
@@ -90,6 +91,11 @@ def avg_price_timeseries(manager,ticker,dates):
         avg = (c+h+l)/3.0
         series.append(avg)
     return series
+
+def rel_volume(manager,ticker,date):
+    allVol = np.mean(manager.find_distinct({'ticker':ticker},'volume'))
+    vol = manager.find({'ticker':ticker,'date':date})['volume'][0]
+    return vol/allVol
 
 
 if __name__ == '__main__':

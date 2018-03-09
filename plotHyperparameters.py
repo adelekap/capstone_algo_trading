@@ -21,5 +21,6 @@ if __name__ == '__main__':
     manager = CollectionManager('grid_search', MongoClient()['AlgoTradingDB'])
     stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
 
+    stocks = ['msft']
     for stock in stocks:
         plot_gridSearch_results(manager,stock)

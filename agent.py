@@ -18,6 +18,7 @@ class InvestorAgent(object):
     def check_price(self,date):
         return self.strategy.daily_avg_price(date)
 
+
     def signal(self,T,k=5):
         threshold = k * 0.5 * self.strategy.p
         if abs(T) >= threshold:
