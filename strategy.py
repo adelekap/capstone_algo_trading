@@ -53,6 +53,7 @@ class Strategy(object):
         v = rel_volume(self.manager, self.ticker, date) #higher means higher than average volume
         buyingPower = agent.buying_power(date)
         shareNum = int(v*buyingPower*sharePercent)
+        # shareNum = int(agent.buying_power(date) * sharePercent) #original
         if shareNum == 0:
             return None
         if signal == 1:

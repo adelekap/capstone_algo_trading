@@ -57,7 +57,7 @@ if __name__ == '__main__':
 
     progress = ProgressBar(len(ps) * len(sharePers))
     # for stock in stocks:
-    stock = 'msft'
+    stock = 't'
     progress.initialize()
     for p in ps:
         for sharePer in sharePers:
