@@ -6,9 +6,6 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
 import numpy as np
-from math import sqrt
-from sklearn.metrics import mean_squared_error
-import matplotlib.pyplot as plt
 
 
 class NN(object):
@@ -46,6 +43,11 @@ class NN(object):
         return df
 
     def difference(self,data:list):
+        """
+        Differences the timeseries so it is stationary
+        :param data: list of timeseries points
+        :return: differenced timeseries
+        """
         diff = list()
         for i in range(1, len(data)):
             value = data[i] - data[i - 1]
@@ -56,6 +58,12 @@ class NN(object):
         return yhat + history[-interval]
 
     def scale(self,train, test):
+        """
+        Scale the data for the NN
+        :param train:
+        :param test:
+        :return:
+        """
         # fit scaler
         self.scaler = self.scaler.fit(train)
         # transform train
@@ -87,8 +95,10 @@ class NN(object):
         train_reshaped = network.train[:, 0].reshape(len(network.train), 1, 1)
         network.model.predict(train_reshaped, batch_size=1)
 
-    def fit(self, X):
-        # A one step forecast
+    def fit(self, X:np.array):
+        """
+        A one step forecast into the future.
+        """
         X = X.reshape(1, 1, len(X))
         yhat = self.model.predict(X, batch_size=1)[0,0]
         yhat = self.invert_scale(X, yhat)
@@ -105,8 +115,11 @@ if __name__ == '__main__':
 
     network = NN(data)
     network.fit_lstm(1, 10, 4)
-    prediction = network.fit(network.test[0, 0:-1])
-    actual = network.rawTest[0]
+
+    point = network.test[0, 0:-1]
+    test = np.array([0.5])
+    prediction = network.fit(test)
+    # prediction = network.fit(network.test[0, 0:-1])
+    # actual = network.rawTest[0]
 
     print(prediction)
-    print(actual)
