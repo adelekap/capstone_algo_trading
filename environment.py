@@ -6,6 +6,7 @@ from putAndGetData import avg_price_timeseries
 import argparse
 import utils
 import warnings
+from LSTM import NN
 
 
 class Environment(object):
@@ -46,6 +47,8 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     # Predictive Model
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
+    if statsModel == 'LSTM':
+        model = NN()
 
     # Investor, Strategy and Trading Environment
     stopLoss = (1 - loss) * startingCapital

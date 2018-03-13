@@ -9,8 +9,8 @@ import numpy as np
 
 
 class NN(object):
-    def __transform_data(self,data:list):
-        trainIndex = int(0.75 * len(data))
+    def __transform_data(self,data:list,trainPercent=0.75):
+        trainIndex = int(trainPercent * len(data))
         self.rawTrain = data[:trainIndex]
         self.rawTest = data[trainIndex:]
         diff_values = self.difference(data)  # Make timeseries stationary
@@ -75,6 +75,12 @@ class NN(object):
         return train_scaled, test_scaled
 
     def invert_scale(self, X, value):
+        """
+        Revert back to the original scale.
+        :param X: Scaled prices
+        :param value:
+        :return: unscaled prices
+        """
         new_row = [x for x in X] + [value]
         array = np.array(new_row)
         array = array.reshape(1, len(array))
@@ -82,6 +88,13 @@ class NN(object):
         return inverted[0, -1]
 
     def fit_lstm(self,batch_size, nb_epoch, neurons):
+        """
+        Trains the LSTM
+        :param batch_size: size of minibatch
+        :param nb_epoch: number of epochs
+        :param neurons: number of neurons
+        :return: None
+        """
         X, y = self.train[:, 0:-1], self.train[:, -1]
         X = X.reshape(X.shape[0], 1, X.shape[1])
         model = Sequential()
@@ -107,8 +120,6 @@ class NN(object):
 
 
 
-
-
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
     data = create_timeseries(manager,'aapl')[0]
@@ -119,7 +130,5 @@ if __name__ == '__main__':
     point = network.test[0, 0:-1]
     test = np.array([0.5])
     prediction = network.fit(test)
-    # prediction = network.fit(network.test[0, 0:-1])
-    # actual = network.rawTest[0]
 
     print(prediction)
