@@ -9,7 +9,7 @@ import numpy as np
 
 
 class NN(object):
-    def __transform_data(self,data:list,trainPercent=0.75):
+    def __transform_data(self,data:list,trainPercent):
         trainIndex = int(trainPercent * len(data))
         self.rawTrain = data[:trainIndex]
         self.rawTest = data[trainIndex:]
@@ -19,12 +19,12 @@ class NN(object):
         train_scaled, test_scaled = self.scale(train.values,test.values)
         return train_scaled, test_scaled
 
-    def __init__(self,data:list):
+    def __init__(self,data:list,trainPercent=0.75):
         self.raw_data = data
         self.rawTrain = None
         self.rawTest = None
         self.scaler = MinMaxScaler(feature_range=(-1, 1))
-        self.train, self.test = self.__transform_data(data)
+        self.train, self.test = self.__transform_data(data,trainPercent)
         self.model = None
 
 
@@ -105,13 +105,14 @@ class NN(object):
             model.fit(X, y, epochs=1, batch_size=batch_size, verbose=0, shuffle=False)
             model.reset_states()
         self.model = model
-        train_reshaped = network.train[:, 0].reshape(len(network.train), 1, 1)
-        network.model.predict(train_reshaped, batch_size=1)
+        train_reshaped = self.train[:, 0].reshape(len(self.train), 1, 1)
+        self.model.predict(train_reshaped, batch_size=1)
 
-    def fit(self, X:np.array):
+    def fit(self, X:list):
         """
         A one step forecast into the future.
         """
+        X = np.array([X])
         X = X.reshape(1, 1, len(X))
         yhat = self.model.predict(X, batch_size=1)[0,0]
         yhat = self.invert_scale(X, yhat)

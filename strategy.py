@@ -7,6 +7,7 @@ import utils
 from datetime import datetime as dt
 from datetime import timedelta
 from putAndGetData import rel_volume
+from LSTM import NN
 
 
 class Strategy(object):
@@ -38,9 +39,14 @@ class Strategy(object):
         predL = []
         for j in range(1, k + 1):
             d = utils.laterDate(self.currentDate, j)
-            predictedClose = self.predModel.fit(self.closes[:date] + predC)
-            predictedHigh = self.predModel.fit(self.highs[:date] + predH)
-            predictedLow = self.predModel.fit(self.lows[:date] + predL)
+            if type(self.predModel) == NN:
+                predictedClose = self.predModel.fit(close)
+                predictedHigh = self.predModel.fit(self.highs[date])
+                predictedLow = self.predModel.fit(self.lows[date])
+            else:
+                predictedClose = self.predModel.fit(self.closes[:date] + predC)
+                predictedHigh = self.predModel.fit(self.highs[:date] + predH)
+                predictedLow = self.predModel.fit(self.lows[:date] + predL)
             predictedAvgPrice = self.daily_avg_price(d, predictedClose, predictedHigh, predictedLow)
             Vi.append((predictedAvgPrice - close) / close)
             predC.append(predictedClose)
