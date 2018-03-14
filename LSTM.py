@@ -9,6 +9,7 @@ import numpy as np
 
 
 class NN(object):
+    #Todo: Add set for RSME before predictions
     def __transform_data(self,data:list,trainPercent):
         trainIndex = int(trainPercent * len(data))
         self.rawTrain = data[:trainIndex]

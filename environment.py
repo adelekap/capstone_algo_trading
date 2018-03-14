@@ -44,6 +44,8 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     stopDay = dates.index(stop)
     bar = utils.ProgressBar(stopDay - startDay)
 
+    results = {'p': p, 'sharePer': sharePer}
+
     # Predictive Model
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
@@ -75,6 +77,11 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         if sig != 0:
             investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
                                             sharePer)
+            # ADDED
+            if len(investor.positions)>1:
+                for p in investor.positions[:-1]:
+                    if type(p) != type(investor.positions[-1]):
+                        p.sell(investor,currentPrice)
         environment.update_total_assets(investor)
         if d!= stopDay-1:
             environment.increment_day(investor.strategy)
@@ -93,9 +100,11 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     mdd = utils.MDD(investor.totalAssetHistory)
     if plotting:
         utils.plot_capital(investor.totalAssetHistory, dates[startDay:stopDay], ticker, actualPrice, gain, mdd,
-                           possible)
+                           possible,model=statsModel)
+    results['MDD'] = mdd
+    results['return'] = expReturn
+    results['possible'] = possible
 
-    results = {'p': p, 'sharePer': sharePer, 'MDD': mdd, 'return': expReturn}
     return (results)
 
 

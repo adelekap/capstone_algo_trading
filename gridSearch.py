@@ -4,12 +4,7 @@ from mongoObjects import CollectionManager, MongoDocument, MongoClient
 from environment import trade
 import seaborn as sns
 import matplotlib.pyplot as plt
-from utils import ProgressBar
-
-
-def save_results(dict, manager, ticker):
-    newDoc = MongoDocument(dict, ticker, [])
-    manager.insert(newDoc)
+from utils import ProgressBar,save_results
 
 
 class GridSearch(object):
@@ -53,19 +48,18 @@ if __name__ == '__main__':
     ps = [round(i,3) for i in np.arange(0.001, 0.033, 0.004)]  # 8 options
     sharePers = [round(j,2) for j in np.arange(0.01, 0.46, 0.04)]  # 12 options
     stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
-    manager = CollectionManager('grid_search', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('', MongoClient()['AlgoTradingDB'])
 
     progress = ProgressBar(len(ps) * len(sharePers))
-    # for stock in stocks:
-    stock = 't'
-    progress.initialize()
-    for p in ps:
-        for sharePer in sharePers:
-            loss = 0.3  # Stop Loss
-            model = 'Arima'
-            startDate = '2017-09-05'
-            startingCapital = 10000
-            stop = '2018-02-05'
-            result = trade(loss, model, p, sharePer, startDate, startingCapital, stop, stock)
-            save_results(result, manager, stock)
-            progress.progress()
+    for stock in stocks:
+        progress.initialize()
+        for p in ps:
+            for sharePer in sharePers:
+                loss = 0.3  # Stop Loss
+                model = 'Arima'
+                startDate = '2017-09-05'
+                startingCapital = 10000
+                stop = '2018-02-05'
+                result = trade(loss, model, p, sharePer, startDate, startingCapital, stop, stock)
+                save_results(result, manager, stock)
+                progress.progress()

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.interpolate import interp1d
 import seaborn as sns
+from mongoObjects import MongoDocument
 
 def laterDate(date, j):
     ds = [int(d) for d in date.split('-')]
@@ -23,7 +24,7 @@ def split(timeseries: list, percent: float):
 
 
 def plot_capital(capital: list, time: list, stock: str, actual: list, percentGain='', drawdown='', possible='',
-                 title='capital'):
+                 title='capital',model=''):
     dates = [dt.datetime.strptime(d, "%Y-%m-%d") for d in time]
     f, axarr = plt.subplots(2, sharex=True)
     axarr[0].plot(dates, capital, color='blue', label='Investor')
@@ -32,7 +33,7 @@ def plot_capital(capital: list, time: list, stock: str, actual: list, percentGai
     axarr[1].set_title('Price of {0}: {1}%'.format(stock,possible))
     plt.xticks(fontsize=9, rotation=45)
     plt.tight_layout()
-    plt.savefig('{0}.png'.format(title))
+    plt.savefig('plots/{0}/{1}_{2}.png'.format(model,title,stock))
     print()
     print('COMPLETE')
     plt.show()
@@ -61,6 +62,10 @@ def plot_3D(x,y,z,title):
     plt.title(title)
     ax.scatter3D(x, y, z, color='b')
     plt.show()
+
+def save_results(dict, manager, ticker):
+    newDoc = MongoDocument(dict, ticker, [])
+    manager.insert(newDoc)
 
 class ProgressBar(object):
     def __init__(self,totalDays):
