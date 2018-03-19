@@ -11,7 +11,7 @@ if __name__ == '__main__':
     startingCapital = 15000
     p = 0.025
     sharePer = 0.17
-    startDate = '2017-02-06'
+    startDate = '2018-01-03'
     stopDate = '2018-02-05'
 
     models = ['Arima','LSTM']
@@ -24,7 +24,7 @@ if __name__ == '__main__':
     #                        stopDate,stock,epochs,neurons,plotting=False)
     #         result['model'] = model
     #         save_results(result,manager,stock)
-    stock='aapl'
+    stock='hal'
     model='LSTM'
     result = trade(loss, model, p, sharePer, startDate, startingCapital,
                    stopDate, stock, epochs, neurons, plotting=True)

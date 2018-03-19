@@ -21,7 +21,7 @@ class InvestorAgent(object):
 
     def signal(self,T,k=5):
         threshold = k * 0.5 * self.strategy.p
-        if abs(T) >= threshold:
+        if abs(T) > threshold:
             if T > 0:
                 return 1
             return -1

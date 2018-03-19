@@ -12,7 +12,7 @@ from mongoObjects import MongoDocument
 def laterDate(date, j):
     ds = [int(d) for d in date.split('-')]
     date = dt.datetime(ds[0], ds[1], ds[2])
-    return date + dt.timedelta(days=j)
+    return str(date + dt.timedelta(days=j))[:10]
 
 
 def split(timeseries: list, percent: float):

@@ -77,11 +77,10 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         if sig != 0:
             investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
                                             sharePer)
-            # ADDED
-            if len(investor.positions)>1:
-                for p in investor.positions[:-1]:
-                    if type(p) != type(investor.positions[-1]):
-                        p.sell(investor,currentPrice)
+            # if len(investor.positions)>1:
+            #     for p in investor.positions[:-1]:
+            #         if type(p) != type(investor.positions[-1]):
+            #             p.sell(investor,currentPrice)
         environment.update_total_assets(investor)
         if d!= stopDay-1:
             environment.increment_day(investor.strategy)

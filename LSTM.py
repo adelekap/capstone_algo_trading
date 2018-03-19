@@ -124,13 +124,14 @@ class NN(object):
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
-    data = create_timeseries(manager,'aapl')[0]
+    data = create_timeseries(manager,'hal')[0]
 
     network = NN(data)
     network.fit_lstm(1, 10, 4)
+    print(np.mean(data))
 
-    point = network.test[0, 0:-1]
-    test = np.array([0.5])
+    # point = network.test[0, 0:-1]
+    test = np.array([50])
     prediction = network.fit(test)
 
     print(prediction)
