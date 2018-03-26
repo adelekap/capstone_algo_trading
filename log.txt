@@ -1,0 +1,792 @@
+MainThread # MainThread 2018-03-24 00:37:01,559 - main - INFO - [0.3, 'Arima', 0.005, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.5, 'MDD': 0.635, 'return': 17.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 00:37:02,530 - main - INFO - [0.3, 'Arima', 0.005, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.78, 'MDD': 0.73, 'return': 23.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 00:45:01,781 - main - INFO - [0.3, 'Arima', 0.001, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.74, 'MDD': 0.76, 'return': 18.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 00:45:04,267 - main - INFO - [0.3, 'Arima', 0.001, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.46, 'MDD': 0.667, 'return': 12.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 00:54:00,697 - main - INFO - [0.3, 'Arima', 0.005, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.54, 'MDD': 0.648, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 00:54:02,286 - main - INFO - [0.3, 'Arima', 0.005, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.82, 'MDD': 0.738, 'return': 24.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:11:21,452 - main - INFO - [0.3, 'Arima', 0.001, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.78, 'MDD': 0.767, 'return': 19.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:11:32,256 - main - INFO - [0.3, 'Arima', 0.001, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.5, 'MDD': 0.686, 'return': 13.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:12:06,901 - main - INFO - [0.3, 'Arima', 0.005, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.86, 'MDD': 0.749, 'return': 27.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:12:15,486 - main - INFO - [0.3, 'Arima', 0.005, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.58, 'MDD': 0.668, 'return': 19.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:30:41,924 - main - INFO - [0.3, 'Arima', 0.005, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.9, 'MDD': 0.758, 'return': 28.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:31:04,672 - main - INFO - [0.3, 'Arima', 0.005, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.62, 'MDD': 0.683, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:39:06,047 - main - INFO - [0.3, 'Arima', 0.001, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.82, 'MDD': 0.776, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:39:26,703 - main - INFO - [0.3, 'Arima', 0.001, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.54, 'MDD': 0.701, 'return': 14.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:48:59,381 - main - INFO - [0.3, 'Arima', 0.005, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.94, 'MDD': 0.763, 'return': 24.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 01:49:51,783 - main - INFO - [0.3, 'Arima', 0.005, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.66, 'MDD': 0.696, 'return': 21.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:02:51,855 - main - INFO - [0.3, 'Arima', 0.009, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.46, 'MDD': 0.625, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:06:40,694 - main - INFO - [0.3, 'Arima', 0.001, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.86, 'MDD': 0.783, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:07:07,625 - main - INFO - [0.3, 'Arima', 0.001, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.58, 'MDD': 0.713, 'return': 14.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:08:32,014 - main - INFO - [0.3, 'Arima', 0.005, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.7, 'MDD': 0.708, 'return': 22.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:16:33,193 - main - INFO - [0.3, 'Arima', 0.009, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.5, 'MDD': 0.644, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:27:26,012 - main - INFO - [0.3, 'Arima', 0.005, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.74, 'MDD': 0.72, 'return': 22.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:30:50,610 - main - INFO - [0.3, 'Arima', 0.009, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.54, 'MDD': 0.665, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:34:42,227 - main - INFO - [0.3, 'Arima', 0.001, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.9, 'MDD': 0.79, 'return': 23.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:35:17,098 - main - INFO - [0.3, 'Arima', 0.001, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.62, 'MDD': 0.729, 'return': 15.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:41:56,349 - main - INFO - [0.3, 'Arima', 0.009, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.82, 'MDD': 0.761, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:45:24,701 - main - INFO - [0.3, 'Arima', 0.009, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.58, 'MDD': 0.683, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 02:56:21,211 - main - INFO - [0.3, 'Arima', 0.009, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.86, 'MDD': 0.772, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:00:10,995 - main - INFO - [0.3, 'Arima', 0.009, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.62, 'MDD': 0.7, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:03:59,203 - main - INFO - [0.3, 'Arima', 0.001, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.94, 'MDD': 0.796, 'return': 23.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:04:53,720 - main - INFO - [0.3, 'Arima', 0.001, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.66, 'MDD': 0.739, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:09:17,739 - main - INFO - [0.3, 'Arima', 0.009, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.9, 'MDD': 0.76, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:17:14,822 - main - INFO - [0.3, 'Arima', 0.009, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.66, 'MDD': 0.713, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:22:53,900 - main - INFO - [0.3, 'Arima', 0.009, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.94, 'MDD': 0.766, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:26:01,524 - main - INFO - [0.3, 'Arima', 0.005, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.46, 'MDD': 0.613, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:32:25,797 - main - INFO - [0.3, 'Arima', 0.009, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.7, 'MDD': 0.73, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:32:37,824 - main - INFO - [0.3, 'Arima', 0.013, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.46, 'MDD': 0.63, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:36:13,083 - main - INFO - [0.3, 'Arima', 0.013, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.58, 'MDD': 0.687, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:37:17,842 - main - INFO - [0.3, 'Arima', 0.001, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.7, 'MDD': 0.75, 'return': 18.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:43:33,587 - main - INFO - [0.3, 'Arima', 0.013, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.5, 'MDD': 0.65, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:47:23,187 - main - INFO - [0.3, 'Arima', 0.013, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.62, 'MDD': 0.704, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:48:28,169 - main - INFO - [0.3, 'Arima', 0.013, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.86, 'MDD': 0.771, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:49:46,397 - main - INFO - [0.3, 'Arima', 0.009, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.74, 'MDD': 0.741, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:54:44,204 - main - INFO - [0.3, 'Arima', 0.013, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.54, 'MDD': 0.668, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:58:32,756 - main - INFO - [0.3, 'Arima', 0.013, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.66, 'MDD': 0.716, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 03:59:20,775 - main - INFO - [0.3, 'Arima', 0.013, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.9, 'MDD': 0.782, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:03:17,512 - main - INFO - [0.3, 'Arima', 0.017, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.62, 'MDD': 0.654, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:06:59,257 - main - INFO - [0.3, 'Arima', 0.009, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.78, 'MDD': 0.752, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:09:01,585 - main - INFO - [0.3, 'Arima', 0.013, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.7, 'MDD': 0.731, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:09:25,607 - main - INFO - [0.3, 'Arima', 0.013, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.94, 'MDD': 0.789, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:10:53,593 - main - INFO - [0.3, 'Arima', 0.017, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.66, 'MDD': 0.67, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:14:21,023 - main - INFO - [0.3, 'Arima', 0.017, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.9, 'MDD': 0.739, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:16:58,483 - main - INFO - [0.3, 'Arima', 0.017, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.46, 'MDD': 0.577, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:18:34,618 - main - INFO - [0.3, 'Arima', 0.017, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.7, 'MDD': 0.683, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:18:53,722 - main - INFO - [0.3, 'Arima', 0.013, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.74, 'MDD': 0.742, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:22:23,138 - main - INFO - [0.3, 'Arima', 0.017, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.94, 'MDD': 0.749, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:25:17,357 - main - INFO - [0.3, 'Arima', 0.017, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.5, 'MDD': 0.599, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:27:01,190 - main - INFO - [0.3, 'Arima', 0.017, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.74, 'MDD': 0.695, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:28:40,418 - main - INFO - [0.3, 'Arima', 0.021, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.46, 'MDD': 0.577, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:29:54,685 - main - INFO - [0.3, 'Arima', 0.013, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.78, 'MDD': 0.752, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:33:51,199 - main - INFO - [0.3, 'Arima', 0.017, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.54, 'MDD': 0.617, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:34:56,254 - main - INFO - [0.3, 'Arima', 0.021, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.5, 'MDD': 0.6, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:35:33,867 - main - INFO - [0.3, 'Arima', 0.017, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.78, 'MDD': 0.707, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:41:01,872 - main - INFO - [0.3, 'Arima', 0.013, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.82, 'MDD': 0.763, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:41:12,956 - main - INFO - [0.3, 'Arima', 0.021, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.54, 'MDD': 0.621, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:42:25,821 - main - INFO - [0.3, 'Arima', 0.017, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.58, 'MDD': 0.637, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:44:06,516 - main - INFO - [0.3, 'Arima', 0.017, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.82, 'MDD': 0.719, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:47:16,381 - main - INFO - [0.3, 'Arima', 0.021, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.66, 'MDD': 0.671, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:47:28,837 - main - INFO - [0.3, 'Arima', 0.021, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.58, 'MDD': 0.638, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:48:40,855 - main - INFO - [0.3, 'Arima', 0.021, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.94, 'MDD': 0.75, 'return': -12.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:52:36,588 - main - INFO - [0.3, 'Arima', 0.017, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.86, 'MDD': 0.73, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:53:31,016 - main - INFO - [0.3, 'Arima', 0.021, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.7, 'MDD': 0.687, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:53:42,954 - main - INFO - [0.3, 'Arima', 0.021, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.62, 'MDD': 0.655, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:53:45,694 - main - INFO - [0.3, 'Arima', 0.025, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.46, 'MDD': 0.566, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:57:41,571 - main - INFO - [0.3, 'Arima', 0.025, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.7, 'MDD': 0.676, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:57:52,104 - main - INFO - [0.3, 'Arima', 0.029, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.46, 'MDD': 0.471, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:58:51,774 - main - INFO - [0.3, 'Arima', 0.025, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.5, 'MDD': 0.589, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 04:59:45,431 - main - INFO - [0.3, 'Arima', 0.021, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.74, 'MDD': 0.699, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:02:03,532 - main - INFO - [0.3, 'Arima', 0.029, 0.5, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.5, 'MDD': 0.495, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:02:50,142 - main - INFO - [0.3, 'Arima', 0.025, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.74, 'MDD': 0.688, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:03:56,460 - main - INFO - [0.3, 'Arima', 0.025, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.54, 'MDD': 0.609, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:06:01,685 - main - INFO - [0.3, 'Arima', 0.021, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.78, 'MDD': 0.711, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:06:12,124 - main - INFO - [0.3, 'Arima', 0.029, 0.54, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.54, 'MDD': 0.513, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:07:54,979 - main - INFO - [0.3, 'Arima', 0.025, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.78, 'MDD': 0.701, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:09:01,922 - main - INFO - [0.3, 'Arima', 0.025, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.58, 'MDD': 0.626, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:10:20,739 - main - INFO - [0.3, 'Arima', 0.029, 0.58, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.58, 'MDD': 0.533, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:12:18,065 - main - INFO - [0.3, 'Arima', 0.021, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.82, 'MDD': 0.723, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:13:01,403 - main - INFO - [0.3, 'Arima', 0.025, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.82, 'MDD': 0.712, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:14:09,312 - main - INFO - [0.3, 'Arima', 0.025, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.62, 'MDD': 0.643, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:14:28,212 - main - INFO - [0.3, 'Arima', 0.029, 0.62, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.62, 'MDD': 0.549, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:18:06,991 - main - INFO - [0.3, 'Arima', 0.025, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.86, 'MDD': 0.722, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:18:31,736 - main - INFO - [0.3, 'Arima', 0.021, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.86, 'MDD': 0.732, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:18:36,517 - main - INFO - [0.3, 'Arima', 0.029, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.66, 'MDD': 0.567, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:19:15,822 - main - INFO - [0.3, 'Arima', 0.025, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.66, 'MDD': 0.659, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:22:44,596 - main - INFO - [0.3, 'Arima', 0.029, 0.7, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.7, 'MDD': 0.58, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:23:04,815 - main - INFO - [0.3, 'Arima', 0.025, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.9, 'MDD': 0.732, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:23:14,335 - main - INFO - [0.3, 'Arima', 0.029, 0.74, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.74, 'MDD': 0.596, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:24:16,226 - main - INFO - [0.3, 'Arima', 0.021, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.9, 'MDD': 0.742, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:25:35,255 - main - INFO - [0.3, 'Arima', 0.029, 0.78, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.78, 'MDD': 0.608, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:25:57,028 - main - INFO - [0.3, 'Arima', 0.025, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.94, 'MDD': 0.741, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:26:59,925 - main - INFO - [0.3, 'Arima', 0.029, 0.82, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.82, 'MDD': 0.622, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:28:21,437 - main - INFO - [0.3, 'Arima', 0.029, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.86, 'MDD': 0.633, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:29:39,544 - main - INFO - [0.3, 'Arima', 0.029, 0.9, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.9, 'MDD': 0.645, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 05:30:55,552 - main - INFO - [0.3, 'Arima', 0.029, 0.94, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.94, 'MDD': 0.655, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 08:17:50,057 - main - INFO - [0.3, 'Arima', 0.005, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 08:19:35,953 - main - INFO - [0.3, 'Arima', 0.001, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 08:37:40,089 - main - INFO - [0.3, 'Arima', 0.005, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.51, 'MDD': 0.635, 'return': 17.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 08:45:29,579 - main - INFO - [0.3, 'Arima', 0.005, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.06, 'MDD': 0.144, 'return': 2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 08:50:41,641 - main - INFO - [0.3, 'Arima', 0.001, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.51, 'MDD': 0.688, 'return': 13.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:00:45,600 - main - INFO - [0.3, 'Arima', 0.001, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.06, 'MDD': 0.18, 'return': 2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:04:10,858 - main - INFO - [0.3, 'Arima', 0.005, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.56, 'MDD': 0.662, 'return': 19.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:10:17,018 - main - INFO - [0.3, 'Arima', 0.005, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.11, 'MDD': 0.261, 'return': 5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:21:16,262 - main - INFO - [0.3, 'Arima', 0.001, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.56, 'MDD': 0.706, 'return': 14.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:22:01,535 - main - INFO - [0.3, 'Arima', 0.005, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.61, 'MDD': 0.679, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:26:58,903 - main - INFO - [0.3, 'Arima', 0.005, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.16, 'MDD': 0.35, 'return': 7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:27:34,371 - main - INFO - [0.3, 'Arima', 0.001, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.11, 'MDD': 0.313, 'return': 4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:39:10,268 - main - INFO - [0.3, 'Arima', 0.005, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.66, 'MDD': 0.696, 'return': 21.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:44:52,312 - main - INFO - [0.3, 'Arima', 0.005, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.21, 'MDD': 0.415, 'return': 8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:47:57,716 - main - INFO - [0.3, 'Arima', 0.001, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.61, 'MDD': 0.726, 'return': 17.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:54:25,636 - main - INFO - [0.3, 'Arima', 0.001, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.16, 'MDD': 0.405, 'return': 4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 09:57:19,088 - main - INFO - [0.3, 'Arima', 0.005, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.71, 'MDD': 0.709, 'return': 22.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:02:08,289 - main - INFO - [0.3, 'Arima', 0.005, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.26, 'MDD': 0.468, 'return': 10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:11:44,444 - main - INFO - [0.3, 'Arima', 0.001, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.66, 'MDD': 0.739, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:13:16,004 - main - INFO - [0.3, 'Arima', 0.005, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.76, 'MDD': 0.725, 'return': 23.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:17:57,617 - main - INFO - [0.3, 'Arima', 0.001, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.21, 'MDD': 0.481, 'return': 5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:18:00,360 - main - INFO - [0.3, 'Arima', 0.005, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.31, 'MDD': 0.517, 'return': 11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:29:16,618 - main - INFO - [0.3, 'Arima', 0.005, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.81, 'MDD': 0.737, 'return': 24.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:34:06,184 - main - INFO - [0.3, 'Arima', 0.005, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.36, 'MDD': 0.557, 'return': 12.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:35:26,863 - main - INFO - [0.3, 'Arima', 0.001, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.71, 'MDD': 0.752, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:42:16,374 - main - INFO - [0.3, 'Arima', 0.001, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.26, 'MDD': 0.529, 'return': 6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:46:11,073 - main - INFO - [0.3, 'Arima', 0.005, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.86, 'MDD': 0.749, 'return': 27.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 10:52:10,250 - main - INFO - [0.3, 'Arima', 0.005, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.41, 'MDD': 0.588, 'return': 15.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:02:52,916 - main - INFO - [0.3, 'Arima', 0.001, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.76, 'MDD': 0.764, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:05:21,217 - main - INFO - [0.3, 'Arima', 0.005, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.91, 'MDD': 0.758, 'return': 27.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:10:45,624 - main - INFO - [0.3, 'Arima', 0.001, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.31, 'MDD': 0.577, 'return': 8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:11:34,552 - main - INFO - [0.3, 'Arima', 0.005, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.46, 'MDD': 0.613, 'return': 16.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:16:10,513 - main - INFO - [0.3, 'Arima', 0.009, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:24:16,940 - main - INFO - [0.3, 'Arima', 0.005, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.005, 'sharePer': 0.96, 'MDD': 0.768, 'return': 26.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:30:42,861 - main - INFO - [0.3, 'Arima', 0.009, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.06, 'MDD': 0.157, 'return': 1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:31:44,225 - main - INFO - [0.3, 'Arima', 0.001, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.81, 'MDD': 0.774, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:38:38,798 - main - INFO - [0.3, 'Arima', 0.009, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.51, 'MDD': 0.65, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:39:28,180 - main - INFO - [0.3, 'Arima', 0.001, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.36, 'MDD': 0.61, 'return': 8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:44:27,869 - main - INFO - [0.3, 'Arima', 0.009, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.11, 'MDD': 0.273, 'return': 1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:51:52,941 - main - INFO - [0.3, 'Arima', 0.009, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.56, 'MDD': 0.674, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:57:45,036 - main - INFO - [0.3, 'Arima', 0.009, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.16, 'MDD': 0.361, 'return': 1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 11:58:35,293 - main - INFO - [0.3, 'Arima', 0.001, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.86, 'MDD': 0.783, 'return': 20.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:06:04,148 - main - INFO - [0.3, 'Arima', 0.009, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.61, 'MDD': 0.694, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:06:58,773 - main - INFO - [0.3, 'Arima', 0.001, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.41, 'MDD': 0.64, 'return': 11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:12:34,245 - main - INFO - [0.3, 'Arima', 0.009, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.21, 'MDD': 0.43, 'return': 1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:20:28,744 - main - INFO - [0.3, 'Arima', 0.009, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.66, 'MDD': 0.713, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:26:34,951 - main - INFO - [0.3, 'Arima', 0.009, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.26, 'MDD': 0.486, 'return': 1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:27:18,313 - main - INFO - [0.3, 'Arima', 0.001, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.91, 'MDD': 0.792, 'return': 23.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:35:09,987 - main - INFO - [0.3, 'Arima', 0.009, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.71, 'MDD': 0.731, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:35:59,435 - main - INFO - [0.3, 'Arima', 0.001, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.46, 'MDD': 0.667, 'return': 12.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:40:17,157 - main - INFO - [0.3, 'Arima', 0.013, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:41:44,053 - main - INFO - [0.3, 'Arima', 0.009, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.31, 'MDD': 0.532, 'return': -0.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:50:02,224 - main - INFO - [0.3, 'Arima', 0.013, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.06, 'MDD': 0.15, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:50:28,837 - main - INFO - [0.3, 'Arima', 0.009, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.76, 'MDD': 0.745, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:57:19,817 - main - INFO - [0.3, 'Arima', 0.009, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.36, 'MDD': 0.568, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:57:32,928 - main - INFO - [0.3, 'Arima', 0.001, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.001, 'sharePer': 0.96, 'MDD': 0.799, 'return': 24.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 12:59:47,795 - main - INFO - [0.3, 'Arima', 0.013, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.11, 'MDD': 0.261, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:05:48,826 - main - INFO - [0.3, 'Arima', 0.009, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.81, 'MDD': 0.759, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:07:04,784 - main - INFO - [0.3, 'Arima', 0.013, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.51, 'MDD': 0.655, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:09:27,159 - main - INFO - [0.3, 'Arima', 0.013, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.16, 'MDD': 0.355, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:12:21,459 - main - INFO - [0.3, 'Arima', 0.009, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.41, 'MDD': 0.598, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:16:41,822 - main - INFO - [0.3, 'Arima', 0.013, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.56, 'MDD': 0.678, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:18:56,584 - main - INFO - [0.3, 'Arima', 0.013, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.21, 'MDD': 0.423, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:20:33,830 - main - INFO - [0.3, 'Arima', 0.009, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.86, 'MDD': 0.772, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:26:14,921 - main - INFO - [0.3, 'Arima', 0.013, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.61, 'MDD': 0.699, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:27:27,242 - main - INFO - [0.3, 'Arima', 0.009, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.46, 'MDD': 0.625, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:28:40,356 - main - INFO - [0.3, 'Arima', 0.013, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.26, 'MDD': 0.483, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:31:22,909 - main - INFO - [0.3, 'Arima', 0.017, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:33:13,567 - main - INFO - [0.3, 'Arima', 0.009, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.91, 'MDD': 0.762, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:36:07,759 - main - INFO - [0.3, 'Arima', 0.013, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.66, 'MDD': 0.716, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:38:32,347 - main - INFO - [0.3, 'Arima', 0.013, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.31, 'MDD': 0.524, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:38:54,204 - main - INFO - [0.3, 'Arima', 0.017, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.06, 'MDD': 0.124, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:45:57,636 - main - INFO - [0.3, 'Arima', 0.009, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.009, 'sharePer': 0.96, 'MDD': 0.77, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:46:16,394 - main - INFO - [0.3, 'Arima', 0.013, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.71, 'MDD': 0.734, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:46:50,709 - main - INFO - [0.3, 'Arima', 0.017, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.11, 'MDD': 0.221, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:48:38,447 - main - INFO - [0.3, 'Arima', 0.013, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.36, 'MDD': 0.571, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:53:33,651 - main - INFO - [0.3, 'Arima', 0.017, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.51, 'MDD': 0.605, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:54:26,972 - main - INFO - [0.3, 'Arima', 0.017, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.16, 'MDD': 0.308, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 13:56:11,827 - main - INFO - [0.3, 'Arima', 0.013, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.76, 'MDD': 0.746, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:00:08,478 - main - INFO - [0.3, 'Arima', 0.013, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.41, 'MDD': 0.602, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:02:49,430 - main - INFO - [0.3, 'Arima', 0.017, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.56, 'MDD': 0.628, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:03:31,368 - main - INFO - [0.3, 'Arima', 0.017, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.21, 'MDD': 0.371, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:07:00,868 - main - INFO - [0.3, 'Arima', 0.013, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.81, 'MDD': 0.76, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:09:09,680 - main - INFO - [0.3, 'Arima', 0.013, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.46, 'MDD': 0.63, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:09:47,753 - main - INFO - [0.3, 'Arima', 0.017, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.61, 'MDD': 0.654, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:10:32,534 - main - INFO - [0.3, 'Arima', 0.017, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.26, 'MDD': 0.429, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:12:34,384 - main - INFO - [0.3, 'Arima', 0.021, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:16:33,889 - main - INFO - [0.3, 'Arima', 0.013, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.86, 'MDD': 0.771, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:17:19,352 - main - INFO - [0.3, 'Arima', 0.017, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.66, 'MDD': 0.67, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:18:04,383 - main - INFO - [0.3, 'Arima', 0.017, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.31, 'MDD': 0.479, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:18:10,046 - main - INFO - [0.3, 'Arima', 0.021, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.06, 'MDD': 0.123, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:23:44,538 - main - INFO - [0.3, 'Arima', 0.021, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.11, 'MDD': 0.22, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:24:54,992 - main - INFO - [0.3, 'Arima', 0.017, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.71, 'MDD': 0.687, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:25:38,839 - main - INFO - [0.3, 'Arima', 0.017, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.36, 'MDD': 0.516, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:26:07,348 - main - INFO - [0.3, 'Arima', 0.013, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.91, 'MDD': 0.782, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 14:29:15,113 - main - INFO - [0.3, 'Arima', 0.021, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.16, 'MDD': 0.307, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:26:26,249 - main - INFO - [0.3, 'Arima', 0.017, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.76, 'MDD': 0.7, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:26:54,481 - main - INFO - [0.3, 'Arima', 0.017, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.41, 'MDD': 0.549, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:27:52,821 - main - INFO - [0.3, 'Arima', 0.021, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.21, 'MDD': 0.371, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:28:27,333 - main - INFO - [0.3, 'Arima', 0.013, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.013, 'sharePer': 0.96, 'MDD': 0.793, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:56:24,058 - main - INFO - [0.3, 'Arima', 0.017, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.81, 'MDD': 0.718, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:56:34,027 - main - INFO - [0.3, 'Arima', 0.021, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.26, 'MDD': 0.424, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:56:52,454 - main - INFO - [0.3, 'Arima', 0.017, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.46, 'MDD': 0.577, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:57:06,947 - main - INFO - [0.3, 'Arima', 0.021, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.51, 'MDD': 0.603, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 17:59:02,437 - main - INFO - [0.3, 'Arima', 0.025, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 18:00:10,358 - main - INFO - [0.3, 'Arima', 0.021, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.31, 'MDD': 0.47, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:42:44,037 - main - INFO - [0.3, 'Arima', 0.021, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.56, 'MDD': 0.629, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:43:14,674 - main - INFO - [0.3, 'Arima', 0.017, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.86, 'MDD': 0.73, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:44:02,767 - main - INFO - [0.3, 'Arima', 0.025, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.06, 'MDD': 0.119, 'return': -0.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:45:41,433 - main - INFO - [0.3, 'Arima', 0.021, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.36, 'MDD': 0.51, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:46:18,711 - main - INFO - [0.3, 'Arima', 0.021, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.61, 'MDD': 0.65, 'return': -8.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:46:59,542 - main - INFO - [0.3, 'Arima', 0.025, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.11, 'MDD': 0.214, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:48:10,344 - main - INFO - [0.3, 'Arima', 0.017, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.91, 'MDD': 0.742, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:49:29,483 - main - INFO - [0.3, 'Arima', 0.021, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.41, 'MDD': 0.547, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:50:12,250 - main - INFO - [0.3, 'Arima', 0.025, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.16, 'MDD': 0.3, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:50:14,099 - main - INFO - [0.3, 'Arima', 0.021, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.66, 'MDD': 0.671, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:53:47,004 - main - INFO - [0.3, 'Arima', 0.025, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.21, 'MDD': 0.362, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:53:53,015 - main - INFO - [0.3, 'Arima', 0.021, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.46, 'MDD': 0.577, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:54:01,667 - main - INFO - [0.3, 'Arima', 0.017, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.017, 'sharePer': 0.96, 'MDD': 0.754, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:54:47,925 - main - INFO - [0.3, 'Arima', 0.021, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.71, 'MDD': 0.688, 'return': -9.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:58:08,663 - main - INFO - [0.3, 'Arima', 0.029, 0.01, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.01, 'MDD': 0.0, 'return': 0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:59:21,021 - main - INFO - [0.3, 'Arima', 0.025, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.26, 'MDD': 0.415, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 20:59:29,381 - main - INFO - [0.3, 'Arima', 0.025, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.51, 'MDD': 0.592, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:01:53,835 - main - INFO - [0.3, 'Arima', 0.021, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.76, 'MDD': 0.706, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:03:20,579 - main - INFO - [0.3, 'Arima', 0.029, 0.06, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.06, 'MDD': 0.092, 'return': -0.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:05:14,525 - main - INFO - [0.3, 'Arima', 0.025, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.31, 'MDD': 0.46, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:05:23,074 - main - INFO - [0.3, 'Arima', 0.025, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.56, 'MDD': 0.618, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:08:28,060 - main - INFO - [0.3, 'Arima', 0.029, 0.11, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.11, 'MDD': 0.158, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:09:34,324 - main - INFO - [0.3, 'Arima', 0.021, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.81, 'MDD': 0.718, 'return': -10.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:12:26,850 - main - INFO - [0.3, 'Arima', 0.025, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.36, 'MDD': 0.498, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:12:33,939 - main - INFO - [0.3, 'Arima', 0.025, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.61, 'MDD': 0.639, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:14:49,125 - main - INFO - [0.3, 'Arima', 0.029, 0.16, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.16, 'MDD': 0.225, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:17:30,991 - main - INFO - [0.3, 'Arima', 0.021, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.86, 'MDD': 0.732, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:18:33,893 - main - INFO - [0.3, 'Arima', 0.025, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.41, 'MDD': 0.536, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:18:37,358 - main - INFO - [0.3, 'Arima', 0.025, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.66, 'MDD': 0.659, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:19:09,497 - main - INFO - [0.3, 'Arima', 0.029, 0.21, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.21, 'MDD': 0.283, 'return': -1.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:23:17,024 - main - INFO - [0.3, 'Arima', 0.029, 0.26, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.26, 'MDD': 0.333, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:23:31,465 - main - INFO - [0.3, 'Arima', 0.025, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.46, 'MDD': 0.566, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:23:35,813 - main - INFO - [0.3, 'Arima', 0.025, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.71, 'MDD': 0.676, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:23:36,738 - main - INFO - [0.3, 'Arima', 0.021, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.91, 'MDD': 0.744, 'return': -11.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:28:08,175 - main - INFO - [0.3, 'Arima', 0.029, 0.31, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.31, 'MDD': 0.37, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:28:28,183 - main - INFO - [0.3, 'Arima', 0.029, 0.51, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.51, 'MDD': 0.495, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:30:27,902 - main - INFO - [0.3, 'Arima', 0.025, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.76, 'MDD': 0.695, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:31:39,597 - main - INFO - [0.3, 'Arima', 0.021, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.021, 'sharePer': 0.96, 'MDD': 0.755, 'return': -12.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:33:29,147 - main - INFO - [0.3, 'Arima', 0.029, 0.36, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.36, 'MDD': 0.409, 'return': -2.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:33:43,425 - main - INFO - [0.3, 'Arima', 0.029, 0.56, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.56, 'MDD': 0.521, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:35:42,500 - main - INFO - [0.3, 'Arima', 0.025, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.81, 'MDD': 0.708, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:37:38,330 - main - INFO - [0.3, 'Arima', 0.029, 0.41, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.41, 'MDD': 0.439, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:37:51,350 - main - INFO - [0.3, 'Arima', 0.029, 0.61, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.61, 'MDD': 0.545, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:40:16,642 - main - INFO - [0.3, 'Arima', 0.025, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.86, 'MDD': 0.722, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:41:18,852 - main - INFO - [0.3, 'Arima', 0.029, 0.46, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.46, 'MDD': 0.471, 'return': -3.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:41:24,896 - main - INFO - [0.3, 'Arima', 0.029, 0.66, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.66, 'MDD': 0.567, 'return': -4.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:43:16,317 - main - INFO - [0.3, 'Arima', 0.025, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.91, 'MDD': 0.734, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:43:29,567 - main - INFO - [0.3, 'Arima', 0.029, 0.71, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.71, 'MDD': 0.584, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:45:47,711 - main - INFO - [0.3, 'Arima', 0.029, 0.76, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.76, 'MDD': 0.602, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:46:01,267 - main - INFO - [0.3, 'Arima', 0.025, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.025, 'sharePer': 0.96, 'MDD': 0.746, 'return': -7.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:47:20,376 - main - INFO - [0.3, 'Arima', 0.029, 0.81, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.81, 'MDD': 0.617, 'return': -5.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:49:32,612 - main - INFO - [0.3, 'Arima', 0.029, 0.86, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.86, 'MDD': 0.633, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:51:14,286 - main - INFO - [0.3, 'Arima', 0.029, 0.91, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.91, 'MDD': 0.645, 'return': -6.0, 'possible': 0.1}
+
+MainThread # MainThread 2018-03-24 21:52:58,746 - main - INFO - [0.3, 'Arima', 0.029, 0.96, '2017-09-05', 10000, '2018-02-05', 'aapl'] SUCCESS!
+{'p': 0.029, 'sharePer': 0.96, 'MDD': 0.659, 'return': -6.0, 'possible': 0.1}
+

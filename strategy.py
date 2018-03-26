@@ -80,7 +80,7 @@ class Strategy(object):
 
 
 if __name__ == '__main__':
-    manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     # tickers = [t.lower() for t in list(pd.read_csv('stocks.csv')['Symbol'])]
     ticker = 'googl'
     k = 5

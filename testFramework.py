@@ -4,7 +4,7 @@ from arima import ArimaModel
 from mongoObjects import CollectionManager,MongoClient
 
 
-manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
 dates = manager.dates()
 ticker = 'googl'
 model = ArimaModel(1, 1, 0, ticker)

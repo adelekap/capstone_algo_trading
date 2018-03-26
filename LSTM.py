@@ -123,7 +123,7 @@ class NN(object):
 
 
 if __name__ == '__main__':
-    manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     data = create_timeseries(manager,'hal')[0]
 
     network = NN(data)

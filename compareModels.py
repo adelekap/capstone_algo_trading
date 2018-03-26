@@ -5,7 +5,7 @@ from mongoObjects import CollectionManager,MongoClient
 
 if __name__ == '__main__':
     stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
-    manager = CollectionManager('trading_results', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('trading_results', 'AlgoTradingDB')
 
     loss = 0.30
     startingCapital = 15000

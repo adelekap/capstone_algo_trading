@@ -1,4 +1,4 @@
-from mongoObjects import CollectionManager, MongoClient
+from mongoObjects import CollectionManager, MongoClient, MongoDocument
 from strategy import Strategy
 from agent import InvestorAgent
 from arima import ArimaModel
@@ -7,6 +7,13 @@ import argparse
 import utils
 import warnings
 from LSTM import NN
+from AsyncPython.logger import log
+import threading
+
+
+def save_results(dict, manager, ticker):
+    newDoc = MongoDocument(dict, ticker, [])
+    manager.insert(newDoc)
 
 
 class Environment(object):
@@ -31,18 +38,32 @@ class Environment(object):
         agent.update_assets(sum(investments) + liquid)
 
 
-def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs,neurons,plotting=False):
+def async_grid(args):
+    manager = CollectionManager('grid_search', 'AlgoTradingDB')
+    try:
+        stock = args[-1]
+        result = trade(*args)
+        log(f"{args} SUCCESS!\n{result}\n")
+        save_results(result, manager, stock)
+
+    except Exception as e:
+        log(f"{args} failed {e}")
+
+    manager.close()
+
+
+def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1, plotting=False):
     warnings.filterwarnings("ignore")
     """Initialize Environment"""
     # Data
-    manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
 
     # Time
     dates = manager.dates()
     currentDate = startDate
     startDay = dates.index(currentDate)
     stopDay = dates.index(stop)
-    bar = utils.ProgressBar(stopDay - startDay)
+    # bar = utils.ProgressBar(stopDay - startDay)
 
     results = {'p': p, 'sharePer': sharePer}
 
@@ -50,8 +71,8 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
     if statsModel == 'LSTM':
-        percent = startDay/len(dates)
-        model = NN(create_timeseries(manager,ticker)[0],percent)
+        percent = startDay / len(dates)
+        model = NN(create_timeseries(manager, ticker)[0], percent)
         batch_size = 1
         model.fit_lstm(batch_size, epochs, neurons)
 
@@ -62,7 +83,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     environment = Environment(manager, investor, startDay)
 
     # Simulate Trading Environment
-    bar.initialize()
+    # bar.initialize()
     for d in range(startDay, stopDay):
         if len(investor.positions):
             for position in investor.positions:
@@ -70,7 +91,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
                 actionDay = utils.laterDate(position.startDate,
                                             position.holdTime)  # Todo: hyperparameter? "patience"
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
-                        position.sell(investor, currentPrice)
+                    position.sell(investor, currentPrice)
 
         T = investor.strategy.arithmetic_returns(5, environment.day)
         sig = investor.signal(T)
@@ -82,9 +103,9 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
             #         if type(p) != type(investor.positions[-1]):
             #             p.sell(investor,currentPrice)
         environment.update_total_assets(investor)
-        if d!= stopDay-1:
+        if d != stopDay - 1:
             environment.increment_day(investor.strategy)
-        bar.progress()
+            # bar.progress()
 
     """PLOTTING"""
     actualPrice = avg_price_timeseries(manager, ticker, dates[startDay:stopDay])
@@ -99,11 +120,12 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     mdd = utils.MDD(investor.totalAssetHistory)
     if plotting:
         utils.plot_capital(investor.totalAssetHistory, dates[startDay:stopDay], ticker, actualPrice, gain, mdd,
-                           possible,model=statsModel)
+                           possible, model=statsModel)
     results['MDD'] = mdd
     results['return'] = expReturn
     results['possible'] = possible
 
+    manager.close()
     return (results)
 
 
@@ -112,7 +134,7 @@ if __name__ == '__main__':
 
     """Arguments"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', choices=['Arima','LSTM'], metavar='M',
+    parser.add_argument('--model', choices=['Arima', 'LSTM'], metavar='M',
                         help='predictive model to use', default='Arima', required=False)  # Todo: add other choices
     parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-01-05', required=False, type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,
@@ -123,9 +145,9 @@ if __name__ == '__main__':
     parser.add_argument('--ticker', help='stock to consider', default='aapl', type=str, required=False)
     parser.add_argument('--sharePer', help='percent possible shares to buy', default=1.0, type=float, required=False)
     parser.add_argument('--stop', help='stop date YYYY-MM-DD', default='2018-02-05', required=False, type=str)
-    parser.add_argument('--epochs',help='Number of Epochs for NN training',default=10,required=False,type=int)
-    parser.add_argument('--neurons',help='Number of neurons',default=4,required=False,type=int)
+    parser.add_argument('--epochs', help='Number of Epochs for NN training', default=10, required=False, type=int)
+    parser.add_argument('--neurons', help='Number of neurons', default=4, required=False, type=int)
     args = parser.parse_args()
 
     trade(args.loss, args.model, args.p, args.sharePer, args.startDate, args.startingCapital, args.stop, args.ticker,
-          args.epochs,args.neurons,plotting=True)
+          args.epochs, args.neurons, plotting=True)

@@ -5,6 +5,6 @@ import apiCall as api
 
 
 if __name__ == '__main__':
-    manager = CollectionManager('daily_technicals', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('daily_technicals', 'AlgoTradingDB')
     add_data(manager,function=api.iex_1d,unwantedFields=['label','average','changeOverTime',
                                                 'marketAverage','marketChangeOverTime'])

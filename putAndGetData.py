@@ -99,7 +99,7 @@ def rel_volume(manager,ticker,date):
 
 
 if __name__ == '__main__':
-    manager = CollectionManager('5Y_technicals', MongoClient()['AlgoTradingDB'])
+    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     add_data(manager,api.iex_5y,unwantedFields=['unadjustedVolume', 'change',
                                                'changePercent', 'label', 'changeOverTime'])
 
