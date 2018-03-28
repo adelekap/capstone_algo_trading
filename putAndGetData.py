@@ -50,6 +50,9 @@ def create_timeseries(manager, ticker):
         dates.append(dt.datetime.strptime(row['date']+'-04',"%Y-%m-%d-%H"))
     return series,dates
 
+def get_multifeature_data(manager,ticker):
+    data = manager.find({'ticker':ticker})[['close','high','low','open','vwap','volume']]
+    return data
 
 def get_day_stats(manager,ticker,date):
     """
