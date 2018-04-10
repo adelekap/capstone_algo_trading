@@ -3,12 +3,14 @@ from keras.callbacks import TensorBoard, EarlyStopping
 from keras.models import Sequential, Model
 from keras import optimizers
 from keras.layers import LSTM, Dense, Flatten, Dropout, Input,TimeDistributed,Reshape
+from keras.preprocessing.sequence import pad_sequences
 
 def reshape(df,y=False):
     values = df.values
     # reshape input to be 3D [samples, timesteps, features]
     if y:
         return values.reshape((1,values.shape[0],1))
+    # return values.reshape((1,values.shape[0], values.shape[1]))
     return values.reshape((1,values.shape[0], values.shape[1]))
 
 class NeuralNet(object):
@@ -33,10 +35,6 @@ class NeuralNet(object):
         self.split = split_point
         self.Xtrain, self.ytrain, self.Xval, self.yval, self.Xtest, self.ytest = self.__get_and_split_data(self.data,
                                                                                                            self.split)
-        x = self.Xtest[0][0]
-        y = self.ytest[0][0]
-        print(x)
-        print(y)
 
     def log_learning(self,hist=True):
         """For visualizing learning during development"""
@@ -60,11 +58,13 @@ class NeuralNet(object):
     def predict(self):
         x = self.Xtest[0][0]
         x = x.reshape(1,1,6)
-        y = self.ytest[0][0]
+        x = pad_sequences(x, maxlen=self.Xtrain.shape[1])
+        y = self.ytest[0][0][0]
         print('PREDICTED:')
-        print(self.model.predict(x))
+        t = self.model.predict(x)
+        print(self.model.predict(x)[0][-1])
         print('ACTUAL:')
-        print(y[0][0][0])
+        print(y)
         return self.model.predict(x)
 
 if __name__ == '__main__':
