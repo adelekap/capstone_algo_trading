@@ -70,10 +70,12 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     # Predictive Model
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
+        k=5
     if statsModel == 'LSTM':
         model = NeuralNet(ticker,manager,startDay)
         model.create_network()
         model.train_network()
+        k=1
 
     # Investor, Strategy and Trading Environment
     stopLoss = (1 - loss) * startingCapital
@@ -92,7 +94,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
                     position.sell(investor, currentPrice)
 
-        T = investor.strategy.arithmetic_returns(5, environment.day)
+        T = investor.strategy.arithmetic_returns(k, environment.day)
         sig = investor.signal(T)
         if sig != 0:
             investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,

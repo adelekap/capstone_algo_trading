@@ -40,18 +40,17 @@ class Strategy(object):
         for j in range(1, k + 1):
             d = utils.laterDate(self.currentDate, j)
             if type(self.predModel) == NeuralNet:
-                predictedClose = self.predModel.predict(date)
-                predictedHigh = self.predModel.predict([self.highs[date]])
-                predictedLow = self.predModel.predict([self.lows[date]])
+                predictedAvgPrice = self.predModel.predict(date)
             else:
                 predictedClose = self.predModel.fit(self.closes[:date] + predC)
                 predictedHigh = self.predModel.fit(self.highs[:date] + predH)
                 predictedLow = self.predModel.fit(self.lows[:date] + predL)
-            predictedAvgPrice = self.daily_avg_price(d, predictedClose, predictedHigh, predictedLow)
+                predictedAvgPrice = self.daily_avg_price(d, predictedClose, predictedHigh, predictedLow)
+                predC.append(predictedClose)
+                predH.append(predictedHigh)
+                predL.append(predictedLow)
             Vi.append((predictedAvgPrice - close) / close)
-            predC.append(predictedClose)
-            predH.append(predictedHigh)
-            predL.append(predictedLow)
+
         significantReturns = [v for v in Vi if abs(v) > self.p]
         return (sum(significantReturns))
 
