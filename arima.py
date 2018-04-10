@@ -3,7 +3,9 @@ import pandas as pd
 import pandas.tools.plotting as pdplot
 from statsmodels.tsa.arima_model import ARIMA
 from sklearn.metrics import mean_squared_error
-from statsmodels.graphics.tsaplots import plot_pacf
+from statsmodels.graphics.tsaplots import plot_pacf, plot_acf
+from mongoObjects import CollectionManager
+from putAndGetData import create_timeseries
 
 
 class ArimaModel(object):
@@ -16,16 +18,17 @@ class ArimaModel(object):
     def plot_timeseries(self,series):
         plt.plot(range(1, len(series) + 1), series)
         plt.title(self.ticker)
+        plt.savefig('plots/ARIMA/{0}.pdf'.format(self.ticker))
         plt.show()
 
     def plot_autocorr(self,series):
-        pdplot.autocorrelation_plot(series)
+        plot_acf(series,lags=range(0,2500,50),alpha=0.9)
         plt.title(self.ticker + ' Autocorrelation Plot')
         plt.savefig('plots/ARIMA/{0}Autocor.pdf'.format(self.ticker))
         plt.close()
 
     def plot_partial_autocorr(self,series):
-        plot_pacf(series, lags=50)
+        plot_pacf(series, lags=range(0,2500,50),alpha=0.9)
         plt.title(self.ticker + ' Partial Autocorrelation')
         plt.savefig('plots/ARIMA/{0}ParAutocor.pdf'.format(self.ticker))
         plt.close()
@@ -77,8 +80,17 @@ class ArimaModel(object):
         ax1.plot(dates[:size + 1], train[:size + 1], label='Training data', color='black')
         ax2.plot(testDates, test, label='Test data', color='blue')
         ax3.plot(testDates, predictions[:len(testDates)], color='red', label='ARIMA Predictions')
-        plt.legend()
+        plt.legend(loc=4)
         plt.text(min(dates), max(train), 'Test MSE = ' + str(error))
         plt.title('{0} ARIMA({1},{2},{3})'.format(self.ticker, self.p, self.d, self.q))
         plt.savefig('plots/ARIMA/{0}Arima.pdf'.format(self.ticker))
         plt.close()
+
+if __name__ == '__main__':
+    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
+    model = ArimaModel(1,1,0,'googl')
+    data = create_timeseries(manager,'googl')[0]
+    # model.plot_timeseries(data)
+    # model.plot_autocorr(data)
+    # model.plot_partial_autocorr(data)
+    model.fit_and_plot(data,create_timeseries(manager,'googl')[1])

@@ -1,137 +1,78 @@
-from putAndGetData import create_timeseries
-from mongoObjects import CollectionManager,MongoClient
-import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
-import numpy as np
+from putAndGetData import get_multifeature_data
+from keras.callbacks import TensorBoard, EarlyStopping
+from keras.models import Sequential, Model
+from keras import optimizers
+from keras.layers import LSTM, Dense, Flatten, Dropout, Input,TimeDistributed,Reshape
 
+def reshape(df,y=False):
+    values = df.values
+    # reshape input to be 3D [samples, timesteps, features]
+    if y:
+        return values.reshape((1,values.shape[0],1))
+    return values.reshape((1,values.shape[0], values.shape[1]))
 
-class NN(object):
-    #Todo: Add set for RSME before predictions
-    def __transform_data(self,data:list,trainPercent):
-        trainIndex = int(trainPercent * len(data))
-        self.rawTrain = data[:trainIndex]
-        self.rawTest = data[trainIndex:]
-        diff_values = self.difference(data)  # Make timeseries stationary
-        train = self.timeseries_to_supervised(diff_values[:trainIndex+1])
-        test = self.timeseries_to_supervised(diff_values[trainIndex:])
-        train_scaled, test_scaled = self.scale(train.values,test.values)
-        return train_scaled, test_scaled
+class NeuralNet(object):
+    def __get_and_split_data(self,data,split):
+        valPoint = int(split * .85)
+        Xtrain = reshape(data[:valPoint])
+        ytrain = reshape(data[1:valPoint + 1]['vwap'],True)
 
-    def __init__(self,data:list,trainPercent=0.75):
-        self.raw_data = data
-        self.rawTrain = None
-        self.rawTest = None
-        self.scaler = MinMaxScaler(feature_range=(-1, 1))
-        self.train, self.test = self.__transform_data(data,trainPercent)
-        self.model = None
+        Xval = reshape(data[valPoint:split])
+        yval = reshape(data[valPoint+1:split+1]['vwap'],True)
 
+        Xtest = reshape(data[split:-1])
+        ytest = reshape(data[split + 1:]['vwap'],True)
+        return Xtrain,ytrain,Xval,yval,Xtest,ytest
 
-    def timeseries_to_supervised(self,data:list,lag=1):
-        """
-        Makes the list of prices into a supervised (labeled) dataset.
-        X = price for the day
-        Y = what the prediction should be for the next day
-        :param data: list of prices for the ticker
-        :return: supervised dataset (as a dataframe)
-        """
-        df = pd.DataFrame()
-        df['X'] = data
-        df['Y'] = data[1:]+[None]
-        df = df[:-1]
-        return df
+    def __init__(self,ticker,manager,split_point):
+        self.manager = manager
+        self.ticker = ticker
+        self.data = get_multifeature_data(manager,ticker)
+        self.model = Sequential()
+        self.history = None
+        self.split = split_point
+        self.Xtrain, self.ytrain, self.Xval, self.yval, self.Xtest, self.ytest = self.__get_and_split_data(self.data,
+                                                                                                           self.split)
+        x = self.Xtest[0][0]
+        y = self.ytest[0][0]
+        print(x)
+        print(y)
 
-    def difference(self,data:list):
-        """
-        Differences the timeseries so it is stationary
-        :param data: list of timeseries points
-        :return: differenced timeseries
-        """
-        diff = list()
-        for i in range(1, len(data)):
-            value = data[i] - data[i - 1]
-            diff.append(value)
-        return diff
+    def log_learning(self,hist=True):
+        """For visualizing learning during development"""
+        # ./tensorboard --logdir='/Users/adelekap/Documents/capstone_algo_trading/logs' --host localhost
+        return TensorBoard(log_dir='./logs', histogram_freq=10, write_grads=hist,
+                           write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+                           embeddings_metadata=None)
 
-    def invert(self,history:list,yhat:float,interval=1):
-        return yhat + history[-interval]
+    def create_network(self):
+        opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
+        self.model.add(LSTM(6,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        self.model.add(TimeDistributed(Dense(1)))
+        self.model.compile(loss='mean_squared_error', optimizer=opt)
+        print(self.model.summary())
 
-    def scale(self,train, test):
-        """
-        Scale the data for the NN
-        :param train:
-        :param test:
-        :return:
-        """
-        # fit scaler
-        self.scaler = self.scaler.fit(train)
-        # transform train
-        train = train.reshape(train.shape[0], train.shape[1])
-        train_scaled = self.scaler.transform(train)
-        # transform test
-        test = test.reshape(test.shape[0], test.shape[1])
-        test_scaled = self.scaler.transform(test)
-        return train_scaled, test_scaled
+    def train_network(self):
+        earlyStop = EarlyStopping(monitor='val_loss', min_delta=0.001, patience=50, verbose=1, mode='auto')
+        # self.history = self.model.fit(self.Xtrain,self.ytrain,epochs=500,verbose=False, batch_size=100) Todo: change
+        self.model.fit(self.Xtrain,self.ytrain,epochs=50,batch_size=10,verbose=False)
 
-    def invert_scale(self, X, value):
-        """
-        Revert back to the original scale.
-        :param X: Scaled prices
-        :param value:
-        :return: unscaled prices
-        """
-        new_row = [x for x in X] + [value]
-        array = np.array(new_row)
-        array = array.reshape(1, len(array))
-        inverted = self.scaler.inverse_transform(array)
-        return inverted[0, -1]
-
-    def fit_lstm(self,batch_size, nb_epoch, neurons):
-        """
-        Trains the LSTM
-        :param batch_size: size of minibatch
-        :param nb_epoch: number of epochs
-        :param neurons: number of neurons
-        :return: None
-        """
-        X, y = self.train[:, 0:-1], self.train[:, -1]
-        X = X.reshape(X.shape[0], 1, X.shape[1])
-        model = Sequential()
-        model.add(LSTM(neurons, batch_input_shape=(batch_size, X.shape[1], X.shape[2]), stateful=True))
-        model.add(Dense(1))
-        model.compile(loss='mean_squared_error', optimizer='adam')
-        for i in range(nb_epoch):
-            model.fit(X, y, epochs=1, batch_size=batch_size, verbose=0, shuffle=False)
-            model.reset_states()
-        self.model = model
-        train_reshaped = self.train[:, 0].reshape(len(self.train), 1, 1)
-        self.model.predict(train_reshaped, batch_size=1)
-
-    def fit(self, X:list):
-        """
-        A one step forecast into the future.
-        """
-        X = np.array([X])
-        X = X.reshape(1, 1, len(X))
-        yhat = self.model.predict(X, batch_size=1)[0,0]
-        yhat = self.invert_scale(X, yhat)
-        yhat = self.invert(self.raw_data, yhat, len(self.test) + 1 - 0)
-        return yhat
-
-
+    def predict(self):
+        x = self.Xtest[0][0]
+        x = x.reshape(1,1,6)
+        y = self.ytest[0][0]
+        print('PREDICTED:')
+        print(self.model.predict(x))
+        print('ACTUAL:')
+        print(y[0][0][0])
+        return self.model.predict(x)
 
 if __name__ == '__main__':
+    from mongoObjects import CollectionManager
+    startDay = 500
+    ticker='googl'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
-    data = create_timeseries(manager,'hal')[0]
-
-    network = NN(data)
-    network.fit_lstm(1, 10, 4)
-    print(np.mean(data))
-
-    # point = network.test[0, 0:-1]
-    test = np.array([50])
-    prediction = network.fit(test)
-
-    print(prediction)
+    model = NeuralNet(ticker, manager, startDay)
+    model.create_network()
+    model.train_network()
+    model.predict()

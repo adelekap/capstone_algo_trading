@@ -6,7 +6,7 @@ from putAndGetData import avg_price_timeseries, create_timeseries
 import argparse
 import utils
 import warnings
-from LSTM import NN
+from LSTM import NeuralNet
 from AsyncPython.logger import log
 import threading
 
@@ -71,10 +71,9 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
     if statsModel == 'LSTM':
-        percent = startDay / len(dates)
-        model = NN(create_timeseries(manager, ticker)[0], percent)
-        batch_size = 1
-        model.fit_lstm(batch_size, epochs, neurons)
+        model = NeuralNet(ticker,manager,startDay)
+        model.create_network()
+        model.train_network()
 
     # Investor, Strategy and Trading Environment
     stopLoss = (1 - loss) * startingCapital
@@ -98,10 +97,6 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         if sig != 0:
             investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
                                             sharePer)
-            # if len(investor.positions)>1:
-            #     for p in investor.positions[:-1]:
-            #         if type(p) != type(investor.positions[-1]):
-            #             p.sell(investor,currentPrice)
         environment.update_total_assets(investor)
         if d != stopDay - 1:
             environment.increment_day(investor.strategy)

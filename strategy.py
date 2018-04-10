@@ -7,7 +7,7 @@ import utils
 from datetime import datetime as dt
 from datetime import timedelta
 from putAndGetData import rel_volume
-from LSTM import NN
+from LSTM import NeuralNet
 
 
 class Strategy(object):
@@ -39,10 +39,10 @@ class Strategy(object):
         predL = []
         for j in range(1, k + 1):
             d = utils.laterDate(self.currentDate, j)
-            if type(self.predModel) == NN:
-                predictedClose = self.predModel.fit(close)
-                predictedHigh = self.predModel.fit(self.highs[date])
-                predictedLow = self.predModel.fit(self.lows[date])
+            if type(self.predModel) == NeuralNet:
+                predictedClose = self.predModel.predict(date)
+                predictedHigh = self.predModel.predict([self.highs[date]])
+                predictedLow = self.predModel.predict([self.lows[date]])
             else:
                 predictedClose = self.predModel.fit(self.closes[:date] + predC)
                 predictedHigh = self.predModel.fit(self.highs[:date] + predH)
@@ -59,7 +59,6 @@ class Strategy(object):
         v = rel_volume(self.manager, self.ticker, date) #higher means higher than average volume
         buyingPower = agent.buying_power(date)
         shareNum = int(v*buyingPower*sharePercent)
-        # shareNum = int(agent.buying_power(date) * sharePercent) #original
         if shareNum == 0:
             return None
         if signal == 1:
