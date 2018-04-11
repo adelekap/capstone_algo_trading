@@ -78,6 +78,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         k=1
     if statsModel == 'SVM':
         model = SVM(100,0.01,ticker,manager,startDay)
+        model.fit()
         k=5
 
     # Investor, Strategy and Trading Environment

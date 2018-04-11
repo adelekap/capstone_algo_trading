@@ -8,12 +8,24 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy.interpolate import interp1d
 import seaborn as sns
 from mongoObjects import MongoDocument
+import pandas as pd
 
 def laterDate(date, j):
     ds = [int(d) for d in date.split('-')]
     date = dt.datetime(ds[0], ds[1], ds[2])
     return str(date + dt.timedelta(days=j))[:10]
 
+def diff_multifeature(dataset,interval=1):
+    differenced = pd.DataFrame()
+    features = list(dataset.columns.values)
+    for feature in features:
+        series = dataset[feature]
+        diff = list()
+        for i in range(interval, len(series)):
+            value = series[i] - series[i - interval]
+            diff.append(value)
+        differenced[feature] = diff
+    return differenced
 
 def split(timeseries: list, percent: float):
     l = len(timeseries)
