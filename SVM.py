@@ -32,8 +32,11 @@ class SVM(object):
         self.model.fit(self.Xtrain,self.ytrain)
 
     def predict(self,D):
-        d = D - len(self.Xtrain)
-        x = self.Xtest[d].reshape(1,6)
+        d = D - len(self.Xtrain)-1
+        if d == -1:
+            x = self.Xtrain[len(self.Xtrain) - 1].reshape(1,6)
+        else:
+            x = self.Xtest[d].reshape(1,6)
         diff_pred = self.model.predict(x)
         prediction = D + diff_pred
         return prediction

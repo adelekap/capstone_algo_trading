@@ -8,6 +8,7 @@ from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import pandas as pd
 import matplotlib.pyplot as plt
 from keras import backend
+from utils import diff_multifeature
 
 def reshape(df,y=False):
     values = df.values
@@ -44,8 +45,9 @@ class NeuralNet(object):
     def __init__(self,ticker,manager,split_point):
         self.manager = manager
         self.ticker = ticker
-        self.data = get_multifeature_data(manager,ticker)
-        self.scaledData = pd.DataFrame(self.__scale_data())
+        self.nonStationaryData = get_multifeature_data(manager,ticker)
+        # self.scaledData = pd.DataFrame(self.__scale_data())
+        self.data = diff_multifeature(self.nonStationaryData)
         self.model = Sequential()
         self.history = None
         self.split = split_point
@@ -95,14 +97,13 @@ class NeuralNet(object):
         x = self.Xtest[0][d]
         x = x.reshape(1,1,6)
         x = pad_sequences(x, maxlen=self.Xtrain.shape[1])
-        y = self.ytest[0][d][0]
         prediction = self.model.predict(x)
         prediction = prediction[0][-1]
         return prediction[0]
 
 if __name__ == '__main__':
     from mongoObjects import CollectionManager
-    startDay = 500
+    startDay = 100
     ticker='googl'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     model = NeuralNet(ticker, manager, startDay)
