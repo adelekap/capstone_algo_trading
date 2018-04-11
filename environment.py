@@ -8,7 +8,7 @@ import utils
 import warnings
 from LSTM import NeuralNet
 from AsyncPython.logger import log
-import threading
+from SVM import SVM
 
 
 def save_results(dict, manager, ticker):
@@ -76,6 +76,9 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         model.create_network()
         model.train_network()
         k=1
+    if statsModel == 'SVM':
+        model = SVM(100,0.01,ticker,manager,startDay)
+        k=5
 
     # Investor, Strategy and Trading Environment
     stopLoss = (1 - loss) * startingCapital
@@ -131,7 +134,7 @@ if __name__ == '__main__':
 
     """Arguments"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', choices=['Arima', 'LSTM'], metavar='M',
+    parser.add_argument('--model', choices=['Arima', 'LSTM','SVM'], metavar='M',
                         help='predictive model to use', default='Arima', required=False)  # Todo: add other choices
     parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-01-05', required=False, type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,

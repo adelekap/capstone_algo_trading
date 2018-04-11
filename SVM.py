@@ -30,12 +30,12 @@ class SVM(object):
         self.model.fit(self.Xtrain,self.ytrain)
 
     def predict(self,D):
-        d = D - (len(self.Xtrain.shape) + len(self.Xval.shape[1]))
+        d = D - len(self.Xtrain)
         self.model.predict(self.Xtest[d])
 
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
-    mod = SVM(1.0,0.2,'googl',manager,1000)
+    mod = SVM(50.0,0.01,'googl',manager,1000)
     mod.test_and_error()
 

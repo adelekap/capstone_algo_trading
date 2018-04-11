@@ -8,7 +8,7 @@ from datetime import datetime as dt
 from datetime import timedelta
 from putAndGetData import rel_volume
 from LSTM import NeuralNet
-
+from SVM import SVM
 
 class Strategy(object):
     def __init__(self, predictionModel, manager, ticker, currentDate, stopLoss, p=0.02, train_size=0.8, patience=10):
@@ -40,6 +40,8 @@ class Strategy(object):
         for j in range(1, k + 1):
             d = utils.laterDate(self.currentDate, j)
             if type(self.predModel) == NeuralNet:
+                predictedAvgPrice = self.predModel.predict(date)
+            elif type(self.predModel) == SVM:
                 predictedAvgPrice = self.predModel.predict(date)
             else:
                 predictedClose = self.predModel.fit(self.closes[:date] + predC)
