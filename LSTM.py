@@ -27,9 +27,6 @@ def undifference(first,series):
         undifferenced.append(first+num)
     return undifferenced
 
-
-
-
 class NeuralNet(object):
     def scale(self,df):
         values = df.values
@@ -38,11 +35,14 @@ class NeuralNet(object):
 
     def unscale(self,series):
         padded = pd.DataFrame()
-        padded['unscaled'] = series.reshape(1,len(series))
-        for i in range(6):
+        reshaped = series.reshape(1,len(series))[0]
+        for i in range(4):
             padded[i] = [0 for j in range(len(series))]
-        unscaled = self.scaler.inverse_transform(padded.values)
-        return unscaled
+        padded['unscaled'] = reshaped
+        padded[5] = [0 for j in range(len(series))]
+        unscaled = pd.DataFrame(self.scaler.inverse_transform(padded.values))
+        unscaled = unscaled.iloc[:,4]
+        return list(unscaled)
 
     def __get_and_split_data(self,data,split):
         valPoint = int(split * .85)
@@ -81,7 +81,7 @@ class NeuralNet(object):
         self.train_network(dev=False) #toggle dev
         raw_predictions = self.model.predict(pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1]))[0]
         unscaled_predictions = self.unscale(raw_predictions)
-        predictions = undifference(self.rawData[self.split],unscaled_predictions)
+        predictions = undifference(self.rawData.iloc[self.split,4],unscaled_predictions)
         plt.plot(self.history.history['rmse'])
         plt.plot(self.history.history['val_rmse'])
         plt.title('model loss')
@@ -91,10 +91,13 @@ class NeuralNet(object):
         plt.savefig('plots/LSTM/trainTestLoss.pdf')
         plt.show()
 
-        days = create_timeseries(self.ticker)[1]
+        days = create_timeseries(self.manager,self.ticker)[1]
         actual = self.rawData['vwap']
-        plt.plot(days,actual,color='black')
-        plt.plot(days[len(predictions):],predictions,color='red')
+        plt.plot(days,actual,color='black',label='Actual')
+        plt.plot(days[len(predictions):],predictions,color='red',label='LSTM predictions')
+        plt.xlabel('day')
+        plt.ylabel('price')
+        plt.savefig('plots/LSTM/performance.pdf')
         plt.show()
 
 
