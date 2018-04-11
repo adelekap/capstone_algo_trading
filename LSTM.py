@@ -77,7 +77,7 @@ class NeuralNet(object):
 
 
     def create_network(self):
-        opt = optimizers.SGD(lr=0.04, momentum=0.6)
+        opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
         self.model.add(LSTM(48,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
         self.model.add(Dropout(0.4))
         self.model.add(TimeDistributed(Dense(1)))
