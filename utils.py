@@ -27,6 +27,7 @@ def diff_multifeature(dataset,interval=1):
         differenced[feature] = diff
     return differenced
 
+
 def split(timeseries: list, percent: float):
     l = len(timeseries)
     index = round(l * percent)

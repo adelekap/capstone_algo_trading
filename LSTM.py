@@ -1,4 +1,4 @@
-from putAndGetData import get_multifeature_data
+from putAndGetData import get_multifeature_data,create_timeseries
 from keras.callbacks import TensorBoard, EarlyStopping
 from keras.models import Sequential, Model
 from keras import optimizers
@@ -21,14 +21,28 @@ def reshape(df,y=False):
 def rmse(y_true, y_pred):
 	return backend.sqrt(backend.mean(backend.square(y_pred - y_true), axis=-1))
 
+def undifference(first,series):
+    undifferenced = [first]
+    for num in series:
+        undifferenced.append(first+num)
+    return undifferenced
+
+
+
+
 class NeuralNet(object):
-    def __scale_data(self):
-        values = self.data.values
-        encoder = LabelEncoder()
-        values[:, 4] = encoder.fit_transform(values[:, 4])
-        values = values.astype('float32')
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        return scaler.fit_transform(values)
+    def scale(self,df):
+        values = df.values
+        scaled = self.scaler.fit_transform(values)
+        return scaled
+
+    def unscale(self,series):
+        padded = pd.DataFrame()
+        padded['unscaled'] = series.reshape(1,len(series))
+        for i in range(6):
+            padded[i] = [0 for j in range(len(series))]
+        unscaled = self.scaler.inverse_transform(padded.values)
+        return unscaled
 
     def __get_and_split_data(self,data,split):
         valPoint = int(split * .85)
@@ -43,11 +57,12 @@ class NeuralNet(object):
         return Xtrain,ytrain,Xval,yval,Xtest,ytest
 
     def __init__(self,ticker,manager,split_point):
+        self.scaler = MinMaxScaler(feature_range=(0, 1))
         self.manager = manager
         self.ticker = ticker
-        self.nonStationaryData = get_multifeature_data(manager,ticker)
-        # self.scaledData = pd.DataFrame(self.__scale_data())
-        self.data = diff_multifeature(self.nonStationaryData)
+        self.rawData = get_multifeature_data(manager,ticker)
+        self.differencedData = diff_multifeature(self.rawData)
+        self.data = pd.DataFrame(self.scale(self.differencedData))
         self.model = Sequential()
         self.history = None
         self.split = split_point
@@ -63,13 +78,12 @@ class NeuralNet(object):
 
     def test_and_error(self):
         self.create_network()
-        self.train_network()
-        self.model.predict(pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1]))
+        self.train_network(dev=False) #toggle dev
+        raw_predictions = self.model.predict(pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1]))[0]
+        unscaled_predictions = self.unscale(raw_predictions)
+        predictions = undifference(self.rawData[self.split],unscaled_predictions)
         plt.plot(self.history.history['rmse'])
-        plt.savefig('plots/LSTM/rmse.pdf')
-        plt.show()
-        plt.plot(self.history.history['loss'])
-        plt.plot(self.history.history['val_loss'])
+        plt.plot(self.history.history['val_rmse'])
         plt.title('model loss')
         plt.ylabel('loss')
         plt.xlabel('epoch')
@@ -77,19 +91,25 @@ class NeuralNet(object):
         plt.savefig('plots/LSTM/trainTestLoss.pdf')
         plt.show()
 
+        days = create_timeseries(self.ticker)[1]
+        actual = self.rawData['vwap']
+        plt.plot(days,actual,color='black')
+        plt.plot(days[len(predictions):],predictions,color='red')
+        plt.show()
+
 
     def create_network(self):
         opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
-        self.model.add(LSTM(48,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
-        self.model.add(Dropout(0.4))
-        self.model.add(TimeDistributed(Dense(1)))
+        self.model.add(LSTM(36,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        self.model.add(Dropout(0.6))
+        self.model.add(TimeDistributed(Dense(1,activation = 'linear')))
         self.model.compile(loss='mean_squared_error', optimizer=opt,metrics=[rmse])
         print(self.model.summary())
 
-    def train_network(self):
+    def train_network(self,dev=False):
         validationX = pad_sequences(self.Xval,maxlen=self.Xtrain.shape[1])
         validationy = pad_sequences(self.yval,maxlen=self.ytrain.shape[1])
-        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=2000, batch_size=50, verbose=False,
+        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=100, batch_size=1, verbose=dev,
                                       validation_data =(validationX,validationy))
 
     def predict(self,D):
@@ -98,12 +118,12 @@ class NeuralNet(object):
         x = x.reshape(1,1,6)
         x = pad_sequences(x, maxlen=self.Xtrain.shape[1])
         prediction = self.model.predict(x)
-        prediction = prediction[0][-1]
+        prediction = prediction[0][-1] #Todo: fix
         return prediction[0]
 
 if __name__ == '__main__':
     from mongoObjects import CollectionManager
-    startDay = 100
+    startDay = 800
     ticker='googl'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     model = NeuralNet(ticker, manager, startDay)
