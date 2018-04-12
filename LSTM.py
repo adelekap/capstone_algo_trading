@@ -9,6 +9,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from keras import backend
 from utils import diff_multifeature
+import numpy as np
 
 def reshape(df,y=False):
     values = df.values
@@ -24,8 +25,16 @@ def rmse(y_true, y_pred):
 def undifference(first,series):
     undifferenced = [first]
     for num in series:
-        undifferenced.append(first+num)
-    return undifferenced
+        lastItem = undifferenced[-1]
+        undifferenced.append(lastItem+num)
+    return undifferenced[1:]
+
+def pad(sequence,maxlen):
+    sequence = list(sequence)
+    length = maxlen - len(sequence)
+    padding = [[0,0,0,0,0,0] for i in range(length)]
+    padded_array = np.array([sequence+padding])
+    return padded_array
 
 class NeuralNet(object):
     def scale(self,df):
@@ -78,8 +87,10 @@ class NeuralNet(object):
 
     def test_and_error(self):
         self.create_network()
-        self.train_network(dev=False) #toggle dev
-        raw_predictions = self.model.predict(pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1]))[0]
+        self.train_network(dev=False)
+        # paddedSequence = pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1])
+        paddedSequence = pad(self.Xtest[0],self.Xtrain.shape[1])
+        raw_predictions = self.model.predict(paddedSequence)[0][:457]
         unscaled_predictions = self.unscale(raw_predictions)
         predictions = undifference(self.rawData.iloc[self.split,4],unscaled_predictions)
         plt.plot(self.history.history['rmse'])
@@ -92,9 +103,10 @@ class NeuralNet(object):
         plt.show()
 
         days = create_timeseries(self.manager,self.ticker)[1]
-        actual = self.rawData['vwap']
+        days = [str(days[x])[:10] for x in range(0,len(days),2)]
+        actual = list(self.rawData['vwap'])
         plt.plot(days,actual,color='black',label='Actual')
-        plt.plot(days[len(predictions):],predictions,color='red',label='LSTM predictions')
+        plt.plot(days[self.split+3:],predictions[1:],color='red',label='LSTM predictions')
         plt.xlabel('day')
         plt.ylabel('price')
         plt.savefig('plots/LSTM/performance.pdf')
@@ -105,14 +117,14 @@ class NeuralNet(object):
         opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
         self.model.add(LSTM(36,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
         self.model.add(Dropout(0.6))
-        self.model.add(TimeDistributed(Dense(1,activation = 'linear')))
+        self.model.add(TimeDistributed(Dense(1,activation = 'tanh')))
         self.model.compile(loss='mean_squared_error', optimizer=opt,metrics=[rmse])
         print(self.model.summary())
 
     def train_network(self,dev=False):
         validationX = pad_sequences(self.Xval,maxlen=self.Xtrain.shape[1])
         validationy = pad_sequences(self.yval,maxlen=self.ytrain.shape[1])
-        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=100, batch_size=1, verbose=dev,
+        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=50, batch_size=1, verbose=dev,
                                       validation_data =(validationX,validationy))
 
     def predict(self,D):
