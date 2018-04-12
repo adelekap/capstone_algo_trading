@@ -85,7 +85,7 @@ class NeuralNet(object):
                            write_images=False, embeddings_freq=0, embeddings_layer_names=None,
                            embeddings_metadata=None)
 
-    def test_and_error(self):
+    def test_and_error(self,epochs=500):
         self.create_network()
         self.train_network(dev=False)
         # paddedSequence = pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1])
@@ -98,6 +98,7 @@ class NeuralNet(object):
         plt.title('model loss')
         plt.ylabel('loss')
         plt.xlabel('epoch')
+        plt.xlim(1,epochs)
         plt.legend(['train', 'test'], loc='upper left')
         plt.savefig('plots/LSTM/trainTestLoss.pdf')
         plt.show()
@@ -116,24 +117,24 @@ class NeuralNet(object):
     def create_network(self):
         opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
         self.model.add(LSTM(36,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
-        self.model.add(Dropout(0.6))
+        self.model.add(Dropout(0.3))
         self.model.add(TimeDistributed(Dense(1,activation = 'tanh')))
         self.model.compile(loss='mean_squared_error', optimizer=opt,metrics=[rmse])
         print(self.model.summary())
 
-    def train_network(self,dev=False):
+    def train_network(self,epochs=500,dev=False):
         validationX = pad_sequences(self.Xval,maxlen=self.Xtrain.shape[1])
         validationy = pad_sequences(self.yval,maxlen=self.ytrain.shape[1])
-        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=50, batch_size=1, verbose=dev,
+        self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=1, verbose=dev,
                                       validation_data =(validationX,validationy))
 
-    def predict(self,D):
+    def predict(self,D): # Todo: COMPLETELY FIX
         d = D - (self.Xtrain.shape[1] + self.Xval.shape[1])
         x = self.Xtest[0][d]
         x = x.reshape(1,1,6)
         x = pad_sequences(x, maxlen=self.Xtrain.shape[1])
         prediction = self.model.predict(x)
-        prediction = prediction[0][-1] #Todo: fix
+        prediction = prediction[0][-1]
         return prediction[0]
 
 if __name__ == '__main__':
