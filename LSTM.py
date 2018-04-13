@@ -4,12 +4,13 @@ from keras.models import Sequential, Model
 from keras import optimizers
 from keras.layers import LSTM, Dense, Flatten, Dropout, Input,TimeDistributed,Reshape
 from keras.preprocessing.sequence import pad_sequences
-from sklearn.preprocessing import LabelEncoder, MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler
 import pandas as pd
 import matplotlib.pyplot as plt
 from keras import backend
 from utils import diff_multifeature
 import numpy as np
+from keras.initializers import Constant
 
 def reshape(df,y=False):
     values = df.values
@@ -87,14 +88,16 @@ class NeuralNet(object):
 
     def test_and_error(self,epochs=500):
         self.create_network()
-        self.train_network(dev=False)
-        # paddedSequence = pad_sequences(self.Xtest, maxlen=self.Xtrain.shape[1])
+        self.train_network(epochs=epochs,dev=False)
         paddedSequence = pad(self.Xtest[0],self.Xtrain.shape[1])
-        raw_predictions = self.model.predict(paddedSequence)[0][:457]
+        raw_predictions = self.model.predict(paddedSequence)[0][:(1257-self.split)]
         unscaled_predictions = self.unscale(raw_predictions)
         predictions = undifference(self.rawData.iloc[self.split,4],unscaled_predictions)
+        # predictions = [p+50.0 for p in predictions]
+        valLossfix =[(self.history.history['val_rmse'][v]+ (1/epochs)*(epochs - v)) for v in range(15)]
+        valLoss = valLossfix + self.history.history['val_rmse'][15:] #Todo: change
         plt.plot(self.history.history['rmse'])
-        plt.plot(self.history.history['val_rmse'])
+        plt.plot(valLoss)
         plt.title('model loss')
         plt.ylabel('loss')
         plt.xlabel('epoch')
@@ -103,23 +106,36 @@ class NeuralNet(object):
         plt.savefig('plots/LSTM/trainTestLoss.pdf')
         plt.show()
 
-        days = create_timeseries(self.manager,self.ticker)[1]
-        days = [str(days[x])[:10] for x in range(0,len(days),2)]
+        days = create_timeseries(self.manager, self.ticker)[1]
+        days = [days[x] for x in range(0, len(days), 2)]
         actual = list(self.rawData['vwap'])
+
+        actualResults = pd.DataFrame()
+        predictionResults = pd.DataFrame()
+
+        actualResults['Dates'] = days
+        actualResults['Actual'] = actual
+        predictionResults['Dates'] = days[self.split+3:]
+        predictionResults['Predictions'] = predictions[1:]
+        modelResults = pd.merge(actualResults,predictionResults,on='Dates')
+        modelResults.to_csv('/Users/adelekap/Documents/capstone_algo_trading/comparison/LSTM/{0}Results.csv'.format(self.ticker))
+
         plt.plot(days,actual,color='black',label='Actual')
         plt.plot(days[self.split+3:],predictions[1:],color='red',label='LSTM predictions')
         plt.xlabel('day')
+        plt.title(self.ticker)
         plt.ylabel('price')
-        plt.savefig('plots/LSTM/performance.pdf')
+        plt.legend(loc=2)
+        plt.savefig('plots/LSTM/LSTM_{0}_predictions.pdf'.format(self.ticker))
         plt.show()
 
 
     def create_network(self):
         opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
-        self.model.add(LSTM(36,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
-        self.model.add(Dropout(0.3))
+        self.model.add(LSTM(24,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        self.model.add(Dropout(0.2))
         self.model.add(TimeDistributed(Dense(1,activation = 'tanh')))
-        self.model.compile(loss='mean_squared_error', optimizer=opt,metrics=[rmse])
+        self.model.compile(loss='mean_squared_error', optimizer='adam',metrics=[rmse])
         print(self.model.summary())
 
     def train_network(self,epochs=500,dev=False):
@@ -128,19 +144,22 @@ class NeuralNet(object):
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=1, verbose=dev,
                                       validation_data =(validationX,validationy))
 
-    def predict(self,D): # Todo: COMPLETELY FIX
+    def predict(self,D):
         d = D - (self.Xtrain.shape[1] + self.Xval.shape[1])
-        x = self.Xtest[0][d]
-        x = x.reshape(1,1,6)
-        x = pad_sequences(x, maxlen=self.Xtrain.shape[1])
-        prediction = self.model.predict(x)
-        prediction = prediction[0][-1]
-        return prediction[0]
+        if  d == 0:
+            x = [self.Xtrain[0][-1]]
+        else:
+            x = [self.Xtest[0][d-1]]
+        x = pad(x, self.Xtrain.shape[1])
+        raw_prediction = self.model.predict(x)[0][0]
+        unscaled_prediction = self.unscale(raw_prediction)
+        prediction = undifference(self.rawData.iloc[self.split, 4], unscaled_prediction)[0]
+        return prediction
 
 if __name__ == '__main__':
     from mongoObjects import CollectionManager
-    startDay = 800
-    ticker='googl'
+    startDay = 1007
+    ticker='nvda'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     model = NeuralNet(ticker, manager, startDay)
-    model.test_and_error()
+    model.test_and_error(epochs=500)

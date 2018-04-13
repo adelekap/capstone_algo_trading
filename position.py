@@ -10,7 +10,6 @@ class Position(object):
         self.shares = shares
 
 
-
 class Long(Position):
     def __init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,stopLoss,shares):
         Position.__init__(self,startDate,ticker,investment,purchasePrice,goal,holdTime,shares)

@@ -16,6 +16,7 @@ def save_results(dict, manager, ticker):
     manager.insert(newDoc)
 
 
+
 class Environment(object):
     def __init__(self, manager: CollectionManager, agent: InvestorAgent, startDay: int):
         self.timeperiod = manager.dates()
@@ -23,6 +24,9 @@ class Environment(object):
         self.agent = agent
         self.day = startDay
         self.currentDate = self.timeperiod[self.day]
+
+    def log_position(self,position): #Todo: IMPLEMENT
+        pass
 
     def increment_day(self, strategy):
         self.day += 1
@@ -97,6 +101,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
                                             position.holdTime)  # Todo: hyperparameter? "patience"
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
                     position.sell(investor, currentPrice)
+                    environment.log_position(position)
 
         T = investor.strategy.arithmetic_returns(k, environment.day)
         sig = investor.signal(T)

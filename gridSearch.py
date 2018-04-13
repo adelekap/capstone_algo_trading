@@ -9,8 +9,6 @@ import multiprocessing as mp
 import datetime
 
 
-
-
 class GridSearch(object):
     def __init__(self, manager, ticker, ps, sharePers):
         self.manager = manager
