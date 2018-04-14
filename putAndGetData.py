@@ -24,7 +24,8 @@ def add_data(manager,function,unwantedFields):
     :param function: the function that will add the data to the database
     :return: None
     """
-    stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
+    # stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])] #Todo Uncomment this later
+    stocks = ['spy']
     for stock in stocks:
         try:
             get_stock_data(manager,stock,unwantedFields,function)

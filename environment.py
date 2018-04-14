@@ -2,19 +2,28 @@ from mongoObjects import CollectionManager, MongoClient, MongoDocument
 from strategy import Strategy
 from agent import InvestorAgent
 from arima import ArimaModel
-from putAndGetData import avg_price_timeseries, create_timeseries
+from putAndGetData import avg_price_timeseries
 import argparse
 import utils
 import warnings
 from LSTM import NeuralNet
 from AsyncPython.logger import log
 from SVM import SVM
-
+import numpy as np
 
 def save_results(dict, manager, ticker):
     newDoc = MongoDocument(dict, ticker, [])
     manager.insert(newDoc)
 
+def sharpe_ratio(portfolio,etf,rp, rf=1.72):
+    sigp = np.std(portfolio)
+    covariance = np.cov(portfolio,etf)
+    print('COV: ')
+    print(covariance)
+    varETF = np.var(etf)
+    beta = covariance/varETF #volatility
+    rx = sigp/beta
+    return (rp-rf)/rx
 
 
 class Environment(object):
@@ -57,6 +66,8 @@ def async_grid(args):
 
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1, plotting=False):
+    positionOpenNum = 0
+    positionCloseNum = 0
     warnings.filterwarnings("ignore")
     """Initialize Environment"""
     # Data
@@ -102,18 +113,23 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
                     position.sell(investor, currentPrice)
                     environment.log_position(position)
+                    positionCloseNum += 1
 
         T = investor.strategy.arithmetic_returns(k, environment.day)
         sig = investor.signal(T)
         if sig != 0:
             investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
                                             sharePer)
+            positionOpenNum += 1
         environment.update_total_assets(investor)
         if d != stopDay - 1:
             environment.increment_day(investor.strategy)
             # bar.progress()
 
+
+
     """PLOTTING"""
+    print('PLOTTING')
     actualPrice = avg_price_timeseries(manager, ticker, dates[startDay:stopDay])
     if not len(investor.capitalHistory):
         expReturn = 0
@@ -130,6 +146,13 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     results['MDD'] = mdd
     results['return'] = expReturn
     results['possible'] = possible
+
+
+
+    etf = avg_price_timeseries(manager,'spy',dates[startDay:stopDay])
+    print(positionOpenNum)
+    print(positionCloseNum)
+    print(sharpe_ratio(investor.totalAssetHistory,etf,possible))
 
     manager.close()
     return (results)
