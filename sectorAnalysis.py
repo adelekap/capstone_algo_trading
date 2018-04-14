@@ -13,13 +13,15 @@ def create_sec_dic():
             sectorToStocks[currentSector] = sectorToStocks[currentSector] + [stock['Symbol']]
     return sectorToStocks
 
-def get_data_by_sector(stocks):
+def get_data_by_sector(stocks,sector):
     dates = manager.dates()
     data = pd.DataFrame()
     for stock in stocks:
         stocksData = avg_price_timeseries(manager,stock.lower(),dates)
+        if len(stocksData) != 1259:
+            continue
         data[stock] = stocksData
-    return data
+    data.to_csv('sectorAnalysis/{0}.csv'.format(sector))
 
 
 if __name__ == '__main__':
@@ -29,9 +31,6 @@ if __name__ == '__main__':
 
     sectorToStocks = create_sec_dic()
 
-    sectorToData = {}
     for sector in sectors:
-        sectorToData[sector] = get_data_by_sector(sectorToStocks[sector])
-
-    print('test')
+        get_data_by_sector(sectorToStocks[sector],sector)
 

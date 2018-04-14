@@ -86,11 +86,9 @@ def get_closes_highs_lows(manager,ticker):
     return closes,highs,lows,dates
 
 def avg_price_timeseries(manager,ticker,dates):
-    series = []
-    for date in dates:
-        data = manager.find({'ticker':ticker,'date':date})
-        series.append('vwap')
-    return series
+    ticker_data = manager.find({"ticker":ticker})
+    series = ticker_data['vwap']
+    return list(series)
 
 def rel_volume(manager,ticker,date):
     allVol = np.mean(manager.find_distinct({'ticker':ticker},'volume'))
