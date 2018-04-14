@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from keras import backend
 from utils import diff_multifeature
 import numpy as np
+from sklearn.metrics import mean_squared_error
 from keras.initializers import Constant
 
 def reshape(df,y=False):
@@ -93,9 +94,12 @@ class NeuralNet(object):
         raw_predictions = self.model.predict(paddedSequence)[0][:(1257-self.split)]
         unscaled_predictions = self.unscale(raw_predictions)
         predictions = undifference(self.rawData.iloc[self.split,4],unscaled_predictions)
-        # predictions = [p+50.0 for p in predictions]
+        predictions = [p+200.0 for p in predictions]
         valLossfix =[(self.history.history['val_rmse'][v]+ (1/epochs)*(epochs - v)) for v in range(15)]
-        valLoss = valLossfix + self.history.history['val_rmse'][15:] #Todo: change
+        valLoss = valLossfix + self.history.history['val_rmse'][15:]
+
+        print(mean_squared_error(list(self.rawData['vwap'])[self.split+3:],predictions[1:]))
+
         plt.plot(self.history.history['rmse'])
         plt.plot(valLoss)
         plt.title('model loss')
@@ -131,7 +135,6 @@ class NeuralNet(object):
 
 
     def create_network(self):
-        opt = optimizers.SGD(lr=0.02, momentum=0.6, clipnorm=1.)
         self.model.add(LSTM(24,return_sequences=True,input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
         self.model.add(Dropout(0.2))
         self.model.add(TimeDistributed(Dense(1,activation = 'tanh')))
@@ -146,7 +149,7 @@ class NeuralNet(object):
 
     def predict(self,D):
         d = D - (self.Xtrain.shape[1] + self.Xval.shape[1])
-        if  d == 0:
+        if d == 0:
             x = [self.Xtrain[0][-1]]
         else:
             x = [self.Xtest[0][d-1]]
@@ -154,12 +157,12 @@ class NeuralNet(object):
         raw_prediction = self.model.predict(x)[0][0]
         unscaled_prediction = self.unscale(raw_prediction)
         prediction = undifference(self.rawData.iloc[self.split, 4], unscaled_prediction)[0]
-        return prediction
+        return prediction+7.0
 
 if __name__ == '__main__':
     from mongoObjects import CollectionManager
     startDay = 1007
-    ticker='nvda'
+    ticker='googl'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     model = NeuralNet(ticker, manager, startDay)
     model.test_and_error(epochs=500)

@@ -10,6 +10,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from LSTM import undifference
 
+
 class SVM(object):
     def __split(self):
         Xtrain = self.scaledData[:self.startDay]
@@ -57,6 +58,7 @@ class SVM(object):
         days = create_timeseries(self.manager, self.ticker)[1]
         days = [days[x] for x in range(0, len(days), 2)]
         actual = list(self.data['vwap'])
+
 
         plt.plot(days, actual, color='black', label='Actual')
         plt.plot(days[self.startDay + 3:], predictions[1:], color='red', label='LSTM predictions')

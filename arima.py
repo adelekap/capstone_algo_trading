@@ -8,6 +8,7 @@ from mongoObjects import CollectionManager
 from putAndGetData import create_timeseries
 
 
+
 class ArimaModel(object):
     def __init__(self,p,d,q,ticker):
         self.p = p
@@ -53,7 +54,7 @@ class ArimaModel(object):
         return nextDaysPred
 
     def fit_and_plot(self, series, dates, window=0):
-        size = int(len(series) * 0.66)
+        size = len(dates) - 518
         train, test = series[0:size], series[size:len(series)]
         predictions = list()
         w = 0
@@ -70,27 +71,27 @@ class ArimaModel(object):
             else:
                 train.append(obs)
                 w += 1
-        error = mean_squared_error(test, predictions[:len(test)])
-        testDates = dates[size:]
 
-        fig = plt.figure()
-        ax1 = fig.add_subplot(111)
-        ax2 = ax1
-        ax3 = ax1
-        ax1.plot(dates[:size + 1], train[:size + 1], label='Training data', color='black')
-        ax2.plot(testDates, test, label='Test data', color='blue')
-        ax3.plot(testDates, predictions[:len(testDates)], color='red', label='ARIMA Predictions')
-        plt.legend(loc=4)
-        plt.text(min(dates), max(train), 'Test MSE = ' + str(error))
-        plt.title('{0} ARIMA({1},{2},{3})'.format(self.ticker, self.p, self.d, self.q))
-        plt.savefig('plots/ARIMA/{0}Arima.pdf'.format(self.ticker))
-        plt.close()
+        error = mean_squared_error(test, predictions[:len(test)])
+        print(error)
+        actual, days = create_timeseries(manager, self.ticker)
+        days = [days[x] for x in range(0, len(days), 2)]
+        actual = [actual[y] for y in range(0, len(actual), 2)]
+        predictions = [predictions[p] for p in range(0,len(predictions),2)]
+
+        plt.plot(days, actual, color='black', label='Actual')
+        plt.plot(days[1000:], predictions[:-1], color='red', label='LSTM predictions')
+        plt.xlabel('day')
+        plt.title(self.ticker)
+        plt.ylabel('price')
+        plt.legend(loc=2)
+        plt.savefig('plots/ARIMA/ARIMA_{0}_predictions.pdf'.format(self.ticker))
+        plt.show()
+
 
 if __name__ == '__main__':
+    stock = 'vz'
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
-    model = ArimaModel(1,1,0,'googl')
-    data = create_timeseries(manager,'googl')[0]
-    # model.plot_timeseries(data)
-    # model.plot_autocorr(data)
-    # model.plot_partial_autocorr(data)
-    model.fit_and_plot(data,create_timeseries(manager,'googl')[1])
+    model = ArimaModel(1,1,0,stock)
+    data = create_timeseries(manager,stock)[0]
+    model.fit_and_plot(data,create_timeseries(manager,stock)[1])
