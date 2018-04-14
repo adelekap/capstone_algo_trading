@@ -17,9 +17,7 @@ def save_results(dict, manager, ticker):
 
 def sharpe_ratio(portfolio,etf,rp, rf=1.72):
     sigp = np.std(portfolio)
-    covariance = np.cov(portfolio,etf)
-    print('COV: ')
-    print(covariance)
+    covariance = np.cov(portfolio,etf)[0][1]
     varETF = np.var(etf)
     beta = covariance/varETF #volatility
     rx = sigp/beta
