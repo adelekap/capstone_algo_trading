@@ -11,7 +11,6 @@ from keras import backend
 from utils import diff_multifeature
 import numpy as np
 from sklearn.metrics import mean_squared_error
-from keras.initializers import Constant
 
 def reshape(df,y=False):
     values = df.values
