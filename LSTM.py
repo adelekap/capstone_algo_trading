@@ -30,10 +30,10 @@ def undifference(first,series):
         undifferenced.append(lastItem+num)
     return undifferenced[1:]
 
-def pad(sequence,maxlen):
+def pad(sequence,maxlen,featN=6):
     sequence = list(sequence)
     length = maxlen - len(sequence)
-    padding = [[0,0,0,0,0,0] for i in range(length)]
+    padding = [[0 for i in range(featN)] for i in range(length)]
     padded_array = np.array([sequence+padding])
     return padded_array
 
