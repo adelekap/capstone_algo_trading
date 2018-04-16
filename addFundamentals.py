@@ -1,10 +1,9 @@
 import json
 import pandas as pd
+from mongoObjects import CollectionManager
 
-fundDir = 'sectorAnalysis/QuarterlyFundementals/'
-stocks = pd.read_csv('stocks.csv')['Symbol'].unique()
+fundFile = 'sectorAnalysis/fundamentals/combinedFundamentals.json'
+funds = json.loads(fundFile)
 
-for stock in stocks:
-    fi = fundDir+stock+'.json'
-    data = pd.read_json(fi)
-    print(data)
+manager = CollectionManager('5y_Fundamentals','AlgoTradingDB')
+manager.insert(funds)
