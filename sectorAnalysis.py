@@ -4,9 +4,6 @@ from putAndGetData import avg_price_timeseries
 import numpy as np
 from utils import diff_multifeature
 
-sector_to_id = {'Industrials':0,'Health Care':1,'Information Technology':2,'Consumer Discretionary':3,
-                'Utilities':4,'Financials':5,'Materials':6,'Consumer Staples':7,'Real Estate':8,
-                'Energy':9,'Telecommunications Services':10}
 
 stocks = pd.read_csv('stocks.csv')
 sectors = stocks['Sector'].unique()

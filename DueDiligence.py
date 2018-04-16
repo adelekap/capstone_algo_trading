@@ -8,6 +8,11 @@ from keras.utils import to_categorical
 import operator
 from sklearn.metrics import accuracy_score
 
+sector_to_id = {'Industrials':0,'Health Care':1,'Information Technology':2,'Consumer Discretionary':3,
+                'Utilities':4,'Financials':5,'Materials':6,'Consumer Staples':7,'Real Estate':8,
+                'Energy':9,'Telecommunications Services':10}
+
+
 
 def to_cat(y_int):
     y_binary = to_categorical(y_int)
@@ -45,18 +50,19 @@ class sectorSuggestor():
         predictions = self.__to_sector(self.model.predict(paddedtestData)[0][:self.ytest.shape[1]])
         # print(accuracy_score(self.targets,predictions))
 
-    def build_sector_NN(self,epochs=50):
-        self.model.add(LSTM(40,input_shape=(self.Xtrain.shape[1], self.Xtrain.shape[2]),return_sequences=True))
+    def build_sector_NN(self,epochs=20):
+        self.model.add(LSTM(33,input_shape=(self.Xtrain.shape[1], self.Xtrain.shape[2]),return_sequences=True))
         self.model.add(Dropout(0.2))
         self.model.add(TimeDistributed(Dense(11,activation='softmax')))
         self.model.compile(optimizer="nadam", loss='categorical_crossentropy', metrics=['accuracy'])
+        print('TRAINING SECTOR SUGGESTOR NETWORK')
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10,verbose=False)
 
     def predict_sector(self,D):
-        d = D - (self.Xtrain.shape[1] + self.Xval.shape[1])
-        X = self.Xtest[d]
+        d = D - (self.Xtrain.shape[1])
+        X = [self.Xtest[0][d]]
         paddedtestData = pad(X, self.Xtrain.shape[1], 11)
-        prediction = self.__to_sector(self.model.predict(paddedtestData)[0][:self.ytest.shape[1]])
+        prediction = self.__to_sector(self.model.predict(paddedtestData)[0][:self.ytest.shape[1]])[0]
         return prediction
 
 
