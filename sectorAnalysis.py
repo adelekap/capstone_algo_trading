@@ -8,6 +8,9 @@ sector_to_id = {'Industrials':0,'Health Care':1,'Information Technology':2,'Cons
                 'Utilities':4,'Financials':5,'Materials':6,'Consumer Staples':7,'Real Estate':8,
                 'Energy':9,'Telecommunications Services':10}
 
+stocks = pd.read_csv('stocks.csv')
+sectors = stocks['Sector'].unique()
+
 def create_sec_dic(stocks):
     sectorToStocks = {}
     for index,stock in stocks.iterrows():
@@ -65,8 +68,6 @@ def supervised_file():
 
 if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
-    stocks = pd.read_csv('stocks.csv')
-    sectors = stocks['Sector'].unique()
     # get_data_to_files()
     # avg_data_files()
     # differenced()
