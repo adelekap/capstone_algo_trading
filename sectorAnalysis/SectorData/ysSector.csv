@@ -1,0 +1,1249 @@
+,day,y
+0,0,Consumer Staples
+1,1,Consumer Staples
+2,2,Consumer Staples
+3,3,Consumer Staples
+4,4,Consumer Staples
+5,5,Consumer Staples
+6,6,Telecommunications Services
+7,7,Telecommunications Services
+8,8,Telecommunications Services
+9,9,Telecommunications Services
+10,10,Consumer Discretionary
+11,11,Materials
+12,12,Materials
+13,13,Materials
+14,14,Materials
+15,15,Materials
+16,16,Energy
+17,17,Energy
+18,18,Telecommunications Services
+19,19,Telecommunications Services
+20,20,Telecommunications Services
+21,21,Telecommunications Services
+22,22,Telecommunications Services
+23,23,Consumer Staples
+24,24,Consumer Staples
+25,25,Consumer Staples
+26,26,Consumer Staples
+27,27,Health Care
+28,28,Telecommunications Services
+29,29,Telecommunications Services
+30,30,Telecommunications Services
+31,31,Real Estate
+32,32,Telecommunications Services
+33,33,Telecommunications Services
+34,34,Telecommunications Services
+35,35,Telecommunications Services
+36,36,Telecommunications Services
+37,37,Telecommunications Services
+38,38,Telecommunications Services
+39,39,Telecommunications Services
+40,40,Telecommunications Services
+41,41,Telecommunications Services
+42,42,Telecommunications Services
+43,43,Telecommunications Services
+44,44,Telecommunications Services
+45,45,Telecommunications Services
+46,46,Materials
+47,47,Telecommunications Services
+48,48,Telecommunications Services
+49,49,Consumer Discretionary
+50,50,Energy
+51,51,Energy
+52,52,Energy
+53,53,Materials
+54,54,Health Care
+55,55,Health Care
+56,56,Health Care
+57,57,Health Care
+58,58,Consumer Discretionary
+59,59,Consumer Discretionary
+60,60,Telecommunications Services
+61,61,Consumer Discretionary
+62,62,Consumer Discretionary
+63,63,Consumer Discretionary
+64,64,Telecommunications Services
+65,65,Telecommunications Services
+66,66,Materials
+67,67,Energy
+68,68,Energy
+69,69,Energy
+70,70,Energy
+71,71,Telecommunications Services
+72,72,Telecommunications Services
+73,73,Telecommunications Services
+74,74,Financials
+75,75,Information Technology
+76,76,Telecommunications Services
+77,77,Telecommunications Services
+78,78,Telecommunications Services
+79,79,Telecommunications Services
+80,80,Telecommunications Services
+81,81,Telecommunications Services
+82,82,Consumer Discretionary
+83,83,Telecommunications Services
+84,84,Telecommunications Services
+85,85,Telecommunications Services
+86,86,Telecommunications Services
+87,87,Telecommunications Services
+88,88,Telecommunications Services
+89,89,Telecommunications Services
+90,90,Telecommunications Services
+91,91,Telecommunications Services
+92,92,Telecommunications Services
+93,93,Real Estate
+94,94,Consumer Discretionary
+95,95,Consumer Discretionary
+96,96,Consumer Discretionary
+97,97,Consumer Discretionary
+98,98,Consumer Discretionary
+99,99,Consumer Discretionary
+100,100,Real Estate
+101,101,Consumer Discretionary
+102,102,Real Estate
+103,103,Real Estate
+104,104,Real Estate
+105,105,Health Care
+106,106,Health Care
+107,107,Telecommunications Services
+108,108,Telecommunications Services
+109,109,Telecommunications Services
+110,110,Telecommunications Services
+111,111,Telecommunications Services
+112,112,Telecommunications Services
+113,113,Telecommunications Services
+114,114,Telecommunications Services
+115,115,Telecommunications Services
+116,116,Telecommunications Services
+117,117,Telecommunications Services
+118,118,Telecommunications Services
+119,119,Telecommunications Services
+120,120,Telecommunications Services
+121,121,Telecommunications Services
+122,122,Telecommunications Services
+123,123,Telecommunications Services
+124,124,Telecommunications Services
+125,125,Telecommunications Services
+126,126,Telecommunications Services
+127,127,Telecommunications Services
+128,128,Telecommunications Services
+129,129,Telecommunications Services
+130,130,Telecommunications Services
+131,131,Energy
+132,132,Telecommunications Services
+133,133,Telecommunications Services
+134,134,Energy
+135,135,Energy
+136,136,Energy
+137,137,Energy
+138,138,Energy
+139,139,Health Care
+140,140,Health Care
+141,141,Health Care
+142,142,Health Care
+143,143,Health Care
+144,144,Industrials
+145,145,Industrials
+146,146,Real Estate
+147,147,Real Estate
+148,148,Telecommunications Services
+149,149,Telecommunications Services
+150,150,Telecommunications Services
+151,151,Consumer Discretionary
+152,152,Consumer Discretionary
+153,153,Consumer Discretionary
+154,154,Consumer Discretionary
+155,155,Consumer Discretionary
+156,156,Telecommunications Services
+157,157,Telecommunications Services
+158,158,Telecommunications Services
+159,159,Telecommunications Services
+160,160,Telecommunications Services
+161,161,Telecommunications Services
+162,162,Telecommunications Services
+163,163,Telecommunications Services
+164,164,Telecommunications Services
+165,165,Energy
+166,166,Real Estate
+167,167,Real Estate
+168,168,Energy
+169,169,Consumer Discretionary
+170,170,Consumer Discretionary
+171,171,Consumer Discretionary
+172,172,Consumer Discretionary
+173,173,Consumer Discretionary
+174,174,Consumer Discretionary
+175,175,Consumer Discretionary
+176,176,Consumer Discretionary
+177,177,Consumer Discretionary
+178,178,Telecommunications Services
+179,179,Telecommunications Services
+180,180,Telecommunications Services
+181,181,Telecommunications Services
+182,182,Telecommunications Services
+183,183,Telecommunications Services
+184,184,Telecommunications Services
+185,185,Telecommunications Services
+186,186,Consumer Discretionary
+187,187,Consumer Discretionary
+188,188,Telecommunications Services
+189,189,Telecommunications Services
+190,190,Telecommunications Services
+191,191,Consumer Discretionary
+192,192,Health Care
+193,193,Health Care
+194,194,Health Care
+195,195,Health Care
+196,196,Health Care
+197,197,Health Care
+198,198,Health Care
+199,199,Health Care
+200,200,Health Care
+201,201,Health Care
+202,202,Telecommunications Services
+203,203,Telecommunications Services
+204,204,Telecommunications Services
+205,205,Telecommunications Services
+206,206,Telecommunications Services
+207,207,Telecommunications Services
+208,208,Telecommunications Services
+209,209,Telecommunications Services
+210,210,Telecommunications Services
+211,211,Telecommunications Services
+212,212,Information Technology
+213,213,Industrials
+214,214,Industrials
+215,215,Industrials
+216,216,Industrials
+217,217,Industrials
+218,218,Health Care
+219,219,Materials
+220,220,Telecommunications Services
+221,221,Telecommunications Services
+222,222,Telecommunications Services
+223,223,Health Care
+224,224,Health Care
+225,225,Health Care
+226,226,Health Care
+227,227,Health Care
+228,228,Health Care
+229,229,Health Care
+230,230,Health Care
+231,231,Health Care
+232,232,Health Care
+233,233,Telecommunications Services
+234,234,Telecommunications Services
+235,235,Telecommunications Services
+236,236,Telecommunications Services
+237,237,Telecommunications Services
+238,238,Utilities
+239,239,Utilities
+240,240,Telecommunications Services
+241,241,Utilities
+242,242,Real Estate
+243,243,Real Estate
+244,244,Health Care
+245,245,Real Estate
+246,246,Real Estate
+247,247,Consumer Discretionary
+248,248,Consumer Discretionary
+249,249,Consumer Discretionary
+250,250,Consumer Discretionary
+251,251,Consumer Discretionary
+252,252,Health Care
+253,253,Health Care
+254,254,Health Care
+255,255,Consumer Discretionary
+256,256,Consumer Discretionary
+257,257,Consumer Discretionary
+258,258,Telecommunications Services
+259,259,Consumer Discretionary
+260,260,Consumer Discretionary
+261,261,Consumer Discretionary
+262,262,Consumer Discretionary
+263,263,Materials
+264,264,Materials
+265,265,Telecommunications Services
+266,266,Telecommunications Services
+267,267,Telecommunications Services
+268,268,Telecommunications Services
+269,269,Telecommunications Services
+270,270,Telecommunications Services
+271,271,Telecommunications Services
+272,272,Telecommunications Services
+273,273,Telecommunications Services
+274,274,Telecommunications Services
+275,275,Telecommunications Services
+276,276,Telecommunications Services
+277,277,Telecommunications Services
+278,278,Telecommunications Services
+279,279,Telecommunications Services
+280,280,Telecommunications Services
+281,281,Telecommunications Services
+282,282,Consumer Discretionary
+283,283,Telecommunications Services
+284,284,Telecommunications Services
+285,285,Telecommunications Services
+286,286,Telecommunications Services
+287,287,Telecommunications Services
+288,288,Telecommunications Services
+289,289,Telecommunications Services
+290,290,Telecommunications Services
+291,291,Telecommunications Services
+292,292,Telecommunications Services
+293,293,Energy
+294,294,Energy
+295,295,Energy
+296,296,Energy
+297,297,Energy
+298,298,Energy
+299,299,Telecommunications Services
+300,300,Telecommunications Services
+301,301,Real Estate
+302,302,Real Estate
+303,303,Real Estate
+304,304,Real Estate
+305,305,Telecommunications Services
+306,306,Telecommunications Services
+307,307,Telecommunications Services
+308,308,Telecommunications Services
+309,309,Telecommunications Services
+310,310,Telecommunications Services
+311,311,Telecommunications Services
+312,312,Telecommunications Services
+313,313,Telecommunications Services
+314,314,Health Care
+315,315,Health Care
+316,316,Health Care
+317,317,Health Care
+318,318,Telecommunications Services
+319,319,Consumer Discretionary
+320,320,Consumer Discretionary
+321,321,Consumer Discretionary
+322,322,Consumer Discretionary
+323,323,Consumer Discretionary
+324,324,Health Care
+325,325,Telecommunications Services
+326,326,Industrials
+327,327,Materials
+328,328,Real Estate
+329,329,Energy
+330,330,Energy
+331,331,Energy
+332,332,Energy
+333,333,Energy
+334,334,Energy
+335,335,Energy
+336,336,Energy
+337,337,Energy
+338,338,Energy
+339,339,Telecommunications Services
+340,340,Energy
+341,341,Telecommunications Services
+342,342,Health Care
+343,343,Health Care
+344,344,Health Care
+345,345,Health Care
+346,346,Telecommunications Services
+347,347,Telecommunications Services
+348,348,Telecommunications Services
+349,349,Telecommunications Services
+350,350,Telecommunications Services
+351,351,Telecommunications Services
+352,352,Telecommunications Services
+353,353,Telecommunications Services
+354,354,Telecommunications Services
+355,355,Telecommunications Services
+356,356,Telecommunications Services
+357,357,Telecommunications Services
+358,358,Telecommunications Services
+359,359,Telecommunications Services
+360,360,Telecommunications Services
+361,361,Telecommunications Services
+362,362,Telecommunications Services
+363,363,Telecommunications Services
+364,364,Telecommunications Services
+365,365,Telecommunications Services
+366,366,Telecommunications Services
+367,367,Telecommunications Services
+368,368,Telecommunications Services
+369,369,Telecommunications Services
+370,370,Telecommunications Services
+371,371,Consumer Staples
+372,372,Consumer Staples
+373,373,Consumer Staples
+374,374,Health Care
+375,375,Industrials
+376,376,Health Care
+377,377,Industrials
+378,378,Industrials
+379,379,Health Care
+380,380,Health Care
+381,381,Health Care
+382,382,Health Care
+383,383,Telecommunications Services
+384,384,Telecommunications Services
+385,385,Telecommunications Services
+386,386,Telecommunications Services
+387,387,Telecommunications Services
+388,388,Telecommunications Services
+389,389,Telecommunications Services
+390,390,Telecommunications Services
+391,391,Telecommunications Services
+392,392,Telecommunications Services
+393,393,Telecommunications Services
+394,394,Consumer Staples
+395,395,Consumer Staples
+396,396,Telecommunications Services
+397,397,Telecommunications Services
+398,398,Telecommunications Services
+399,399,Telecommunications Services
+400,400,Telecommunications Services
+401,401,Telecommunications Services
+402,402,Telecommunications Services
+403,403,Telecommunications Services
+404,404,Telecommunications Services
+405,405,Telecommunications Services
+406,406,Telecommunications Services
+407,407,Telecommunications Services
+408,408,Telecommunications Services
+409,409,Telecommunications Services
+410,410,Utilities
+411,411,Utilities
+412,412,Real Estate
+413,413,Utilities
+414,414,Utilities
+415,415,Real Estate
+416,416,Real Estate
+417,417,Real Estate
+418,418,Real Estate
+419,419,Real Estate
+420,420,Real Estate
+421,421,Real Estate
+422,422,Real Estate
+423,423,Health Care
+424,424,Health Care
+425,425,Health Care
+426,426,Health Care
+427,427,Health Care
+428,428,Health Care
+429,429,Health Care
+430,430,Health Care
+431,431,Health Care
+432,432,Industrials
+433,433,Industrials
+434,434,Industrials
+435,435,Materials
+436,436,Materials
+437,437,Telecommunications Services
+438,438,Telecommunications Services
+439,439,Telecommunications Services
+440,440,Materials
+441,441,Telecommunications Services
+442,442,Telecommunications Services
+443,443,Telecommunications Services
+444,444,Consumer Discretionary
+445,445,Consumer Discretionary
+446,446,Telecommunications Services
+447,447,Health Care
+448,448,Health Care
+449,449,Health Care
+450,450,Health Care
+451,451,Health Care
+452,452,Health Care
+453,453,Health Care
+454,454,Health Care
+455,455,Real Estate
+456,456,Health Care
+457,457,Utilities
+458,458,Utilities
+459,459,Utilities
+460,460,Utilities
+461,461,Real Estate
+462,462,Utilities
+463,463,Energy
+464,464,Energy
+465,465,Energy
+466,466,Energy
+467,467,Energy
+468,468,Energy
+469,469,Consumer Discretionary
+470,470,Consumer Discretionary
+471,471,Telecommunications Services
+472,472,Real Estate
+473,473,Real Estate
+474,474,Health Care
+475,475,Real Estate
+476,476,Real Estate
+477,477,Real Estate
+478,478,Real Estate
+479,479,Real Estate
+480,480,Real Estate
+481,481,Real Estate
+482,482,Telecommunications Services
+483,483,Telecommunications Services
+484,484,Telecommunications Services
+485,485,Real Estate
+486,486,Energy
+487,487,Real Estate
+488,488,Utilities
+489,489,Health Care
+490,490,Energy
+491,491,Energy
+492,492,Telecommunications Services
+493,493,Telecommunications Services
+494,494,Telecommunications Services
+495,495,Telecommunications Services
+496,496,Telecommunications Services
+497,497,Telecommunications Services
+498,498,Telecommunications Services
+499,499,Telecommunications Services
+500,500,Telecommunications Services
+501,501,Materials
+502,502,Materials
+503,503,Materials
+504,504,Consumer Discretionary
+505,505,Consumer Discretionary
+506,506,Consumer Discretionary
+507,507,Consumer Discretionary
+508,508,Health Care
+509,509,Health Care
+510,510,Consumer Discretionary
+511,511,Consumer Discretionary
+512,512,Health Care
+513,513,Health Care
+514,514,Information Technology
+515,515,Health Care
+516,516,Health Care
+517,517,Real Estate
+518,518,Health Care
+519,519,Health Care
+520,520,Health Care
+521,521,Health Care
+522,522,Health Care
+523,523,Health Care
+524,524,Health Care
+525,525,Health Care
+526,526,Health Care
+527,527,Energy
+528,528,Health Care
+529,529,Energy
+530,530,Energy
+531,531,Energy
+532,532,Energy
+533,533,Energy
+534,534,Energy
+535,535,Energy
+536,536,Energy
+537,537,Consumer Discretionary
+538,538,Energy
+539,539,Energy
+540,540,Energy
+541,541,Energy
+542,542,Energy
+543,543,Energy
+544,544,Health Care
+545,545,Energy
+546,546,Energy
+547,547,Energy
+548,548,Energy
+549,549,Telecommunications Services
+550,550,Telecommunications Services
+551,551,Telecommunications Services
+552,552,Telecommunications Services
+553,553,Telecommunications Services
+554,554,Financials
+555,555,Materials
+556,556,Materials
+557,557,Materials
+558,558,Materials
+559,559,Materials
+560,560,Materials
+561,561,Health Care
+562,562,Health Care
+563,563,Health Care
+564,564,Health Care
+565,565,Health Care
+566,566,Health Care
+567,567,Health Care
+568,568,Health Care
+569,569,Health Care
+570,570,Health Care
+571,571,Health Care
+572,572,Health Care
+573,573,Health Care
+574,574,Telecommunications Services
+575,575,Telecommunications Services
+576,576,Telecommunications Services
+577,577,Telecommunications Services
+578,578,Telecommunications Services
+579,579,Financials
+580,580,Health Care
+581,581,Telecommunications Services
+582,582,Telecommunications Services
+583,583,Financials
+584,584,Health Care
+585,585,Health Care
+586,586,Health Care
+587,587,Health Care
+588,588,Health Care
+589,589,Health Care
+590,590,Health Care
+591,591,Health Care
+592,592,Telecommunications Services
+593,593,Telecommunications Services
+594,594,Telecommunications Services
+595,595,Telecommunications Services
+596,596,Telecommunications Services
+597,597,Telecommunications Services
+598,598,Real Estate
+599,599,Real Estate
+600,600,Real Estate
+601,601,Real Estate
+602,602,Consumer Discretionary
+603,603,Real Estate
+604,604,Real Estate
+605,605,Information Technology
+606,606,Consumer Discretionary
+607,607,Information Technology
+608,608,Consumer Discretionary
+609,609,Consumer Discretionary
+610,610,Consumer Discretionary
+611,611,Real Estate
+612,612,Real Estate
+613,613,Consumer Discretionary
+614,614,Consumer Discretionary
+615,615,Consumer Discretionary
+616,616,Real Estate
+617,617,Telecommunications Services
+618,618,Telecommunications Services
+619,619,Telecommunications Services
+620,620,Telecommunications Services
+621,621,Materials
+622,622,Telecommunications Services
+623,623,Telecommunications Services
+624,624,Telecommunications Services
+625,625,Telecommunications Services
+626,626,Telecommunications Services
+627,627,Telecommunications Services
+628,628,Utilities
+629,629,Telecommunications Services
+630,630,Telecommunications Services
+631,631,Telecommunications Services
+632,632,Telecommunications Services
+633,633,Telecommunications Services
+634,634,Telecommunications Services
+635,635,Telecommunications Services
+636,636,Telecommunications Services
+637,637,Telecommunications Services
+638,638,Telecommunications Services
+639,639,Telecommunications Services
+640,640,Telecommunications Services
+641,641,Consumer Discretionary
+642,642,Consumer Discretionary
+643,643,Telecommunications Services
+644,644,Telecommunications Services
+645,645,Telecommunications Services
+646,646,Telecommunications Services
+647,647,Consumer Discretionary
+648,648,Consumer Discretionary
+649,649,Real Estate
+650,650,Real Estate
+651,651,Real Estate
+652,652,Real Estate
+653,653,Real Estate
+654,654,Real Estate
+655,655,Utilities
+656,656,Utilities
+657,657,Utilities
+658,658,Utilities
+659,659,Utilities
+660,660,Telecommunications Services
+661,661,Energy
+662,662,Energy
+663,663,Energy
+664,664,Energy
+665,665,Materials
+666,666,Consumer Discretionary
+667,667,Energy
+668,668,Energy
+669,669,Energy
+670,670,Real Estate
+671,671,Real Estate
+672,672,Real Estate
+673,673,Real Estate
+674,674,Real Estate
+675,675,Telecommunications Services
+676,676,Real Estate
+677,677,Health Care
+678,678,Health Care
+679,679,Health Care
+680,680,Health Care
+681,681,Health Care
+682,682,Health Care
+683,683,Health Care
+684,684,Health Care
+685,685,Health Care
+686,686,Energy
+687,687,Health Care
+688,688,Telecommunications Services
+689,689,Telecommunications Services
+690,690,Telecommunications Services
+691,691,Telecommunications Services
+692,692,Telecommunications Services
+693,693,Telecommunications Services
+694,694,Telecommunications Services
+695,695,Real Estate
+696,696,Materials
+697,697,Materials
+698,698,Materials
+699,699,Real Estate
+700,700,Real Estate
+701,701,Telecommunications Services
+702,702,Telecommunications Services
+703,703,Telecommunications Services
+704,704,Telecommunications Services
+705,705,Telecommunications Services
+706,706,Telecommunications Services
+707,707,Telecommunications Services
+708,708,Telecommunications Services
+709,709,Consumer Staples
+710,710,Consumer Staples
+711,711,Consumer Staples
+712,712,Real Estate
+713,713,Utilities
+714,714,Health Care
+715,715,Real Estate
+716,716,Health Care
+717,717,Real Estate
+718,718,Real Estate
+719,719,Health Care
+720,720,Real Estate
+721,721,Telecommunications Services
+722,722,Telecommunications Services
+723,723,Telecommunications Services
+724,724,Telecommunications Services
+725,725,Telecommunications Services
+726,726,Telecommunications Services
+727,727,Telecommunications Services
+728,728,Telecommunications Services
+729,729,Utilities
+730,730,Utilities
+731,731,Utilities
+732,732,Utilities
+733,733,Utilities
+734,734,Utilities
+735,735,Telecommunications Services
+736,736,Telecommunications Services
+737,737,Telecommunications Services
+738,738,Telecommunications Services
+739,739,Telecommunications Services
+740,740,Telecommunications Services
+741,741,Telecommunications Services
+742,742,Telecommunications Services
+743,743,Telecommunications Services
+744,744,Telecommunications Services
+745,745,Telecommunications Services
+746,746,Telecommunications Services
+747,747,Utilities
+748,748,Materials
+749,749,Utilities
+750,750,Telecommunications Services
+751,751,Telecommunications Services
+752,752,Materials
+753,753,Industrials
+754,754,Consumer Discretionary
+755,755,Consumer Discretionary
+756,756,Consumer Discretionary
+757,757,Consumer Discretionary
+758,758,Consumer Discretionary
+759,759,Consumer Discretionary
+760,760,Consumer Discretionary
+761,761,Consumer Discretionary
+762,762,Telecommunications Services
+763,763,Telecommunications Services
+764,764,Telecommunications Services
+765,765,Telecommunications Services
+766,766,Materials
+767,767,Materials
+768,768,Materials
+769,769,Energy
+770,770,Energy
+771,771,Energy
+772,772,Energy
+773,773,Materials
+774,774,Real Estate
+775,775,Real Estate
+776,776,Industrials
+777,777,Industrials
+778,778,Industrials
+779,779,Real Estate
+780,780,Real Estate
+781,781,Telecommunications Services
+782,782,Telecommunications Services
+783,783,Health Care
+784,784,Health Care
+785,785,Health Care
+786,786,Health Care
+787,787,Health Care
+788,788,Health Care
+789,789,Health Care
+790,790,Energy
+791,791,Health Care
+792,792,Health Care
+793,793,Energy
+794,794,Energy
+795,795,Energy
+796,796,Energy
+797,797,Energy
+798,798,Financials
+799,799,Financials
+800,800,Financials
+801,801,Energy
+802,802,Energy
+803,803,Energy
+804,804,Energy
+805,805,Energy
+806,806,Real Estate
+807,807,Real Estate
+808,808,Real Estate
+809,809,Real Estate
+810,810,Real Estate
+811,811,Real Estate
+812,812,Real Estate
+813,813,Real Estate
+814,814,Real Estate
+815,815,Materials
+816,816,Materials
+817,817,Materials
+818,818,Health Care
+819,819,Materials
+820,820,Information Technology
+821,821,Information Technology
+822,822,Health Care
+823,823,Health Care
+824,824,Information Technology
+825,825,Health Care
+826,826,Health Care
+827,827,Health Care
+828,828,Health Care
+829,829,Health Care
+830,830,Energy
+831,831,Utilities
+832,832,Utilities
+833,833,Utilities
+834,834,Utilities
+835,835,Telecommunications Services
+836,836,Telecommunications Services
+837,837,Telecommunications Services
+838,838,Telecommunications Services
+839,839,Telecommunications Services
+840,840,Telecommunications Services
+841,841,Telecommunications Services
+842,842,Telecommunications Services
+843,843,Telecommunications Services
+844,844,Real Estate
+845,845,Real Estate
+846,846,Real Estate
+847,847,Real Estate
+848,848,Real Estate
+849,849,Real Estate
+850,850,Real Estate
+851,851,Real Estate
+852,852,Consumer Discretionary
+853,853,Consumer Discretionary
+854,854,Consumer Discretionary
+855,855,Consumer Discretionary
+856,856,Health Care
+857,857,Materials
+858,858,Materials
+859,859,Materials
+860,860,Information Technology
+861,861,Health Care
+862,862,Telecommunications Services
+863,863,Health Care
+864,864,Health Care
+865,865,Health Care
+866,866,Health Care
+867,867,Health Care
+868,868,Health Care
+869,869,Health Care
+870,870,Health Care
+871,871,Health Care
+872,872,Energy
+873,873,Health Care
+874,874,Energy
+875,875,Energy
+876,876,Energy
+877,877,Energy
+878,878,Energy
+879,879,Energy
+880,880,Energy
+881,881,Energy
+882,882,Industrials
+883,883,Energy
+884,884,Energy
+885,885,Energy
+886,886,Energy
+887,887,Financials
+888,888,Financials
+889,889,Financials
+890,890,Financials
+891,891,Financials
+892,892,Telecommunications Services
+893,893,Telecommunications Services
+894,894,Telecommunications Services
+895,895,Telecommunications Services
+896,896,Telecommunications Services
+897,897,Telecommunications Services
+898,898,Telecommunications Services
+899,899,Telecommunications Services
+900,900,Utilities
+901,901,Utilities
+902,902,Utilities
+903,903,Utilities
+904,904,Utilities
+905,905,Health Care
+906,906,Utilities
+907,907,Real Estate
+908,908,Real Estate
+909,909,Real Estate
+910,910,Energy
+911,911,Energy
+912,912,Energy
+913,913,Energy
+914,914,Energy
+915,915,Energy
+916,916,Energy
+917,917,Energy
+918,918,Energy
+919,919,Energy
+920,920,Telecommunications Services
+921,921,Telecommunications Services
+922,922,Telecommunications Services
+923,923,Telecommunications Services
+924,924,Telecommunications Services
+925,925,Real Estate
+926,926,Real Estate
+927,927,Utilities
+928,928,Utilities
+929,929,Information Technology
+930,930,Telecommunications Services
+931,931,Information Technology
+932,932,Utilities
+933,933,Consumer Staples
+934,934,Utilities
+935,935,Utilities
+936,936,Utilities
+937,937,Materials
+938,938,Materials
+939,939,Materials
+940,940,Financials
+941,941,Financials
+942,942,Industrials
+943,943,Industrials
+944,944,Industrials
+945,945,Financials
+946,946,Financials
+947,947,Financials
+948,948,Consumer Discretionary
+949,949,Telecommunications Services
+950,950,Telecommunications Services
+951,951,Telecommunications Services
+952,952,Telecommunications Services
+953,953,Energy
+954,954,Energy
+955,955,Energy
+956,956,Energy
+957,957,Energy
+958,958,Real Estate
+959,959,Energy
+960,960,Energy
+961,961,Energy
+962,962,Real Estate
+963,963,Information Technology
+964,964,Information Technology
+965,965,Real Estate
+966,966,Real Estate
+967,967,Utilities
+968,968,Utilities
+969,969,Telecommunications Services
+970,970,Telecommunications Services
+971,971,Telecommunications Services
+972,972,Telecommunications Services
+973,973,Telecommunications Services
+974,974,Telecommunications Services
+975,975,Telecommunications Services
+976,976,Telecommunications Services
+977,977,Real Estate
+978,978,Health Care
+979,979,Health Care
+980,980,Health Care
+981,981,Health Care
+982,982,Health Care
+983,983,Health Care
+984,984,Health Care
+985,985,Information Technology
+986,986,Information Technology
+987,987,Materials
+988,988,Materials
+989,989,Materials
+990,990,Materials
+991,991,Materials
+992,992,Materials
+993,993,Materials
+994,994,Materials
+995,995,Materials
+996,996,Health Care
+997,997,Health Care
+998,998,Health Care
+999,999,Health Care
+1000,1000,Health Care
+1001,1001,Health Care
+1002,1002,Health Care
+1003,1003,Health Care
+1004,1004,Health Care
+1005,1005,Health Care
+1006,1006,Health Care
+1007,1007,Health Care
+1008,1008,Health Care
+1009,1009,Health Care
+1010,1010,Health Care
+1011,1011,Health Care
+1012,1012,Health Care
+1013,1013,Health Care
+1014,1014,Utilities
+1015,1015,Health Care
+1016,1016,Health Care
+1017,1017,Utilities
+1018,1018,Health Care
+1019,1019,Health Care
+1020,1020,Health Care
+1021,1021,Information Technology
+1022,1022,Information Technology
+1023,1023,Information Technology
+1024,1024,Information Technology
+1025,1025,Information Technology
+1026,1026,Information Technology
+1027,1027,Telecommunications Services
+1028,1028,Utilities
+1029,1029,Real Estate
+1030,1030,Real Estate
+1031,1031,Real Estate
+1032,1032,Real Estate
+1033,1033,Consumer Discretionary
+1034,1034,Consumer Discretionary
+1035,1035,Real Estate
+1036,1036,Real Estate
+1037,1037,Real Estate
+1038,1038,Telecommunications Services
+1039,1039,Telecommunications Services
+1040,1040,Materials
+1041,1041,Materials
+1042,1042,Real Estate
+1043,1043,Real Estate
+1044,1044,Real Estate
+1045,1045,Real Estate
+1046,1046,Real Estate
+1047,1047,Real Estate
+1048,1048,Real Estate
+1049,1049,Real Estate
+1050,1050,Consumer Discretionary
+1051,1051,Information Technology
+1052,1052,Consumer Discretionary
+1053,1053,Consumer Discretionary
+1054,1054,Consumer Discretionary
+1055,1055,Health Care
+1056,1056,Health Care
+1057,1057,Health Care
+1058,1058,Health Care
+1059,1059,Health Care
+1060,1060,Health Care
+1061,1061,Health Care
+1062,1062,Information Technology
+1063,1063,Health Care
+1064,1064,Health Care
+1065,1065,Information Technology
+1066,1066,Information Technology
+1067,1067,Information Technology
+1068,1068,Telecommunications Services
+1069,1069,Telecommunications Services
+1070,1070,Information Technology
+1071,1071,Telecommunications Services
+1072,1072,Utilities
+1073,1073,Information Technology
+1074,1074,Information Technology
+1075,1075,Information Technology
+1076,1076,Utilities
+1077,1077,Health Care
+1078,1078,Health Care
+1079,1079,Health Care
+1080,1080,Health Care
+1081,1081,Health Care
+1082,1082,Health Care
+1083,1083,Health Care
+1084,1084,Telecommunications Services
+1085,1085,Financials
+1086,1086,Financials
+1087,1087,Financials
+1088,1088,Financials
+1089,1089,Financials
+1090,1090,Financials
+1091,1091,Health Care
+1092,1092,Health Care
+1093,1093,Health Care
+1094,1094,Health Care
+1095,1095,Health Care
+1096,1096,Health Care
+1097,1097,Health Care
+1098,1098,Health Care
+1099,1099,Health Care
+1100,1100,Health Care
+1101,1101,Financials
+1102,1102,Financials
+1103,1103,Financials
+1104,1104,Financials
+1105,1105,Industrials
+1106,1106,Industrials
+1107,1107,Information Technology
+1108,1108,Information Technology
+1109,1109,Information Technology
+1110,1110,Information Technology
+1111,1111,Information Technology
+1112,1112,Information Technology
+1113,1113,Information Technology
+1114,1114,Information Technology
+1115,1115,Telecommunications Services
+1116,1116,Telecommunications Services
+1117,1117,Telecommunications Services
+1118,1118,Telecommunications Services
+1119,1119,Telecommunications Services
+1120,1120,Telecommunications Services
+1121,1121,Telecommunications Services
+1122,1122,Telecommunications Services
+1123,1123,Telecommunications Services
+1124,1124,Telecommunications Services
+1125,1125,Telecommunications Services
+1126,1126,Telecommunications Services
+1127,1127,Telecommunications Services
+1128,1128,Telecommunications Services
+1129,1129,Consumer Staples
+1130,1130,Consumer Staples
+1131,1131,Telecommunications Services
+1132,1132,Consumer Staples
+1133,1133,Utilities
+1134,1134,Utilities
+1135,1135,Utilities
+1136,1136,Health Care
+1137,1137,Real Estate
+1138,1138,Utilities
+1139,1139,Telecommunications Services
+1140,1140,Telecommunications Services
+1141,1141,Health Care
+1142,1142,Health Care
+1143,1143,Health Care
+1144,1144,Health Care
+1145,1145,Health Care
+1146,1146,Health Care
+1147,1147,Health Care
+1148,1148,Health Care
+1149,1149,Health Care
+1150,1150,Energy
+1151,1151,Energy
+1152,1152,Energy
+1153,1153,Financials
+1154,1154,Industrials
+1155,1155,Financials
+1156,1156,Energy
+1157,1157,Energy
+1158,1158,Energy
+1159,1159,Energy
+1160,1160,Financials
+1161,1161,Financials
+1162,1162,Financials
+1163,1163,Industrials
+1164,1164,Industrials
+1165,1165,Materials
+1166,1166,Materials
+1167,1167,Information Technology
+1168,1168,Information Technology
+1169,1169,Information Technology
+1170,1170,Information Technology
+1171,1171,Information Technology
+1172,1172,Information Technology
+1173,1173,Information Technology
+1174,1174,Information Technology
+1175,1175,Information Technology
+1176,1176,Information Technology
+1177,1177,Information Technology
+1178,1178,Materials
+1179,1179,Materials
+1180,1180,Materials
+1181,1181,Information Technology
+1182,1182,Information Technology
+1183,1183,Information Technology
+1184,1184,Information Technology
+1185,1185,Information Technology
+1186,1186,Information Technology
+1187,1187,Information Technology
+1188,1188,Energy
+1189,1189,Information Technology
+1190,1190,Real Estate
+1191,1191,Real Estate
+1192,1192,Real Estate
+1193,1193,Real Estate
+1194,1194,Real Estate
+1195,1195,Consumer Staples
+1196,1196,Consumer Staples
+1197,1197,Consumer Staples
+1198,1198,Consumer Discretionary
+1199,1199,Consumer Discretionary
+1200,1200,Consumer Discretionary
+1201,1201,Consumer Discretionary
+1202,1202,Consumer Discretionary
+1203,1203,Consumer Discretionary
+1204,1204,Industrials
+1205,1205,Consumer Discretionary
+1206,1206,Industrials
+1207,1207,Industrials
+1208,1208,Financials
+1209,1209,Industrials
+1210,1210,Industrials
+1211,1211,Industrials
+1212,1212,Telecommunications Services
+1213,1213,Telecommunications Services
+1214,1214,Telecommunications Services
+1215,1215,Telecommunications Services
+1216,1216,Information Technology
+1217,1217,Information Technology
+1218,1218,Information Technology
+1219,1219,Energy
+1220,1220,Energy
+1221,1221,Energy
+1222,1222,Energy
+1223,1223,Energy
+1224,1224,Energy
+1225,1225,Energy
+1226,1226,Energy
+1227,1227,Energy
+1228,1228,Energy
+1229,1229,Materials
+1230,1230,Health Care
+1231,1231,Health Care
+1232,1232,Consumer Discretionary
+1233,1233,Consumer Discretionary
+1234,1234,Consumer Discretionary
+1235,1235,Health Care
+1236,1236,Consumer Discretionary
+1237,1237,Health Care
+1238,1238,Health Care
+1239,1239,Health Care
+1240,1240,Consumer Discretionary
+1241,1241,Health Care
+1242,1242,Health Care
+1243,1243,Health Care
+1244,1244,Health Care
+1245,1245,Information Technology
+1246,1246,Telecommunications Services
+1247,1247,Telecommunications Services

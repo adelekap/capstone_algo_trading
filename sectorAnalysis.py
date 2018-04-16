@@ -4,6 +4,9 @@ from putAndGetData import avg_price_timeseries
 import numpy as np
 from utils import diff_multifeature
 
+sector_to_id = {'Industrials':0,'Health Care':1,'Information Technology':2,'Consumer Discretionary':3,
+                'Utilities':4,'Financials':5,'Materials':6,'Consumer Staples':7,'Real Estate':8,
+                'Energy':9,'Telecommunications Services':10}
 
 def create_sec_dic(stocks):
     sectorToStocks = {}
@@ -54,7 +57,7 @@ def supervised_file():
     for i in range(0,len(data)-10):
         chunk = data.iloc[i:i+10,:].sum(axis=0)
         best = chunk.idxmax()
-        ys.append(best)
+        ys.append(sector_to_id[best])
     labels['day'] = range(len(ys))
     labels['y'] = ys
     labels.to_csv('sectorAnalysis/ys.csv')
@@ -64,9 +67,9 @@ if __name__ == '__main__':
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
     stocks = pd.read_csv('stocks.csv')
     sectors = stocks['Sector'].unique()
-    get_data_to_files()
-    avg_data_files()
-    differenced()
+    # get_data_to_files()
+    # avg_data_files()
+    # differenced()
     supervised_file()
 
 
