@@ -7,13 +7,7 @@ from LSTM import reshape, pad, rmse
 from keras.utils import to_categorical
 import operator
 from sklearn.metrics import accuracy_score
-import sectorAnalysis
 
-
-quarters = {1: "Q4", 2: "Q4", 3: "Q4",
-            4: "Q1", 5: "Q1", 6: "Q1",
-            7: "Q2", 8: "Q2", 9: "Q2",
-            10: "Q3", 11: "Q3", 12: "Q3"}
 
 def to_cat(y_int):
     y_binary = to_categorical(y_int)
@@ -64,14 +58,6 @@ class sectorSuggestor():
         paddedtestData = pad(X, self.Xtrain.shape[1], 11)
         prediction = self.__to_sector(self.model.predict(paddedtestData)[0][:self.ytest.shape[1]])
         return prediction
-
-class stockSuggestor():
-    def __get_quarter(self,date: date) -> str:
-        month = date.month
-        return quarters[month] + " " + str(date.year if quarters[month] != "Q4" else date.year - 1)
-
-    def __init__(self,sector):
-        self.sector = sector
 
 
 if __name__ == '__main__':
