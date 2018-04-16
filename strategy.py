@@ -56,16 +56,16 @@ class Strategy(object):
         significantReturns = [v for v in Vi if abs(v) > self.p]
         return (sum(significantReturns))
 
-    def make_position(self, agent, signal, date, stopLoss, sharePercent=1):
+    def make_position(self, agent, signal, date, stopLoss, sharePercent=1,posNum=None):
         v = rel_volume(self.manager, self.ticker, date) #higher means higher than average volume
         buyingPower = agent.buying_power(date)
         shareNum = int(v*buyingPower*sharePercent)
         if shareNum == 0:
             return None
         if signal == 1:
-            agent.long(shareNum, date, stopLoss)
+            return agent.long(shareNum, date, stopLoss,posNum)
         if signal == -1:
-            agent.short(shareNum, date, stopLoss)
+            return agent.short(shareNum, date, stopLoss,posNum)
 
     def close_opposing_positions(self, positions, agent, price):
         numOfPositions = len(positions)

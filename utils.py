@@ -41,7 +41,7 @@ def plot_capital(capital: list, time: list, stock: str, actual: list, percentGai
     dates = [dt.datetime.strptime(d, "%Y-%m-%d") for d in time]
     f, axarr = plt.subplots(2, sharex=True)
     axarr[0].plot(dates, capital, color='blue', label='Investor')
-    axarr[0].set_title('Investments in {0}: {1}  MDD={2}'.format(stock, percentGain, drawdown))
+    axarr[0].set_title('Investments in {0}: {1}'.format(stock, percentGain, drawdown))
     axarr[1].plot(dates, actual, color='grey', label=stock + ' Price')
     axarr[1].set_title('Price of {0}: {1}%'.format(stock,possible))
     plt.xticks(fontsize=9, rotation=45)

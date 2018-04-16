@@ -33,25 +33,29 @@ class InvestorAgent(object):
         for pos in self.positions:
             if type(pos) == Short:
                 trueCapital -= pos.initialInvestment
-        return int(trueCapital/price)
+        power = int(trueCapital/price)
+        if power <= 0:
+            return 0
+        return power
 
-    def long(self,shareNum,date,stopLoss):
+    def long(self,shareNum,date,stopLoss,posNum):
         price = self.strategy.daily_avg_price(date)
         investment = shareNum * price
         goal = price + (price * self.strategy.p)
-        position = Long(date,self.strategy.ticker,investment,price,goal,self.strategy.patience,stopLoss,shareNum)
+        position = Long(date,self.strategy.ticker,investment,price,goal,self.strategy.patience,stopLoss,shareNum,posNum)
         self.positions.append(position)
         self.capital_t -= investment
-
+        return f'long,{price},{shareNum},{investment},,{self.capital_t}'
 
     def update_assets(self,update):
         self.totalAssetHistory.append(update)
 
-    def short(self,shareNum,date,stopLoss):
+    def short(self,shareNum,date,stopLoss,posNum):
        borrowPrice = self.strategy.daily_avg_price(date)
        investment = shareNum * borrowPrice
        goalPrice = (1 - self.strategy.p) * borrowPrice
        position = Short(date,self.strategy.ticker,investment,borrowPrice,
-                        goalPrice,self.strategy.patience,stopLoss,shareNum)
+                        goalPrice,self.strategy.patience,stopLoss,shareNum,posNum)
        self.positions.append(position)
        self.capital_t += investment
+       return f'short,{borrowPrice},{shareNum},{investment},,{self.capital_t}'

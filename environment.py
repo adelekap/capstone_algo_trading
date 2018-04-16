@@ -10,6 +10,7 @@ from LSTM import NeuralNet
 from AsyncPython.logger import log
 from SVM import SVM
 import numpy as np
+from logger import Logger
 
 def save_results(dict, manager, ticker):
     newDoc = MongoDocument(dict, ticker, [])
@@ -18,6 +19,7 @@ def save_results(dict, manager, ticker):
 def sharpe_ratio(portfolio,etf,rp, rf=1.72):
     sigp = np.std(portfolio)
     covariance = np.cov(portfolio,etf)[0][1]
+
     varETF = np.var(etf)
     beta = covariance/varETF #volatility
     rx = sigp/beta
@@ -64,6 +66,8 @@ def async_grid(args):
 
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1, plotting=False):
+    logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel,ticker))
+    logger.log('Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital')
     positionOpenNum = 0
     positionCloseNum = 0
     warnings.filterwarnings("ignore")
@@ -102,22 +106,25 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
 
     # Simulate Trading Environment
     # bar.initialize()
+    print('Starting Trading')
     for d in range(startDay, stopDay):
         if len(investor.positions):
             for position in investor.positions:
                 currentPrice = investor.check_price(environment.currentDate)
                 actionDay = utils.laterDate(position.startDate,
-                                            position.holdTime)  # Todo: hyperparameter? "patience"
+                                            position.holdTime)
                 if environment.currentDate == actionDay or position.at_trigger_point(currentPrice):
-                    position.sell(investor, currentPrice)
-                    environment.log_position(position)
+                    sellMessage = position.sell(investor, currentPrice)
+                    logger.log(f'{environment.currentDate},close,{position.id},' + sellMessage)
                     positionCloseNum += 1
 
         T = investor.strategy.arithmetic_returns(k, environment.day)
         sig = investor.signal(T)
         if sig != 0:
-            investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
-                                            sharePer)
+            message = investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
+                                            sharePer,posNum = positionOpenNum)
+            if message != None:
+                logger.log(f'{environment.currentDate},open,{positionOpenNum},'+ message)
             positionOpenNum += 1
         environment.update_total_assets(investor)
         if d != stopDay - 1:
