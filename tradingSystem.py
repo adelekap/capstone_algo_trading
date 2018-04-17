@@ -1,11 +1,13 @@
-from DueDiligence import sectorSuggestor
+from DueDiligence import SectorSuggestor, StockSuggestor
 from environment import trade
 from mongoObjects import CollectionManager
-
+import pandas as pd
 
 id_to_sector = {0:'Industrials',1:'Health Care', 2:'Information Technology',3:'Consumer Discretionary',
                 4:'Utilities',5:'Financials',6:'Materials',7:'Consumer Stapes',8:'Real Estate',9:'Energy',
                 10:'Telecommunications Services'}
+
+
 
 class TradingFramework():
     def __init__(self,start,capital,model,loss,p=0.015,sharePer=0.5,stop='2018-02-05'):
@@ -16,8 +18,10 @@ class TradingFramework():
         self.stop = stop
         self.stopIndex = self.dates.index(stop)
 
-        self.suggestor = sectorSuggestor(self.startIndex)
+        self.suggestor = SectorSuggestor(self.startIndex)
         self.suggestor.build_sector_NN()
+
+        self.sectorModels = {}
 
         self.loss = loss
         self.model = model
@@ -29,9 +33,18 @@ class TradingFramework():
 
     def run_simulation(self):
         for day in range(self.startIndex,self.stopIndex):
+            # Suggest a Sector
             sectorIDtoInvestIn = self.suggestor.predict_sector(day)
             sectorToInvestIn = id_to_sector[sectorIDtoInvestIn]
             print(f'I suggest investing in the {sectorToInvestIn} sector')
+
+            # Suggest top three stocks in this market
+            if sectorToInvestIn not in self.sectorModels:
+                stockModel = StockSuggestor(sectorToInvestIn, day,self.dates[day])
+                self.sectorModels[sectorToInvestIn] = stockModel
+            stockToInvestIn = stockModel.predict_stock(self.dates[day])
+            print(f'I suggest investing in the following stock: {stockToInvestIn}')
+
 
     def trade_stock(self,ticker):
         trade(self.loss, self.model, self.p, self.sharePer, self.startDate, self.startingCapital,

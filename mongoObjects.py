@@ -21,8 +21,8 @@ class CollectionManager(object):
         self.db: database = self.mongo_connection[db_name]
         self.c: collection = self.db[name]
 
-    def insert(self, *documents):
-        self.c.insert_many([x.__dict__ for x in documents])
+    def insert(self, *documents, is_dictionary = False):
+        self.c.insert_many([x.__dict__ if not is_dictionary else x for x in documents])
 
     def find(self, query):
         cursor = self.c.find(query)
