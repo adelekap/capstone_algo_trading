@@ -42,6 +42,17 @@ def get_next_business_day(current_date: date):
 
     return next_business_day
 
+def get_next_day_for_sure(price_getter, day: date):
+    business_day = get_next_business_day(day)
+    day_as_string = str(business_day)
+    result = price_getter(day_as_string)
+
+    while result.shape[0] == 0:
+        business_day += datedelta.DAY
+        day_as_string = str(business_day)
+        result = price_getter(day_as_string)
+
+    return result
 
 def calculate_performance(ticker, date1: date, date2: date):
     ticker = ticker.lower()
@@ -50,15 +61,17 @@ def calculate_performance(ticker, date1: date, date2: date):
     date1 = get_next_business_day(date1)
     date2 = get_next_business_day(date2)
 
-    print(ticker,date1,date2)
-    price1 = manager.find({'ticker': ticker, 'date': str(get_next_business_day(date1))})
-    if price1.shape[0] == 0:
-        price1 = manager.find({'ticker':ticker,'date':str(get_next_business_day(date1) + datetime.timedelta(days=1))})
-    price1 = price1['vwap'][0]
-    price2 = manager.find({'ticker': ticker, 'date': str(get_next_business_day(date2))})
-    if price2.shape[0] == 0:
-        price2 = manager.find({'ticker':ticker,'date':str(get_next_business_day(date2)+ datetime.timedelta(days=1))})
-    price2 = price2['vwap'][0]
+    price_1_getter = lambda d : manager.find({'ticker': ticker, 'date': d})
+
+    # price1 = manager.find({'ticker': ticker, 'date': str(get_next_business_day(date1))})
+    price1 = get_next_day_for_sure(price_getter=price_1_getter, day=date1)['vwap'][0]
+    # if price1.shape[0] == 0:
+    #     price1 = manager.find({'ticker':ticker,'date':str(get_next_business_day(date1) + datetime.timedelta(days=1))})
+    # price1 = price1['vwap'][0]
+    price2 = get_next_day_for_sure(price_getter=price_1_getter, day=date2)['vwap'][0]
+    # if price2.shape[0] == 0:
+    #     price2 = manager.find({'ticker':ticker,'date':str(get_next_business_day(date2)+ datetime.timedelta(days=1))})
+    # price2 = price2['vwap'][0]
     manager.close()
     return (price2 - price1) / price2
 
@@ -114,7 +127,7 @@ def add_fundamentals_to_db():
         manager.insert(document, is_dictionary=True)
 
 
-def get_all_fundamentals(tickers: list, quarters: list):
+def get_all_fundamentals(tickers: list, quarters: list,final=False):
     manager = CollectionManager('10y_Fundamentals', 'AlgoTradingDB')
     allFundamentals = []
     performances = []
@@ -126,13 +139,16 @@ def get_all_fundamentals(tickers: list, quarters: list):
                 continue
             announcementDate = data.iloc[:, -1][0].date()
             data = data.iloc[:, :-2]
-            nextAnnouncementDate = manager.find({'ticker': ticker.upper(),
+            if final:
+                nextAnnouncementDate = '2018-02-05'
+            else:
+                nextAnnouncementDate = manager.find({'ticker': ticker.upper(),
                                                  'quarter': next_quarter(quarter)})['date'][0].date()
             performance = calculate_performance(ticker, announcementDate, nextAnnouncementDate)
             performances.append(performance)
             quarterly.append(data.values[0])
         allFundamentals.append(quarterly)
-    return np.array(allFundamentals)
+    return np.array(allFundamentals), performances
 
 
 def get_fundamental_data(tickers: list, dateString):

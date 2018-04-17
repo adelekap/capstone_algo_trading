@@ -76,10 +76,9 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
-        ytrain = None
-        Xtest = get_all_fundamentals(self.stocks, get_all_future_quarters(self.tradeDay))
-        ytest = None
+        Xtest, ytest = get_all_fundamentals(self.stocks, get_all_future_quarters(self.tradeDay))
+        Xtrain, ytrain = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
+        Xtest, ytest = get_all_fundamentals(self.stocks, get_all_future_quarters(self.tradeDay))
         return Xtrain, ytrain, Xtest, ytest
     def __init__(self, sector: str, dayIndex, dayString):
         self.sector = sector
