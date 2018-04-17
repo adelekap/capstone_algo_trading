@@ -13,6 +13,11 @@ quarters = {1: "Q4", 2: "Q4", 3: "Q4",
             7: "Q2", 8: "Q2", 9: "Q2",
             10: "Q3", 11: "Q3", 12: "Q3"}
 
+features = ['Asset Growth','Book Value per Share Growth','Debt Growth','Dividends per Basic Common Share Growth',
+            'EBIT Growth','EPS Diluted Growth','EPS Growth','Gross Profit Growth','Inventory Growth','Net Income Growth',
+            'Operating Cash Flow Growth','Trade and Non-Trade Receivables Growth','Weighted Average Shares Diluted Growth',
+            'quarter']
+
 
 def add_fundamentals_to_db():
     """
@@ -72,7 +77,7 @@ def get_next_business_day(current_date: date):
 
     return next_business_day
 
-def get_next_day_for_sure(price_getter, day: date):
+def get_next_trading_day(dates, days: list):
     """
     Ensures that the day was a trading day and gets the data
     for that day.
@@ -80,18 +85,16 @@ def get_next_day_for_sure(price_getter, day: date):
     :param day: date
     :return: price for that day of trading
     """
-    business_day = get_next_business_day(day)
-    day_as_string = str(business_day)
-    result = price_getter(day_as_string)
+    newDates = []
+    for day in days:
+        day = day
+        while day not in dates:
+            day += datedelta.DAY
+        newDates.append(day)
+    return newDates
 
-    while result.shape[0] == 0:
-        business_day += datedelta.DAY
-        day_as_string = str(business_day)
-        result = price_getter(day_as_string)
 
-    return result
-
-def calculate_performance(ticker, date1: date, date2: date):
+def calculate_performance(ticker, dates1: list, dates2: list):
     """
     Gets how much the stock has changed since the last
     quarter reportings.
@@ -103,14 +106,15 @@ def calculate_performance(ticker, date1: date, date2: date):
     ticker = ticker.lower()
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
 
-    date1 = get_next_business_day(date1)
-    date2 = get_next_business_day(date2)
+    prices = manager.find({'ticker': ticker})
+    dates = [datetime.datetime.strptime(priceDate,'%Y-%m-%d').date() for priceDate in prices['date']]
 
-    price_getter = lambda d : manager.find({'ticker': ticker, 'date': d})
-    price1 = get_next_day_for_sure(price_getter=price_getter, day=date1)['vwap'][0]
-    price2 = get_next_day_for_sure(price_getter=price_getter, day=date2)['vwap'][0]
+    pricesStart = [prices[prices['date']==str(d1)]['vwap'].values[0] for d1 in get_next_trading_day(dates,dates1)]
+    pricesEnd = [prices[prices['date']==str(d2)]['vwap'].values[0] for d2 in get_next_trading_day(dates,dates2)]
     manager.close()
-    return (price2 - price1) / price2
+
+    performances = [((p[0]-p[1])/p[0]) for p in zip(pricesStart,pricesEnd)]
+    return performances
 
 
 def months_apart(earlier_date: date, later_date: date) -> int:
@@ -136,6 +140,12 @@ def get_all_past_quarters(today_date: date):  # feb 5th 2013 - today's date
         available_quarters.append(get_quarter(historical_date)[0])
     return available_quarters
 
+def find_best_stock(performances:list):
+    best = []
+    for quarter in range(len(performances[0])):
+        q = [abs(x[quarter]) for x in performances]
+        best.append(np.argmax(q))
+    return best
 
 def get_all_future_quarters(today_date: date):
     """
@@ -187,6 +197,14 @@ def get_all_future_quarters(today_date: date):
 #         allFundamentals.append(quarterly)
 #     manager.close()
 #     return np.array(allFundamentals), performances
+
+def sort_quarters(dataframe,quarters):
+    if len(dataframe) == 0:
+        return dataframe
+    dataframe['quarter'] = [quarters.index(v) for v in list(dataframe['quarter'])]
+    dataframe = dataframe.sort_values('quarter')
+    return dataframe
+
 def get_all_fundamentals(tickers: list, quarters: list,final=False):
     """
     Gets all of the fundamentals for a list of tickers and list of quarters
@@ -196,21 +214,34 @@ def get_all_fundamentals(tickers: list, quarters: list,final=False):
     :return: Xs and ys
     """
     manager = CollectionManager('10y_Fundamentals', 'AlgoTradingDB')
-    allFundamentals = []
+    allFundamentals = pd.DataFrame()
     performances = []
     for ticker in tickers:
-        data = manager.find({'ticker': ticker.upper(), 'quarter': {"$in":quarters}})
+        data = sort_quarters(manager.find({'ticker': ticker.upper(), 'quarter': {"$in":quarters}}),quarters)
         if len(data) == 0:
             continue
-        announcementDate = data.iloc[:, -1][0].date()
-        data = data.iloc[:, :-2]
-        if final:
-            nextAnnouncementDate = '2018-02-05'
-        else:
-            nextAnnouncementDate = manager.find({'ticker': ticker.upper(),
-                                             'quarter': next_quarter(quarter)})['date'][0].date()
-        performance = calculate_performance(ticker, announcementDate, nextAnnouncementDate)
+        announcementDates = [d.date() for d in data.iloc[:, -3]]
+        nextAnnouncementDates = announcementDates[1:] + [datetime.datetime.strptime('2018-02-05','%Y-%m-%d').date()]
+        data = data[features]
+
+        performance = calculate_performance(ticker, announcementDates, nextAnnouncementDates)
         performances.append(performance)
-        quarterly.append(data.values[0])
+        for index,funds in data.iterrows():
+            tempDF = pd.DataFrame()
+            tempDF['fundamentals'] = list(funds)[:-1]
+            tempDF['ticker'] = [ticker for i in range(len(funds)-1)]
+            tempDF['quarter'] = [index for i in range(len(funds)-1)]
+            allFundamentals = pd.concat([allFundamentals,tempDF])
     manager.close()
-    return np.array(allFundamentals), performances
+
+    trainingData = []
+    for quarter in range(len(quarters)):
+        q = []
+        for ticker in tickers:
+            tickerdata = allFundamentals[allFundamentals['ticker'] == ticker]
+            quarterdata = list(tickerdata[tickerdata['quarter'] == quarter]['fundamentals'])
+            q.append(np.array(quarterdata))
+        trainingData.append(np.array(q))
+    trainingDataX = np.array(trainingData)
+    trainingDataY = np.array(find_best_stock(performances))
+    return trainingDataX, trainingDataY.reshape(len(quarters),1)

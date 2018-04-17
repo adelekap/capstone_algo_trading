@@ -90,7 +90,7 @@ class StockSuggestor():
         self.model = Sequential()
 
     def build_network(self,epochs=50):
-        self.model.add(Dense(12,activation ='relu',input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        self.model.add(Dense(12,activation ='relu',input_shape=(self.Xtrain.shape[1],13)))
         self.model.add(Dense(3,activation='relu'))
         self.model.add(Dense(1))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
