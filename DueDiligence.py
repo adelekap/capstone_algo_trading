@@ -7,7 +7,8 @@ from LSTM import reshape, pad, rmse
 from keras.utils import to_categorical
 import operator
 from sklearn.metrics import accuracy_score
-from addFundamentals import get_fundamental_data, get_all_fundamentals, get_all_past_quarters, get_all_future_quarters
+from addFundamentals import get_quarter, get_all_fundamentals, get_all_past_quarters, get_all_future_quarters
+import random
 
 sector_to_id = {'Industrials': 0, 'Health Care': 1, 'Information Technology': 2, 'Consumer Discretionary': 3,
                 'Utilities': 4, 'Financials': 5, 'Materials': 6, 'Consumer Staples': 7, 'Real Estate': 8,
@@ -47,6 +48,7 @@ class SectorSuggestor():
         return Xtrain, ytrain, Xtest, ytest, ytarget
 
     def __init__(self, startdayIndex: int):
+        random.seed(100)
         self.startDay = startdayIndex
         self.Xtrain, self.ytrain, self.Xtest, self.ytest, self.targets = self.__split_data(startdayIndex)
         self.model = Sequential()
@@ -88,16 +90,20 @@ class StockSuggestor():
         self.model = Sequential()
 
     def build_network(self,epochs=50):
-        self.model.add(Dense(13,activation ='relu',input_dim=(self.Xtrain[1],self.Xtrain[2])))
-        self.model.add(Dense(6,activation='relu'))
+        self.model.add(Dense(12,activation ='relu',input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
         self.model.add(Dense(3,activation='relu'))
-        self.model.add(Dense(1,activation='softmax'))
+        self.model.add(Dense(1))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
+        print(self.model.summary())
         print('TRAINING STOCK SUGGESTOR NETWORK')
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_stock(self, dayString):
-        self.model.predict()#Todo: fix
+        quarter = [get_quarter(datetime.strptime(dayString,'%Y-%m-%d').date())]
+        quartersFundamentals,p = get_all_fundamentals(self.stocks,quarter,final=True)
+        print(quartersFundamentals)
+        prediction = self.model.predict(quartersFundamentals)
+        print(prediction)
 
 
 if __name__ == '__main__':

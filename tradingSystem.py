@@ -42,6 +42,7 @@ class TradingFramework():
             if sectorToInvestIn not in self.sectorModels:
                 stockModel = StockSuggestor(sectorToInvestIn, day,self.dates[day])
                 self.sectorModels[sectorToInvestIn] = stockModel
+                stockModel.build_network()
             stockToInvestIn = stockModel.predict_stock(self.dates[day])
             print(f'I suggest investing in the following stock: {stockToInvestIn}')
 
