@@ -78,9 +78,10 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain, ytrain = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
-        # Xtest, ytest = get_all_fundamentals(self.stocks, get_all_future_quarters(self.tradeDay),final=True)
+        Xtrain, ytrain, NClasses = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
+        ytrain = to_categorical(ytrain,NClasses)
         return Xtrain, ytrain
+
     def __init__(self, sector: str, dayIndex, dayString):
         self.sector = sector
         self.startIndex = dayIndex
@@ -89,18 +90,18 @@ class StockSuggestor():
         self.Xtrain, self.ytrain = self.__train_and_test()
         self.model = Sequential()
 
-    def build_network(self,epochs=50):
-        self.model.add(Dense(12,activation ='relu',input_shape=(self.Xtrain.shape[1],13)))
-        self.model.add(Dense(3,activation='relu'))
-        self.model.add(Dense(1))
+    def build_network(self, epochs=50):
+        self.model.add(Dense(12, activation='relu', input_shape=(self.Xtrain.shape)))
+        self.model.add(Dense(3, activation='relu'))
+        self.model.add(Dense(1, activation='softmax'))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
         print(self.model.summary())
         print('TRAINING STOCK SUGGESTOR NETWORK')
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_stock(self, dayString):
-        quarter = [get_quarter(datetime.strptime(dayString,'%Y-%m-%d').date())]
-        quartersFundamentals,p = get_all_fundamentals(self.stocks,quarter,final=True)
+        quarter = [get_quarter(datetime.strptime(dayString, '%Y-%m-%d').date())]
+        quartersFundamentals, p = get_all_fundamentals(self.stocks, quarter, final=True)
         print(quartersFundamentals)
         prediction = self.model.predict(quartersFundamentals)
         print(prediction)

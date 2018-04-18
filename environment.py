@@ -12,18 +12,20 @@ from SVM import SVM
 import numpy as np
 from logger import Logger
 
+
 def save_results(dict, manager, ticker):
     newDoc = MongoDocument(dict, ticker, [])
     manager.insert(newDoc)
 
-def sharpe_ratio(portfolio,etf,rp, rf=1.72):
+
+def sharpe_ratio(portfolio, etf, rp, rf=1.72):
     sigp = np.std(portfolio)
-    covariance = np.cov(portfolio,etf)[0][1]
+    covariance = np.cov(portfolio, etf)[0][1]
 
     varETF = np.var(etf)
-    beta = covariance/varETF #volatility
-    rx = sigp/beta
-    return (rp-rf)/rx
+    beta = covariance / varETF  # volatility
+    rx = sigp / beta
+    return (rp - rf) / rx
 
 
 class Environment(object):
@@ -34,7 +36,7 @@ class Environment(object):
         self.day = startDay
         self.currentDate = self.timeperiod[self.day]
 
-    def log_position(self,position): #Todo: IMPLEMENT
+    def log_position(self, position):  # Todo: IMPLEMENT
         pass
 
     def increment_day(self, strategy):
@@ -66,7 +68,7 @@ def async_grid(args):
 
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1, plotting=False):
-    logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel,ticker))
+    logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel, ticker))
     logger.log('Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital')
     positionOpenNum = 0
     positionCloseNum = 0
@@ -87,16 +89,16 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     # Predictive Model
     if statsModel == 'Arima':
         model = ArimaModel(1, 1, 0, ticker)
-        k=5
+        k = 5
     if statsModel == 'LSTM':
-        model = NeuralNet(ticker,manager,startDay)
+        model = NeuralNet(ticker, manager, startDay)
         model.create_network()
         model.train_network()
-        k=1
+        k = 1
     if statsModel == 'SVM':
-        model = SVM(100,0.01,ticker,manager,startDay)
+        model = SVM(100, 0.01, ticker, manager, startDay)
         model.fit()
-        k=5
+        k = 5
 
     # Investor, Strategy and Trading Environment
     stopLoss = (1 - loss) * startingCapital
@@ -122,16 +124,14 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
         sig = investor.signal(T)
         if sig != 0:
             message = investor.strategy.make_position(investor, sig, environment.currentDate, stopLoss,
-                                            sharePer,posNum = positionOpenNum)
+                                                      sharePer, posNum=positionOpenNum)
             if message != None:
-                logger.log(f'{environment.currentDate},open,{positionOpenNum},'+ message)
+                logger.log(f'{environment.currentDate},open,{positionOpenNum},' + message)
             positionOpenNum += 1
         environment.update_total_assets(investor)
         if d != stopDay - 1:
             environment.increment_day(investor.strategy)
             # bar.progress()
-
-
 
     """PLOTTING"""
     print('PLOTTING')
@@ -152,12 +152,10 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     results['return'] = expReturn
     results['possible'] = possible
 
-
-
-    etf = avg_price_timeseries(manager,'spy',dates[startDay:stopDay])
+    etf = avg_price_timeseries(manager, 'spy', dates[startDay:stopDay])
     print(positionOpenNum)
     print(positionCloseNum)
-    print(sharpe_ratio(investor.totalAssetHistory,etf,possible))
+    print(sharpe_ratio(investor.totalAssetHistory, etf, possible))
 
     manager.close()
     return (results)
@@ -168,7 +166,7 @@ if __name__ == '__main__':
 
     """Arguments"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', choices=['Arima', 'LSTM','SVM'], metavar='M',
+    parser.add_argument('--model', choices=['Arima', 'LSTM', 'SVM'], metavar='M',
                         help='predictive model to use', default='Arima', required=False)  # Todo: add other choices
     parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-01-05', required=False, type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,

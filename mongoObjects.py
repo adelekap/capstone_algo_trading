@@ -11,7 +11,7 @@ class CollectionManager(object):
     """
 
     def __init__(self, name: str, db_name: str):
-    # def __init__(self, name: str, db: database):
+        # def __init__(self, name: str, db: database):
         """
         :param name: string of the name of the collection
         :param db: mongo database
@@ -21,7 +21,7 @@ class CollectionManager(object):
         self.db: database = self.mongo_connection[db_name]
         self.c: collection = self.db[name]
 
-    def insert(self, *documents, is_dictionary = False):
+    def insert(self, *documents, is_dictionary=False):
         self.c.insert_many([x.__dict__ if not is_dictionary else x for x in documents])
 
     def find(self, query):
