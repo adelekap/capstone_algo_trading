@@ -79,20 +79,22 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain, ytrain_raw, unionStocks = get_all_fundamentals(self.stocks,self.tradeDay)
+        Xtrain, ytrain_raw, test,testDates,unionStocks = get_all_fundamentals(self.stocks,self.tradeDay)
         encoder = LabelEncoder()
         encoder.fit(unionStocks)
         encoded_Y = encoder.transform(ytrain_raw)
-        ytrain = to_categorical(encoded_Y)
+        ytrain = to_categorical(encoded_Y,len(unionStocks))
         self.stocks = unionStocks
-        return Xtrain, ytrain
+        self.testDates = testDates
+        return Xtrain, ytrain, test
 
     def __init__(self, sector: str, dayIndex, dayString):
+        self.testDates = None
         self.sector = sector
         self.startIndex = dayIndex
         self.stocks = stocks_in_sector(sector)
         self.tradeDay = datetime.strptime(dayString, '%Y-%m-%d').date()
-        self.Xtrain, self.ytrain = self.__train_and_test()
+        self.Xtrain, self.ytrain, self.test = self.__train_and_test()
         self.model = Sequential()
 
     def build_network(self, epochs=50):
@@ -106,10 +108,15 @@ class StockSuggestor():
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_stock(self, dayString):
-        quartersFundamentals, p = get_all_fundamentals(self.stocks, quarter, final=True)
-        print(quartersFundamentals)
-        prediction = self.model.predict(quartersFundamentals)
+        todaysDate = datetime.strptime(dayString,'%Y-%m-%d')
+        testD = 0
+        for d in self.testDates:
+            if d < todaysDate:
+                testD += 1
+        lastQuartersFundamentals = self.test[testD]
+        prediction = self.model.predict(lastQuartersFundamentals)
         print(prediction)
+        return prediction
 
 
 if __name__ == '__main__':
