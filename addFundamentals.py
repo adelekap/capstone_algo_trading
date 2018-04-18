@@ -1,18 +1,20 @@
 import json
 import pandas as pd
 from mongoObjects import CollectionManager
-from datetime import date
 import datetime
+from datetime import date
+from datetime import datetime
 import datedelta
 import numpy as np
 import calendar
 from logger import Logger
+from bson import json_util
 from pandas.tseries.offsets import BDay
 
-quarters = {1: "Q4", 2: "Q4", 3: "Q4",
-            4: "Q1", 5: "Q1", 6: "Q1",
-            7: "Q2", 8: "Q2", 9: "Q2",
-            10: "Q3", 11: "Q3", 12: "Q3"}
+quarters = {1: "Q4", 2: "Q4", 3: "Q1",
+            4: "Q1", 5: "Q1", 6: "Q2",
+            7: "Q2", 8: "Q2", 9: "Q3",
+            10: "Q3", 11: "Q3", 12: "Q4"}
 
 features = ['Asset Growth', 'Book Value per Share Growth', 'Debt Growth', 'Dividends per Basic Common Share Growth',
             'EBIT Growth', 'EPS Diluted Growth', 'EPS Growth', 'Gross Profit Growth', 'Inventory Growth',
@@ -45,7 +47,11 @@ def get_quarter(dateObject: date):
     :return: current quarter and next quarter (tuple)
     """
     month = dateObject.month
-    current = quarters[month] + " " + str(dateObject.year if quarters[month] != "Q4" else dateObject.year - 1)
+    day = dateObject.day
+    if month == 3 and day < 10:
+        month -= 1
+
+    current = quarters[month] + " " + str(dateObject.year if month > 3 and quarters[month] != "Q4" else dateObject.year - 1)
     previous = quarters[month - 3 if month >= 4 else (month - 3) + 12] + " " + \
                str(dateObject.year if quarters[month] != "Q4" else dateObject.year - 1)
     return current, previous
@@ -242,5 +248,61 @@ def get_all_fundamentals(stocks: list, quarters: list, final=False):
 
     trainingDataX = np.array(trainingData)
     trainingDataY = find_best_stock(performances)
-    # return trainingDataX, trainingDataY.reshape(len(quarters),1), id_to_ticker
-    return trainingDataX, trainingDataY, len(tickers)
+    return trainingDataX, trainingDataY, stocks
+
+
+def read_in_all_data(path):
+    with open(path) as jsonFile:
+        return json.loads(jsonFile.read())
+
+
+def fix_quarters(jsonDictionary):
+    report_date = datetime.datetime.strptime(jsonDictionary["date"].strip().split(" ")[0], "%Y-%m-%d")
+    correct_quarter = get_quarter(report_date.date())[0]
+    jsonDictionary["quarter"] = correct_quarter
+
+
+def write_it_out_again():
+    with open("./fixedFundamentals2.json") as f:
+        j = json.loads(f.read())
+        for o in j:
+            o["quarter"] = get_quarter(datetime.strptime(o["date"].split(" ")[0], "%Y-%m-%d"))[0]
+        with open("./fixedFundamentals3.json", "w") as f_out:
+            f_out.write(json.dumps(j))
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+
+if __name__ == '__main__':
+
+    # write_it_out_again()
+    # df = pd.read_json("./sectorAnalysis/fundamentals/combinedFundamentals.json")
+    df = pd.read_json("./fixedFundamentals2.json")
+    manager = CollectionManager("10y_Fundamentals","AlgoTradingDB")
+    for i,k in df.iterrows():
+        manager.insert(k.to_dict(),is_dictionary=True)
+    # df = df[df["date"] > date(2013, 1, 1)]
+    # shit = set()
+    # for i, r in df.iterrows():
+    #     for val in r:
+    #         if pd.isna(val) or pd.isnull(val):
+    #             shit.add(r["ticker"])
+    # good_guys = df[~df["ticker"].isin(shit)]
+    #
+    # mapper = {}
+    # for i, guy in good_guys.iterrows():
+    #     if guy["ticker"] in mapper:
+    #         mapper[guy["ticker"]].append(guy["quarter"])
+    #     else:
+    #         mapper[guy["ticker"]] = [guy["quarter"]]
+    # for k, v in mapper.items():
+    #     if len(v) != len(set(v)):
+    #         print(f"{k} is a real piece of shit because of {[x for x in v if v.count(x) > 1]}")
+
+    # good_json = [x.to_dict() for i,x in good_guys.sort_values("ticker").iterrows().s]
+    # open("./betterJson.json","w").write(json.dumps(good_json,default=json_serial))

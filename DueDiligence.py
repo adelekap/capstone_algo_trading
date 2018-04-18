@@ -9,6 +9,7 @@ import operator
 from sklearn.metrics import accuracy_score
 from addFundamentals import get_quarter, get_all_fundamentals, get_all_past_quarters, get_all_future_quarters
 import random
+from sklearn.preprocessing import LabelEncoder
 
 sector_to_id = {'Industrials': 0, 'Health Care': 1, 'Information Technology': 2, 'Consumer Discretionary': 3,
                 'Utilities': 4, 'Financials': 5, 'Materials': 6, 'Consumer Staples': 7, 'Real Estate': 8,
@@ -78,8 +79,11 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain, ytrain, NClasses = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
-        ytrain = to_categorical(ytrain,NClasses)
+        Xtrain, ytrain_raw, unionStocks = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
+        encoder = LabelEncoder()
+        encoder.fit(unionStocks)
+        encoded_Y = encoder.transform(ytrain_raw)
+        ytrain = to_categorical(encoded_Y)
         return Xtrain, ytrain
 
     def __init__(self, sector: str, dayIndex, dayString):
