@@ -80,15 +80,15 @@ class SectorSuggestor():
 class StockSuggestor():
     def __train_and_test(self):
         Xtrain, ytrain_raw, test,testDates,unionStocks = get_all_fundamentals(self.stocks,self.tradeDay)
-        encoder = LabelEncoder()
-        encoder.fit(unionStocks)
-        encoded_Y = encoder.transform(ytrain_raw)
+        self.encoder.fit(unionStocks)
+        encoded_Y = self.encoder.transform(ytrain_raw)
         ytrain = to_categorical(encoded_Y,len(unionStocks))
         self.stocks = unionStocks
         self.testDates = testDates
         return Xtrain, ytrain, test
 
     def __init__(self, sector: str, dayIndex, dayString):
+        self.encoder = LabelEncoder()
         self.testDates = None
         self.sector = sector
         self.startIndex = dayIndex
@@ -113,10 +113,10 @@ class StockSuggestor():
         for d in self.testDates:
             if d < todaysDate:
                 testD += 1
-        lastQuartersFundamentals = self.test[testD]
-        prediction = self.model.predict(lastQuartersFundamentals)
-        print(prediction)
-        return prediction
+        lastQuartersFundamentals = self.test[testD].reshape(1,len(self.stocks),11)
+        predictionProbs = self.model.predict(lastQuartersFundamentals)
+        prediction = [np.argmax(predictionProbs)]
+        return self.encoder.inverse_transform(prediction)[0]
 
 
 if __name__ == '__main__':
