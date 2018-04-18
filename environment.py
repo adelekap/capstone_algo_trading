@@ -68,7 +68,7 @@ def async_grid(args):
 
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1,
-          plotting=False,framework=None):
+          plotting=False):
     logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel, ticker))
     logger.log('Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital')
     positionOpenNum = 0

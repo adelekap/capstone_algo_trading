@@ -37,7 +37,7 @@ class TradingFramework():
         """
         sectors =[]
         for day in range(self.startIndex, self.stopIndex):
-            print(f'--------DAY: {day+1}--------')
+            print(f'--------DAY: {self.startIndex - day+1}--------')
             # Suggest a Sector
             sectorIDtoInvestIn = self.suggestor.predict_sector(day)
             sectorToInvestIn = id_to_sector[sectorIDtoInvestIn]
@@ -53,6 +53,8 @@ class TradingFramework():
                 stockModel = StockSuggestor(sectorToInvestIn, day, self.dates[day])
                 self.sectorModels[sectorToInvestIn] = stockModel
                 stockModel.build_network()
+            else:
+                stockModel = self.sectorModels[sectorToInvestIn]
             stockToInvestIn, untilThisDate = stockModel.predict_stock(self.dates[day])
             print(f'I suggest investing in the following stock: {stockToInvestIn}')
             self.trade_stock(stockToInvestIn,self.startDate,self.dates[day+80])
