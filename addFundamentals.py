@@ -219,45 +219,36 @@ def get_all_fundamentals(stocks: list, tradeDate:date, final=False):
 
     allFundamentals = pd.DataFrame()
     performances = pd.DataFrame()
-    quarters = 0
+    quarters = 17
     for ticker in tickers:
-        try:
-            # data = sort_quarters(manager.find({'ticker': ticker, 'quarter': {"$in": quarters}}), quarters)
-            data,announcementDates = get_historical_fundamentals(ticker,tradeDate,manager)
-            nextAnnouncementDates = announcementDates[1:] + [dt.strptime('2018-02-05', '%Y-%m-%d').date()]
+        data,announcementDates = get_historical_fundamentals(ticker,tradeDate,manager)
+        nextAnnouncementDates = announcementDates[1:] + [dt.strptime('2018-02-05', '%Y-%m-%d').date()]
 
-            performance = calculate_performance(ticker, announcementDates, nextAnnouncementDates)
-            if len(performance) != len(performances) and len(performances) != 0:
-                print('ERROR')
-                print(ticker)
-                print(len(performance))
-                performances[ticker] = performance[len(performance)-17:]
-            else:
-                performances[ticker] = performance
-            for index, funds in data.iterrows():
-                tempDF = pd.DataFrame()
-                tempDF['fundamentals'] = list(funds)[:-1]
-                quarters = len(funds)
-                tempDF['ticker'] = [ticker for i in range(quarters - 1)]
-                tempDF['quarter'] = [index for i in range(quarters - 1)]
-                allFundamentals = pd.concat([allFundamentals, tempDF])
-        except Exception as e:
-            log.log(f"{ticker} failed with exception [{e}]")
+        performance = calculate_performance(ticker, announcementDates, nextAnnouncementDates)
+        if len(performance) != 17:
+            performance = performance[len(performance)-17:]
+            performances[ticker] = performance
+
+        else:
+            performances[ticker] = performance
+        for index, funds in data.iterrows():
+            tempDF = pd.DataFrame()
+            tempDF['fundamentals'] = list(funds)[:-1]
+            tempDF['ticker'] = [ticker for i in range(len(funds) - 1)]
+            tempDF['quarter'] = [index for i in range(len(funds) - 1)]
+            allFundamentals = pd.concat([allFundamentals, tempDF])
 
     manager.close()
 
     trainingData = []
     for quarter in range(quarters):
-        try:
-            q = []
-            for ticker in tickers:
-                tickerdata = allFundamentals[allFundamentals['ticker'] == ticker]
-                quarterdata = tickerdata[tickerdata['quarter'] == quarter]['fundamentals']
-                q.append(quarterdata.tolist())
-            trainingData.append(np.array(q))
-        except Exception as e:
-            log.log(f"{quarter} failed with exception [{e}]")
+        q = []
+        for ticker in tickers:
+            tickerdata = allFundamentals[allFundamentals['ticker'] == ticker]
+            quarterdata = tickerdata[tickerdata['quarter'] == quarter]['fundamentals']
+            q.append(quarterdata.tolist())
+        trainingData.append(np.array(q))
 
     trainingDataX = np.array(trainingData)
     trainingDataY = find_best_stock(performances)
-    return trainingDataX, trainingDataY, stocks
+    return trainingDataX, trainingDataY, tickers
