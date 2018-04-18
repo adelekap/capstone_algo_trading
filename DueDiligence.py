@@ -1,13 +1,13 @@
 from datetime import date, datetime
 import pandas as pd
 from keras.models import Sequential
-from keras.layers import LSTM, Dropout, Dense, TimeDistributed
+from keras.layers import LSTM, Dropout, Dense, TimeDistributed, Flatten
 import numpy as np
 from LSTM import reshape, pad, rmse
 from keras.utils import to_categorical
 import operator
 from sklearn.metrics import accuracy_score
-from addFundamentals import get_quarter, get_all_fundamentals, get_all_past_quarters, get_all_future_quarters
+from addFundamentals import get_all_fundamentals
 import random
 from sklearn.preprocessing import LabelEncoder
 
@@ -79,11 +79,12 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain, ytrain_raw, unionStocks = get_all_fundamentals(self.stocks, get_all_past_quarters(self.tradeDay))
+        Xtrain, ytrain_raw, unionStocks = get_all_fundamentals(self.stocks,self.tradeDay)
         encoder = LabelEncoder()
         encoder.fit(unionStocks)
         encoded_Y = encoder.transform(ytrain_raw)
         ytrain = to_categorical(encoded_Y)
+        self.stocks = unionStocks
         return Xtrain, ytrain
 
     def __init__(self, sector: str, dayIndex, dayString):
@@ -95,8 +96,10 @@ class StockSuggestor():
         self.model = Sequential()
 
     def build_network(self, epochs=50):
-        self.model.add(Dense(12, activation='relu', input_shape=(self.Xtrain.shape)))
-        self.model.add(Dense(3, activation='relu'))
+        self.model.add(Dense(24, activation='relu', input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        self.model.add(Flatten())
+        self.model.add(Dense(10, activation='relu'))
+        self.model.add(Flatten())
         self.model.add(Dense(1, activation='softmax'))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
         print(self.model.summary())
@@ -104,7 +107,6 @@ class StockSuggestor():
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_stock(self, dayString):
-        quarter = [get_quarter(datetime.strptime(dayString, '%Y-%m-%d').date())]
         quartersFundamentals, p = get_all_fundamentals(self.stocks, quarter, final=True)
         print(quartersFundamentals)
         prediction = self.model.predict(quartersFundamentals)

@@ -3,7 +3,7 @@ import pandas as pd
 from mongoObjects import CollectionManager
 import datetime
 from datetime import date
-from datetime import datetime
+from datetime import datetime as dt
 import datedelta
 import numpy as np
 import calendar
@@ -11,17 +11,15 @@ from logger import Logger
 from bson import json_util
 from pandas.tseries.offsets import BDay
 
-quarters = {1: "Q4", 2: "Q4", 3: "Q1",
-            4: "Q1", 5: "Q1", 6: "Q2",
-            7: "Q2", 8: "Q2", 9: "Q3",
-            10: "Q3", 11: "Q3", 12: "Q4"}
+# quarters = {1: "Q4", 2: "Q4", 3: "Q4",
+#             4: "Q1", 5: "Q1", 6: "Q1",
+#             7: "Q2", 8: "Q2", 9: "Q2",
+#             10: "Q3", 11: "Q3", 12: "Q3"}
 
 features = ['Asset Growth', 'Book Value per Share Growth', 'Debt Growth', 'Dividends per Basic Common Share Growth',
             'EBIT Growth', 'EPS Diluted Growth', 'EPS Growth', 'Gross Profit Growth', 'Inventory Growth',
             'Net Income Growth',
-            'Operating Cash Flow Growth', 'Trade and Non-Trade Receivables Growth',
-            'Weighted Average Shares Diluted Growth',
-            'quarter']
+            'Operating Cash Flow Growth', 'Trade and Non-Trade Receivables Growth']
 
 
 def add_fundamentals_to_db():
@@ -39,55 +37,62 @@ def add_fundamentals_to_db():
         manager.insert(document, is_dictionary=True)
     manager.close()
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
 
-def get_quarter(dateObject: date):
-    """
-    Gets the current quarter and the previous quarter at some date.
-    :param dateObject: date
-    :return: current quarter and next quarter (tuple)
-    """
-    month = dateObject.month
-    day = dateObject.day
-    if month == 3 and day < 10:
-        month -= 1
-
-    current = quarters[month] + " " + str(dateObject.year if month > 3 and quarters[month] != "Q4" else dateObject.year - 1)
-    previous = quarters[month - 3 if month >= 4 else (month - 3) + 12] + " " + \
-               str(dateObject.year if quarters[month] != "Q4" else dateObject.year - 1)
-    return current, previous
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 
-def next_quarter(current: str):
-    """
-    Gets the next quarter given some date
-    :param current: current quarter
-    :return: next quarter
-    """
-    year = int(current.split(' ')[1])
-    q = int(current[1])
-    if q < 4:
-        q += 1
-    else:
-        year += 1
-        q = 1
-    return f'Q{q} {year}'
-
-
-def get_next_business_day(current_date: date):
-    """
-    From some day, returns the next business day.
-    :param current_date:
-    :return: next business day date
-    """
-    day_of_week = current_date.weekday()
-    next_business_day = current_date
-
-    if day_of_week > 4:
-        next_business_day = current_date + (datedelta.DAY * (7 - day_of_week))
-
-    return next_business_day
-
-
+# def get_quarter(dateObject: date):
+#     """
+#     Gets the current quarter and the previous quarter at some date.
+#     :param dateObject: date
+#     :return: current quarter and next quarter (tuple)
+#     """
+#     month = dateObject.month
+#     day = dateObject.day
+#     if month == 3 and day < 10:
+#         month -= 1
+#
+#     current = quarters[month] + " " + str(dateObject.year if month > 3 and quarters[month] != "Q4" else dateObject.year - 1)
+#     previous = quarters[month - 3 if month >= 4 else (month - 3) + 12] + " " + \
+#                str(dateObject.year if quarters[month] != "Q4" else dateObject.year - 1)
+#     return current, previous
+#
+#
+# def next_quarter(current: str):
+#     """
+#     Gets the next quarter given some date
+#     :param current: current quarter
+#     :return: next quarter
+#     """
+#     year = int(current.split(' ')[1])
+#     q = int(current[1])
+#     if q < 4:
+#         q += 1
+#     else:
+#         year += 1
+#         q = 1
+#     return f'Q{q} {year}'
+#
+#
+# def get_next_business_day(current_date: date):
+#     """
+#     From some day, returns the next business day.
+#     :param current_date:
+#     :return: next business day date
+#     """
+#     day_of_week = current_date.weekday()
+#     next_business_day = current_date
+#
+#     if day_of_week > 4:
+#         next_business_day = current_date + (datedelta.DAY * (7 - day_of_week))
+#
+#     return next_business_day
+#
+#
 def get_next_trading_day(dates, days: list):
     """
     Ensures that the day was a trading day and gets the data
@@ -118,7 +123,7 @@ def calculate_performance(ticker, dates1: list, dates2: list):
     manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
 
     prices = manager.find({'ticker': ticker})
-    dates = [datetime.datetime.strptime(priceDate, '%Y-%m-%d').date() for priceDate in prices['date']]
+    dates = [dt.strptime(priceDate, '%Y-%m-%d').date() for priceDate in prices['date']]
 
     pricesStart = [prices[prices['date'] == str(d1)]['vwap'].values[0] for d1 in get_next_trading_day(dates, dates1)]
     pricesEnd = [prices[prices['date'] == str(d2)]['vwap'].values[0] for d2 in get_next_trading_day(dates, dates2)]
@@ -127,29 +132,39 @@ def calculate_performance(ticker, dates1: list, dates2: list):
     performances = [((p[0] - p[1]) / p[0]) for p in zip(pricesStart, pricesEnd)]
     return performances
 
+def get_historical_fundamentals(ticker: str, d:date, manager:CollectionManager,train=True):
+    current_day = dt(d.year,d.month,d.day)
+    if train:
+        allTickersFundamentals = manager.find({'ticker':ticker,'date':{'$lte':current_day}}).sort_values('date')
+    else:
+        allTickersFundamentals = manager.find({'ticker':ticker,'date':{'$gte':current_day}}).sort_values('date')
 
-def months_apart(earlier_date: date, later_date: date) -> int:
-    return (later_date.year - earlier_date.year) * 12 + later_date.month - earlier_date.month
+    return allTickersFundamentals[features], [announce.date() for announce in allTickersFundamentals['date'].tolist()]
 
-
-def get_all_past_quarters(today_date: date):  # feb 5th 2013 - today's date
-    """
-    Gets a list of all the past quarters
-    :param today_date: date
-    :return: list of quarters
-    """
-    historical_date = date(2013, 1, 1)
-
-    if today_date < historical_date or today_date > date(2018, 2, 5):
-        return []
-
-    quarters_apart = months_apart(historical_date, today_date) // 3
-    available_quarters = [get_quarter(historical_date)[0]]
-
-    for i in range(quarters_apart):
-        historical_date += (datedelta.MONTH * 3)
-        available_quarters.append(get_quarter(historical_date)[0])
-    return available_quarters
+#
+#
+# def months_apart(earlier_date: date, later_date: date) -> int:
+#     return (later_date.year - earlier_date.year) * 12 + later_date.month - earlier_date.month
+#
+#
+# def get_all_past_quarters(today_date: date):  # feb 5th 2013 - today's date
+#     """
+#     Gets a list of all the past quarters
+#     :param today_date: date
+#     :return: list of quarters
+#     """
+#     historical_date = date(2013, 2, 1)
+#
+#     if today_date < historical_date or today_date > date(2018, 2, 5):
+#         return []
+#
+#     quarters_apart = months_apart(historical_date, today_date) // 3
+#     available_quarters = [get_quarter(historical_date)[0]]
+#
+#     for i in range(quarters_apart):
+#         historical_date += (datedelta.MONTH * 3)
+#         available_quarters.append(get_quarter(historical_date)[0])
+#     return available_quarters
 
 
 def find_best_stock(performances: pd.DataFrame):
@@ -161,36 +176,34 @@ def find_best_stock(performances: pd.DataFrame):
         best.append(stock)
     return best
 
-
-def get_all_future_quarters(today_date: date):
-    """
-    Gets all of the potential future quarters until 02-06-2018
-    :param today_date: date
-    :return: list of quarters
-    """
-    future_date = date(2018, 2, 5)
-
-    if today_date > future_date:
-        return []
-
-    quarters_apart = months_apart(future_date, today_date) // 3
-    available_quarters = [get_quarter(future_date)[0]]
-
-    for i in range(quarters_apart):
-        future_date -= (datedelta.MONTH * 3)
-        available_quarters.append(get_quarter(future_date)[0])
-    return available_quarters
-
-
-def sort_quarters(dataframe, quarters):
-    if len(dataframe) == 0:
-        return dataframe
-    dataframe['quarter'] = [quarters.index(v) for v in list(dataframe['quarter'])]
-    dataframe = dataframe.sort_values('quarter')
-    return dataframe
+#
+# def get_all_future_quarters(today_date: date):
+#     """
+#     Gets all of the potential future quarters until 02-06-2018
+#     :param today_date: date
+#     :return: list of quarters
+#     """
+#     future_date = date(2018, 2, 5)
+#
+#     if today_date > future_date:
+#         return []
+#
+#     quarters_apart = months_apart(future_date, today_date) // 3
+#     available_quarters = [get_quarter(future_date)[0]]
+#
+#     for i in range(quarters_apart):
+#         future_date -= (datedelta.MONTH * 3)
+#         available_quarters.append(get_quarter(future_date)[0])
+#     return available_quarters
+#
+#
+# def sort_quarters(dataframe, quarters):
+#     dataframe['quarter'] = [quarters.index(v) for v in list(dataframe['quarter'])]
+#     dataframe = dataframe.sort_values('quarter')
+#     return dataframe
 
 
-def get_all_fundamentals(stocks: list, quarters: list, final=False):
+def get_all_fundamentals(stocks: list, tradeDate:date, final=False):
     """
     Gets all of the fundamentals for a list of tickers and list of quarters
     :param tickers: stocks
@@ -206,26 +219,27 @@ def get_all_fundamentals(stocks: list, quarters: list, final=False):
 
     allFundamentals = pd.DataFrame()
     performances = pd.DataFrame()
+    quarters = 0
     for ticker in tickers:
         try:
-            data = sort_quarters(manager.find({'ticker': ticker, 'quarter': {"$in": quarters}}), quarters)
-            if len(data) == 0:
-                tickers.remove(ticker)
-                continue
-            announcementDates = [d.date() for d in data['date']]
-            nextAnnouncementDates = announcementDates[1:] + [
-                datetime.datetime.strptime('2018-02-05', '%Y-%m-%d').date()]
-            data = data[features]
+            # data = sort_quarters(manager.find({'ticker': ticker, 'quarter': {"$in": quarters}}), quarters)
+            data,announcementDates = get_historical_fundamentals(ticker,tradeDate,manager)
+            nextAnnouncementDates = announcementDates[1:] + [dt.strptime('2018-02-05', '%Y-%m-%d').date()]
 
             performance = calculate_performance(ticker, announcementDates, nextAnnouncementDates)
-            if len(performance) != len(performances):
-                print('uh oh')
-            performances[ticker] = performance
+            if len(performance) != len(performances) and len(performances) != 0:
+                print('ERROR')
+                print(ticker)
+                print(len(performance))
+                performances[ticker] = performance[len(performance)-17:]
+            else:
+                performances[ticker] = performance
             for index, funds in data.iterrows():
                 tempDF = pd.DataFrame()
                 tempDF['fundamentals'] = list(funds)[:-1]
-                tempDF['ticker'] = [ticker for i in range(len(funds) - 1)]
-                tempDF['quarter'] = [index for i in range(len(funds) - 1)]
+                quarters = len(funds)
+                tempDF['ticker'] = [ticker for i in range(quarters - 1)]
+                tempDF['quarter'] = [index for i in range(quarters - 1)]
                 allFundamentals = pd.concat([allFundamentals, tempDF])
         except Exception as e:
             log.log(f"{ticker} failed with exception [{e}]")
@@ -233,76 +247,17 @@ def get_all_fundamentals(stocks: list, quarters: list, final=False):
     manager.close()
 
     trainingData = []
-    for quarter in range(len(quarters)):
+    for quarter in range(quarters):
         try:
             q = []
             for ticker in tickers:
                 tickerdata = allFundamentals[allFundamentals['ticker'] == ticker]
                 quarterdata = tickerdata[tickerdata['quarter'] == quarter]['fundamentals']
-                if len(quarterdata) == 0:
-                    continue
-                q.append(list(quarterdata))
-            trainingData.append(q)
+                q.append(quarterdata.tolist())
+            trainingData.append(np.array(q))
         except Exception as e:
             log.log(f"{quarter} failed with exception [{e}]")
 
     trainingDataX = np.array(trainingData)
     trainingDataY = find_best_stock(performances)
     return trainingDataX, trainingDataY, stocks
-
-
-def read_in_all_data(path):
-    with open(path) as jsonFile:
-        return json.loads(jsonFile.read())
-
-
-def fix_quarters(jsonDictionary):
-    report_date = datetime.datetime.strptime(jsonDictionary["date"].strip().split(" ")[0], "%Y-%m-%d")
-    correct_quarter = get_quarter(report_date.date())[0]
-    jsonDictionary["quarter"] = correct_quarter
-
-
-def write_it_out_again():
-    with open("./fixedFundamentals2.json") as f:
-        j = json.loads(f.read())
-        for o in j:
-            o["quarter"] = get_quarter(datetime.strptime(o["date"].split(" ")[0], "%Y-%m-%d"))[0]
-        with open("./fixedFundamentals3.json", "w") as f_out:
-            f_out.write(json.dumps(j))
-
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-
-    if isinstance(obj, datetime):
-        return obj.isoformat()
-    raise TypeError ("Type %s not serializable" % type(obj))
-
-
-if __name__ == '__main__':
-
-    # write_it_out_again()
-    # df = pd.read_json("./sectorAnalysis/fundamentals/combinedFundamentals.json")
-    df = pd.read_json("./fixedFundamentals2.json")
-    manager = CollectionManager("10y_Fundamentals","AlgoTradingDB")
-    for i,k in df.iterrows():
-        manager.insert(k.to_dict(),is_dictionary=True)
-    # df = df[df["date"] > date(2013, 1, 1)]
-    # shit = set()
-    # for i, r in df.iterrows():
-    #     for val in r:
-    #         if pd.isna(val) or pd.isnull(val):
-    #             shit.add(r["ticker"])
-    # good_guys = df[~df["ticker"].isin(shit)]
-    #
-    # mapper = {}
-    # for i, guy in good_guys.iterrows():
-    #     if guy["ticker"] in mapper:
-    #         mapper[guy["ticker"]].append(guy["quarter"])
-    #     else:
-    #         mapper[guy["ticker"]] = [guy["quarter"]]
-    # for k, v in mapper.items():
-    #     if len(v) != len(set(v)):
-    #         print(f"{k} is a real piece of shit because of {[x for x in v if v.count(x) > 1]}")
-
-    # good_json = [x.to_dict() for i,x in good_guys.sort_values("ticker").iterrows().s]
-    # open("./betterJson.json","w").write(json.dumps(good_json,default=json_serial))
