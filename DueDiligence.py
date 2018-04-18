@@ -103,7 +103,6 @@ class StockSuggestor():
         self.model.add(Dense(10, activation='relu'))
         self.model.add(Dense(len(self.stocks), activation='softmax'))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
-        print(self.model.summary())
         print('TRAINING STOCK SUGGESTOR NETWORK')
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
@@ -116,9 +115,4 @@ class StockSuggestor():
         lastQuartersFundamentals = self.test[testD].reshape(1,len(self.stocks),11)
         predictionProbs = self.model.predict(lastQuartersFundamentals)
         prediction = [np.argmax(predictionProbs)]
-        return self.encoder.inverse_transform(prediction)[0]
-
-
-if __name__ == '__main__':
-    sMod = SectorSuggestor(1000)
-    sMod.dev_test()
+        return self.encoder.inverse_transform(prediction)[0],self.testDates[-1]

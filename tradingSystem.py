@@ -21,6 +21,7 @@ class TradingFramework():
         self.suggestor.build_sector_NN()
 
         self.sectorModels = {}
+        self.portfolio = {}
 
         self.loss = loss
         self.model = model
@@ -30,24 +31,37 @@ class TradingFramework():
         self.startingCapital = capital
 
     def run_simulation(self):
+        """
+        Runs the full trading framework.
+        :return: None
+        """
+        sectors =[]
         for day in range(self.startIndex, self.stopIndex):
+            print(f'--------DAY: {day+1}--------')
             # Suggest a Sector
             sectorIDtoInvestIn = self.suggestor.predict_sector(day)
             sectorToInvestIn = id_to_sector[sectorIDtoInvestIn]
             print(f'I suggest investing in the {sectorToInvestIn} sector')
-
+            if len(sectors) != 0:
+                if sectors[-1] == sectorToInvestIn:
+                    print('Already holding positions in this sector...')
+                    sectors.append(sectorToInvestIn)
+                    continue
+            sectors.append(sectorToInvestIn)
             # Suggest top three stocks in this market
             if sectorToInvestIn not in self.sectorModels:
                 stockModel = StockSuggestor(sectorToInvestIn, day, self.dates[day])
                 self.sectorModels[sectorToInvestIn] = stockModel
                 stockModel.build_network()
-            stockToInvestIn = stockModel.predict_stock(self.dates[day])
+            stockToInvestIn, untilThisDate = stockModel.predict_stock(self.dates[day])
             print(f'I suggest investing in the following stock: {stockToInvestIn}')
+            self.trade_stock(stockToInvestIn,self.startDate,self.dates[day+80])
+        print(sectors)
 
-    def trade_stock(self, ticker):
-        trade(self.loss, self.model, self.p, self.sharePer, self.startDate, self.startingCapital,
-              self, self.stop, ticker, plotting=True)
 
+    def trade_stock(self, ticker,start,stop):
+        self.portfolio[ticker] = (trade(self.loss, self.model, self.p, self.sharePer, start, self.startingCapital,
+              stop, ticker, plotting=True))
 
 if __name__ == '__main__':
     # User sets start day (sometime in 2017)

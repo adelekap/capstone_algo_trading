@@ -67,7 +67,8 @@ def async_grid(args):
     manager.close()
 
 
-def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1, plotting=False):
+def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1,
+          plotting=False,framework=None):
     logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel, ticker))
     logger.log('Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital')
     positionOpenNum = 0
@@ -107,7 +108,6 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     environment = Environment(manager, investor, startDay)
 
     # Simulate Trading Environment
-    # bar.initialize()
     print('Starting Trading')
     for d in range(startDay, stopDay):
         if len(investor.positions):
