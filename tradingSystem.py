@@ -1,7 +1,6 @@
 from DueDiligence import SectorSuggestor, StockSuggestor
 from environment import trade
 from mongoObjects import CollectionManager
-import pandas as pd
 import warnings
 import sys
 
@@ -71,7 +70,7 @@ class TradingFramework():
 
 
 if __name__ == '__main__':
-    warnings.filterwarnings("ignore")
+    warnings.simplefilter(action='ignore', category=FutureWarning)
 
     # ARGS: date(YYY-MM-DD), starting capital, predictive model {'SVM', 'Arima','LSTM'},stopLoss
     args = sys.argv[1:]
@@ -80,13 +79,13 @@ if __name__ == '__main__':
         date = '2017-09-05'
 
         # User says how much money they start with
-        startingCapital = 9000
+        startingCapital = 15000
 
         # User chooses which predictive model to use
         mod = 'SVM'
 
         # User chooses what percent of money they are willing to lose
-        stopLoss = 0.15
+        stopLoss = 0.3
 
     else:
         date, startingCapital, mod, stopLoss = args

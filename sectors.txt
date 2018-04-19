@@ -1,1 +1,0 @@
-Industrials,Health Care,Information Technology,Consumer Discretionary,Utilities,Financials,Materials,Consumer Staples,Real Estate,Energy,Telecommunications Services
