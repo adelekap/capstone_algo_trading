@@ -138,7 +138,6 @@ class NeuralNet(object):
         self.model.add(Dropout(0.2))
         self.model.add(TimeDistributed(Dense(1,activation = 'tanh')))
         self.model.compile(loss='mean_squared_error', optimizer='adam',metrics=[rmse])
-        print(self.model.summary())
 
     def train_network(self,epochs=500,dev=False):
         validationX = pad_sequences(self.Xval,maxlen=self.Xtrain.shape[1])

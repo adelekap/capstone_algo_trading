@@ -153,7 +153,12 @@ def get_all_fundamentals(stocks: list, tradeDate:date):
     trainingDataY = find_best_stock(performances)
 
     allTestY = []
-    for testQuarter in range(len(allTest['quarter'].unique())):
+    quarterLen = len(allTest['quarter'].unique())
+    if quarterLen == 1:
+        fix = allTest.copy()
+        fix['quarter'] = [1 for i in range(len(fix))]
+        allTest = pd.concat([allTest,fix])
+    for testQuarter in range(quarterLen):
         testQ = []
         for tick in tickers:
             tickData = allTest[allTest['ticker'] == tick]
@@ -164,3 +169,6 @@ def get_all_fundamentals(stocks: list, tradeDate:date):
         allTestY.append(np.array(testQ))
 
     return trainingDataX, trainingDataY, np.array(allTestY), testDates, tickers
+
+if __name__ == '__main__':
+    print(get_all_fundamentals(['RHT'],date(2017,9,7)))
