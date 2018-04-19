@@ -209,7 +209,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', choices=['Arima', 'LSTM', 'SVM'], metavar='M',
                         help='predictive model to use', default='Arima', required=False)  # Todo: add other choices
-    parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-01-05', required=False, type=str)
+    parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-09-05', required=False, type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,
                         required=False)
     parser.add_argument('--loss', help='percent of money you are willing to lose', default=.30, type=float,

@@ -1,7 +1,3 @@
-Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit
-
-Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit
-
 Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital
 2017-09-15,open,0,short,177.62333333333333,137,24334.396666666667,,39334.39666666667
 2017-09-18,open,1,short,187.87,159,29871.33,,69205.72666666667
