@@ -3,6 +3,7 @@ from environment import trade
 from mongoObjects import CollectionManager
 import pandas as pd
 import warnings
+import sys
 
 id_to_sector = {0: 'Industrials', 1: 'Health Care', 2: 'Information Technology', 3: 'Consumer Discretionary',
                 4: 'Utilities', 5: 'Financials', 6: 'Materials', 7: 'Consumer Stapes', 8: 'Real Estate', 9: 'Energy',
@@ -70,18 +71,21 @@ class TradingFramework():
               stop, ticker, plotting=True))
 
 if __name__ == '__main__':
+    # ARGS: date(YYY-MM-DD), starting capital, predictive model {'SVM', 'Arima','LSTM'},stopLoss
+    args = sys.argv[1:]
+
     warnings.filterwarnings("ignore")
     # User sets start day (sometime in 2017)
     date = '2017-09-05'
 
     # User says how much money they start with
-    startingCapital = 5000
+    startingCapital = 9000
 
     # User chooses which predictive model to use
     mod = 'SVM'
 
     # User chooses what percent of money they are willing to lose
-    stopLoss = 0.3
+    stopLoss = 0.15
 
     # Initialize the trading system
     system = TradingFramework(date, startingCapital, mod, 0.3)
