@@ -70,6 +70,7 @@ class TradingFramework():
               stop, ticker, plotting=True))
 
 if __name__ == '__main__':
+    warnings.filterwarnings("ignore")
     # User sets start day (sometime in 2017)
     date = '2017-09-05'
 

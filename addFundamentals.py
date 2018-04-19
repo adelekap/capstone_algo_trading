@@ -158,6 +158,8 @@ def get_all_fundamentals(stocks: list, tradeDate:date):
         for tick in tickers:
             tickData = allTest[allTest['ticker'] == tick]
             testQuarterData = tickData[tickData['quarter'] == testQuarter]['fundamentals']
+            if testQuarterData.shape[0] != 15:
+                print('ERROR ' + tick)
             testQ.append(testQuarterData.tolist()[:-4])
         allTestY.append(np.array(testQ))
 
