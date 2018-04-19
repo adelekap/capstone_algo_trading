@@ -100,7 +100,7 @@ class StockSuggestor():
     def build_network(self, epochs=50):
         self.model.add(Dense(24, activation='tanh', input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
         self.model.add(Flatten())
-        self.model.add(Dense(10, activation='relu'))
+        self.model.add(Dense(10, activation='tanh'))
         self.model.add(Dense(len(self.stocks), activation='softmax'))
         self.model.compile(optimizer="adam", loss='categorical_crossentropy', metrics=['accuracy'])
         print('TRAINING STOCK SUGGESTOR NETWORK')

@@ -156,9 +156,9 @@ def get_all_fundamentals(stocks: list, tradeDate:date):
     quarterLen = len(allTest['quarter'].unique())
     if quarterLen == 1:
         fix = allTest.copy()
-        fix['quarter'] = [1 for i in range(len(fix))]
+        fix['quarter'] = [2 for i in range(len(fix))]
         allTest = pd.concat([allTest,fix])
-    for testQuarter in range(quarterLen):
+    for testQuarter in range(2):
         testQ = []
         for tick in tickers:
             tickData = allTest[allTest['ticker'] == tick]
