@@ -14,11 +14,26 @@ from logger import Logger
 
 
 def save_results(dict, manager, ticker):
+    """
+    Saves the results of trading to the database
+    :param dict: results
+    :param manager: collection manager
+    :param ticker: stock ticker
+    :return: None
+    """
     newDoc = MongoDocument(dict, ticker, [])
     manager.insert(newDoc)
 
 
 def sharpe_ratio(portfolio, etf, rp, rf=1.72):
+    """
+    Calculates the Sharpe Ratio -- a measurement of risk
+    :param portfolio: the portfolio
+    :param etf: the values of SPY
+    :param rp: expected portfolio return
+    :param rf: risk free rate
+    :return: sharpe ratio
+    """
     sigp = np.std(portfolio)
     covariance = np.cov(portfolio, etf)[0][1]
 
@@ -36,15 +51,22 @@ class Environment(object):
         self.day = startDay
         self.currentDate = self.timeperiod[self.day]
 
-    def log_position(self, position):  # Todo: IMPLEMENT
-        pass
-
     def increment_day(self, strategy):
+        """
+        Steps through the days
+        :param strategy:
+        :return:
+        """
         self.day += 1
         self.currentDate = self.timeperiod[self.day]
         strategy.currentDate = self.timeperiod[self.day]
 
     def update_total_assets(self, agent: InvestorAgent):
+        """
+        Updates the total assets of an agent in the trading environment
+        :param agent: agent object
+        :return: None
+        """
         liquid = agent.capital_t
         investments = []
         for pos in agent.positions:
@@ -54,6 +76,11 @@ class Environment(object):
 
 
 def async_grid(args):
+    """
+    Runs grid search to see parameter values
+    :param args: args for the trade method
+    :return: None
+    """
     manager = CollectionManager('grid_search', 'AlgoTradingDB')
     try:
         stock = args[-1]
@@ -69,6 +96,19 @@ def async_grid(args):
 
 def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticker, epochs=1, neurons=1,
           plotting=False):
+    """
+    TRADES a given stock for a period of time
+    :param loss: amount of loss willing to take
+    :param statsModel: string of the predictive model to be used
+    :param p: p value for the strategy
+    :param sharePer: share percentage for the strategy
+    :param startDate: date to start YYYY-MM-DD
+    :param startingCapital: capital to start trading with
+    :param stop: stop date YYYY-MM-DD
+    :param ticker: stock ticker
+    :param plotting: whether you want to plot or not
+    :return: results (dictionary)
+    """
     logger = Logger('comparison/{0}/trades/{1}.csv'.format(statsModel, ticker))
     logger.log('Date,Open/Close,PositionNum,Type,Price,Shares,Investment,Profit,CurrentCapital')
     positionOpenNum = 0

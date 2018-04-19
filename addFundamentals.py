@@ -76,6 +76,13 @@ def calculate_performance(ticker, dates1: list, dates2: list):
 
 
 def get_historical_fundamentals(ticker: str, d:date, manager:CollectionManager):
+    """
+    Gets all of the fundamental data for a ticker before some date and after
+    :param ticker: stock ticker
+    :param d: date
+    :param manager: collection manager for the fundamentals database
+    :return: past fundamentals, announcement dates, and future (test) fundamentals
+    """
     current_day = dt(d.year,d.month,d.day)
     allTickersFundamentals = manager.find({'ticker':ticker,'date':{'$lte':current_day}}).sort_values('date')
     test = manager.find({'ticker':ticker,'date':{'$gte':current_day}}).sort_values('date')
@@ -169,6 +176,3 @@ def get_all_fundamentals(stocks: list, tradeDate:date):
         allTestY.append(np.array(testQ))
 
     return trainingDataX, trainingDataY, np.array(allTestY), testDates, tickers
-
-if __name__ == '__main__':
-    print(get_all_fundamentals(['RHT'],date(2017,9,7)))

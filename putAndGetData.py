@@ -25,8 +25,7 @@ def add_data(manager, function, unwantedFields):
     :param function: the function that will add the data to the database
     :return: None
     """
-    # stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])] #Todo Uncomment this later
-    stocks = ['spy']
+    stocks = [symbol.lower() for symbol in list(pd.read_csv('stocks.csv')['Symbol'])]
     for stock in stocks:
         try:
             get_stock_data(manager, stock, unwantedFields, function)
@@ -54,6 +53,12 @@ def create_timeseries(manager, ticker):
 
 
 def get_multifeature_data(manager, ticker):
+    """
+    Gets data for multivariate regression
+    :param manager: collection manager for the 5 year technicals
+    :param ticker: stock ticker
+    :return: data for the close, high, low, open, vwap, and the volume
+    """
     data = manager.find({'ticker': ticker})[['close', 'high', 'low', 'open', 'vwap', 'volume']]
     return data
 
@@ -90,11 +95,14 @@ def get_closes_highs_lows(manager, ticker):
     return closes, highs, lows, dates
 
 
-# def avg_price_timeseries(manager,ticker,dates):
-#     ticker_data = manager.find({"ticker":ticker})
-#     series = ticker_data['vwap']
-#     return list(series)
 def avg_price_timeseries(manager, ticker, dates):
+    """
+    Calculates avg of the data
+    :param manager: collection manager for the 5 year technicals
+    :param ticker: stock ticker
+    :param dates: dates of trading
+    :return: averaged time series
+    """
     series = []
     for date in dates:
         data = manager.find({'ticker': ticker, 'date': date})
@@ -107,12 +115,13 @@ def avg_price_timeseries(manager, ticker, dates):
 
 
 def rel_volume(manager, ticker, date):
+    """
+    Returns the relative volume of the day for the given stock
+    :param manager: collection manager for 5 year technicals
+    :param ticker: stock ticker
+    :param date: date of interest
+    :return: relative volume
+    """
     allVol = np.mean(manager.find_distinct({'ticker': ticker}, 'volume'))
     vol = manager.find({'ticker': ticker, 'date': date})['volume'][0]
     return vol / allVol
-
-
-if __name__ == '__main__':
-    manager = CollectionManager('5Y_technicals', 'AlgoTradingDB')
-    add_data(manager, api.iex_5y, unwantedFields=['unadjustedVolume', 'change',
-                                                  'changePercent', 'label', 'changeOverTime'])

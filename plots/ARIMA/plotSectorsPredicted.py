@@ -9,6 +9,13 @@ with open(file,'r') as pred:
     data = pred.readlines()[0]
     x = data.split(',')
 
+x.append('Industrials')
+x.append('Financials')
+
+for i in x:
+    if len(i) == 0:
+        x.remove(i)
+
 sns.countplot(y=x)
 plt.tight_layout()
 plt.show()

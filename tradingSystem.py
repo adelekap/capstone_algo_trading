@@ -38,7 +38,7 @@ class TradingFramework():
         :return: None
         """
         warnings.filterwarnings("ignore")
-        sectors =[]
+        sectors = []
         for day in range(self.startIndex, self.stopIndex):
             print(f'--------DAY: {day - self.startIndex +1}--------')
             # Suggest a Sector
@@ -60,32 +60,36 @@ class TradingFramework():
                 stockModel = self.sectorModels[sectorToInvestIn]
             stockToInvestIn, untilThisDate = stockModel.predict_stock(self.dates[day])
             print(f'I suggest investing in the following stock: {stockToInvestIn}')
-            self.trade_stock(stockToInvestIn.lower(),self.startDate,self.dates[day+50])
+            self.trade_stock(stockToInvestIn.lower(), self.startDate, self.dates[day + 50])
         print(f'SECTORS INVESTED IN: {sectors}')
-        resultManager = CollectionManager('trading_results','AlgoTradingDB')
+        resultManager = CollectionManager('trading_results', 'AlgoTradingDB')
         resultManager.insert(self.portfolio)
 
-
-    def trade_stock(self, ticker,start,stop):
+    def trade_stock(self, ticker, start, stop):
         self.portfolio[ticker] = (trade(self.loss, self.model, self.p, self.sharePer, start, self.startingCapital,
-              stop, ticker, plotting=True))
+                                        stop, ticker, plotting=True))
+
 
 if __name__ == '__main__':
+    warnings.filterwarnings("ignore")
+
     # ARGS: date(YYY-MM-DD), starting capital, predictive model {'SVM', 'Arima','LSTM'},stopLoss
     args = sys.argv[1:]
+    if len(args) == 0:
+        # User sets start day (sometime in 2017)
+        date = '2017-09-05'
 
-    warnings.filterwarnings("ignore")
-    # User sets start day (sometime in 2017)
-    date = '2017-09-05'
+        # User says how much money they start with
+        startingCapital = 9000
 
-    # User says how much money they start with
-    startingCapital = 9000
+        # User chooses which predictive model to use
+        mod = 'SVM'
 
-    # User chooses which predictive model to use
-    mod = 'SVM'
+        # User chooses what percent of money they are willing to lose
+        stopLoss = 0.15
 
-    # User chooses what percent of money they are willing to lose
-    stopLoss = 0.15
+    else:
+        date, startingCapital, mod, stopLoss = args
 
     # Initialize the trading system
     system = TradingFramework(date, startingCapital, mod, 0.3)

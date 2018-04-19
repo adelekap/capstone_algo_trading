@@ -19,12 +19,22 @@ stocks = pd.read_csv('stocks.csv')
 sectors = stocks['Sector'].unique()
 
 
-def stocks_in_sector(sector):
+def stocks_in_sector(sector: str):
+    """
+    Returns a list of stocks in a given sector
+    :param sector: sector
+    :return: list of stocks
+    """
     stocksInSector = stocks[stocks['Sector'] == sector]
     return list(stocksInSector['Symbol'])
 
 
 def to_cat(y_int):
+    """
+    Converts a list of categories to 1-hot encoded data
+    :param y_int: list of categories
+    :return: dataframe of the vectors
+    """
     y_binary = to_categorical(y_int)
     return pd.DataFrame(y_binary)
 
@@ -38,6 +48,11 @@ class SectorSuggestor():
         return sectors
 
     def __split_data(self, start):
+        """
+        Splits data into training and testing for the sector suggestor
+        :param start: start day
+        :return: Xtrain, ytrain, Xtest, ytest, ytarget values
+        """
         X = pd.read_csv('sectorAnalysis/SectorData/DifferencedAvg.csv').iloc[:, 1:]
         y = pd.read_csv('sectorAnalysis/SectorData/ys.csv').iloc[:, 2]
         ytarget = list(y[start:])
@@ -56,12 +71,21 @@ class SectorSuggestor():
         self.history = None
 
     def dev_test(self):
+        """
+        Used in development to decide the architecture of the network
+        :return: None
+        """
         self.build_sector_NN(10)
         paddedtestData = pad(self.Xtest[0], self.Xtrain.shape[1], 11)
         predictions = self.__to_sector(self.model.predict(paddedtestData)[0][:self.ytest.shape[1]])
         # print(accuracy_score(self.targets,predictions))
 
     def build_sector_NN(self, epochs=20):
+        """
+        Builds the model and trains it
+        :param epochs: number of epochs to train for
+        :return: None
+        """
         self.model.add(LSTM(33, input_shape=(self.Xtrain.shape[1], self.Xtrain.shape[2]), return_sequences=True))
         self.model.add(Dropout(0.2))
         self.model.add(TimeDistributed(Dense(11, activation='softmax')))
@@ -70,6 +94,11 @@ class SectorSuggestor():
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_sector(self, D):
+        """
+        Predicts the next best sector in the series
+        :param D: day index
+        :return: prediction
+        """
         d = D - (self.Xtrain.shape[1])
         X = [self.Xtest[0][d]]
         paddedtestData = pad(X, self.Xtrain.shape[1], 11)
@@ -79,10 +108,14 @@ class SectorSuggestor():
 
 class StockSuggestor():
     def __train_and_test(self):
-        Xtrain, ytrain_raw, test,testDates,unionStocks = get_all_fundamentals(self.stocks,self.tradeDay)
+        """
+        Splits the data into training and test data
+        :return: Xtrain, ytrain, test data
+        """
+        Xtrain, ytrain_raw, test, testDates, unionStocks = get_all_fundamentals(self.stocks, self.tradeDay)
         self.encoder.fit(unionStocks)
         encoded_Y = self.encoder.transform(ytrain_raw)
-        ytrain = to_categorical(encoded_Y,len(unionStocks))
+        ytrain = to_categorical(encoded_Y, len(unionStocks))
         self.stocks = unionStocks
         self.testDates = testDates
         return Xtrain, ytrain, test
@@ -98,7 +131,12 @@ class StockSuggestor():
         self.model = Sequential()
 
     def build_network(self, epochs=50):
-        self.model.add(Dense(24, activation='tanh', input_shape=(self.Xtrain.shape[1],self.Xtrain.shape[2])))
+        """
+        Builds the stock suggestor network and trains it
+        :param epochs: Number of epochs to train for
+        :return: None
+        """
+        self.model.add(Dense(24, activation='tanh', input_shape=(self.Xtrain.shape[1], self.Xtrain.shape[2])))
         self.model.add(Flatten())
         self.model.add(Dense(10, activation='tanh'))
         self.model.add(Dense(len(self.stocks), activation='softmax'))
@@ -107,12 +145,17 @@ class StockSuggestor():
         self.history = self.model.fit(self.Xtrain, self.ytrain, epochs=epochs, batch_size=10, verbose=False)
 
     def predict_stock(self, dayString):
-        todaysDate = datetime.strptime(dayString,'%Y-%m-%d')
+        """
+        Predicts the best stock given quarterly reports
+        :param dayString: string of the current day
+        :return: predicted stock
+        """
+        todaysDate = datetime.strptime(dayString, '%Y-%m-%d')
         testD = 0
         for d in self.testDates:
             if d < todaysDate:
                 testD += 1
-        lastQuartersFundamentals = self.test[testD].reshape(1,len(self.stocks),11)
+        lastQuartersFundamentals = self.test[testD].reshape(1, len(self.stocks), 11)
         predictionProbs = self.model.predict(lastQuartersFundamentals)
         prediction = [np.argmax(predictionProbs)]
-        return self.encoder.inverse_transform(prediction)[0],self.testDates[-1]
+        return self.encoder.inverse_transform(prediction)[0], self.testDates[-1]
