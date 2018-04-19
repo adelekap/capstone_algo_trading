@@ -2,6 +2,7 @@ from DueDiligence import SectorSuggestor, StockSuggestor
 from environment import trade
 from mongoObjects import CollectionManager
 import pandas as pd
+import warnings
 
 id_to_sector = {0: 'Industrials', 1: 'Health Care', 2: 'Information Technology', 3: 'Consumer Discretionary',
                 4: 'Utilities', 5: 'Financials', 6: 'Materials', 7: 'Consumer Stapes', 8: 'Real Estate', 9: 'Energy',
@@ -35,9 +36,10 @@ class TradingFramework():
         Runs the full trading framework.
         :return: None
         """
+        warnings.filterwarnings("ignore")
         sectors =[]
         for day in range(self.startIndex, self.stopIndex):
-            print(f'--------DAY: {self.startIndex - day+1}--------')
+            print(f'--------DAY: {day - self.startIndex +1}--------')
             # Suggest a Sector
             sectorIDtoInvestIn = self.suggestor.predict_sector(day)
             sectorToInvestIn = id_to_sector[sectorIDtoInvestIn]
@@ -57,8 +59,10 @@ class TradingFramework():
                 stockModel = self.sectorModels[sectorToInvestIn]
             stockToInvestIn, untilThisDate = stockModel.predict_stock(self.dates[day])
             print(f'I suggest investing in the following stock: {stockToInvestIn}')
-            self.trade_stock(stockToInvestIn,self.startDate,self.dates[day+80])
-        print(sectors)
+            self.trade_stock(stockToInvestIn.lower(),self.startDate,self.dates[day+50])
+        print(f'SECTORS INVESTED IN: {sectors}')
+        resultManager = CollectionManager('trading_results','AlgoTradingDB')
+        resultManager.insert(self.portfolio)
 
 
     def trade_stock(self, ticker,start,stop):

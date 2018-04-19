@@ -108,7 +108,7 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     environment = Environment(manager, investor, startDay)
 
     # Simulate Trading Environment
-    print('Starting Trading')
+    print(f'Starting Trading {ticker}')
     for d in range(startDay, stopDay):
         if len(investor.positions):
             for position in investor.positions:
@@ -153,9 +153,10 @@ def trade(loss, statsModel, p, sharePer, startDate, startingCapital, stop, ticke
     results['possible'] = possible
 
     etf = avg_price_timeseries(manager, 'spy', dates[startDay:stopDay])
-    print(positionOpenNum)
-    print(positionCloseNum)
-    print(sharpe_ratio(investor.totalAssetHistory, etf, possible))
+    print(f'RETURN ON INVESTMENT: {expReturn}')
+    print(f'Number of Positions Opened: {positionOpenNum}')
+    print(f'Number of Positions Closed:{positionCloseNum}')
+    print(f'Sharpe Ratio = {sharpe_ratio(investor.totalAssetHistory, etf, possible)}')
 
     manager.close()
     return (results)
