@@ -1,5 +1,5 @@
 # PrOFIT: Predictive Operative For Intelligent Trading
-An Algorithmic Trading Framework for Investing in Stocksi n the S&P 500
+An Algorithmic Trading Framework for Investing in Stocks in the S&P 500
 
 A capstone project developed and submitted for the fullfillment of the requirements for the M.S. degree in Information at the University of Arizona.
 
@@ -14,10 +14,10 @@ pip install -r requirements.txt
 ### Running the Trading System
 To run the trading system, you run tradingSystem.py with the virtual environment. The arguments are
 
-*Starting Date YYYY-MM-DD (default = 2017-09-05)
-*Starting Capital (default = 15000)
-*Predictive Model (Arima, SVM, or LSTM) (default = SVM)
-*Amount of loss you are willing to lose (default = 0.3)
+* Starting Date YYYY-MM-DD (default = 2017-09-05)
+* Starting Capital (default = 15000)
+* Predictive Model (Arima, SVM, or LSTM) (default = SVM)
+* Amount of loss you are willing to lose (default = 0.3)
 
 ```
 algoTradingVirtualEnv/bin/python tradingSystem.py 2017-09-05 15000 SVM 0.3
