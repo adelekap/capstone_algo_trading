@@ -2,3 +2,7 @@
 .idea
 .idea/*
 algoTradingVirtualEnv
+**/*/venv/**/*
+**/venv
+/AsyncPython/venv
+/AsyncPython/venv/
