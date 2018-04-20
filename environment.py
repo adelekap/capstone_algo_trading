@@ -1,14 +1,14 @@
-from mongoObjects import CollectionManager, MongoClient, MongoDocument
-from strategy import Strategy
+from DataHandler.mongoObjects import CollectionManager, MongoClient, MongoDocument
+from Strategy.strategy import Strategy
 from agent import InvestorAgent
-from arima import ArimaModel
-from putAndGetData import avg_price_timeseries
+from Models.arima import ArimaModel
+from DataHandler.putAndGetData import avg_price_timeseries
 import argparse
 import utils
 import warnings
-from LSTM import NeuralNet
+from Models.LSTM import NeuralNet
 from AsyncPython.logger import log
-from SVM import SVM
+from Models.SVM import SVM
 import numpy as np
 from logger import Logger
 
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     """Arguments"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--model', choices=['Arima', 'LSTM', 'SVM'], metavar='M',
-                        help='predictive model to use', default='Arima', required=False) 
+                        help='predictive model to use', default='Arima', required=False)
     parser.add_argument('--startDate', help='start date YYYY-MM-DD', default='2017-09-05', required=False, type=str)
     parser.add_argument('--startingCapital', help='amount of money to start with', default=5000.00, type=float,
                         required=False)

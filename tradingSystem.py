@@ -1,6 +1,6 @@
-from DueDiligence import SectorSuggestor, StockSuggestor
+from DueDiligence.DueDiligence import SectorSuggestor, StockSuggestor
 from environment import trade
-from mongoObjects import CollectionManager
+from DataHandler.mongoObjects import CollectionManager
 import warnings
 import sys
 

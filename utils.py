@@ -1,21 +1,30 @@
-import matplotlib.pyplot as plt
 import datetime as dt
 import sys
 import math
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from scipy.interpolate import interp1d
-import seaborn as sns
-from mongoObjects import MongoDocument
+from DataHandler.mongoObjects import MongoDocument
 import pandas as pd
 
+
 def laterDate(date, j):
+    """
+    Gets the later date j days after
+    :param date: date string YYYY-MM-DD
+    :param j: number of days
+    :return: later date
+    """
     ds = [int(d) for d in date.split('-')]
     date = dt.datetime(ds[0], ds[1], ds[2])
     return str(date + dt.timedelta(days=j))[:10]
 
-def diff_multifeature(dataset,interval=1):
+
+def diff_multifeature(dataset: pd.DataFrame, interval=1):
+    """
+    Differences a dataframe
+    :param dataset: data
+    :param interval: order of differencing
+    :return: Differenced dataframe
+    """
     differenced = pd.DataFrame()
     features = list(dataset.columns.values)
     for feature in features:
@@ -29,6 +38,12 @@ def diff_multifeature(dataset,interval=1):
 
 
 def split(timeseries: list, percent: float):
+    """
+    Splits the data into train and test sets
+    :param timeseries: time series
+    :param percent: percent of the length to put the split at
+    :return: train set, test set
+    """
     l = len(timeseries)
     index = round(l * percent)
     train = timeseries[:index]
@@ -37,16 +52,29 @@ def split(timeseries: list, percent: float):
 
 
 def plot_capital(capital: list, time: list, stock: str, actual: list, percentGain='', drawdown='', possible='',
-                 title='capital',model=''):
+                 title='capital', model=''):
+    """
+    Plots the capital of a portfolio
+    :param capital: the capital over time
+    :param time: the dates
+    :param stock: ticker
+    :param actual: stock's price
+    :param percentGain: percent change in trading period
+    :param drawdown: MDD
+    :param possible: possible return for 1 long position
+    :param title: plot title
+    :param model: model name
+    :return: None
+    """
     dates = [dt.datetime.strptime(d, "%Y-%m-%d") for d in time]
     f, axarr = plt.subplots(2, sharex=True)
     axarr[0].plot(dates, capital, color='blue', label='Investor')
     axarr[0].set_title('Investments in {0}: {1}'.format(stock, percentGain, drawdown))
     axarr[1].plot(dates, actual, color='grey', label=stock + ' Price')
-    axarr[1].set_title('Price of {0}: {1}%'.format(stock,possible))
+    axarr[1].set_title('Price of {0}: {1}%'.format(stock, possible))
     plt.xticks(fontsize=9, rotation=45)
     plt.tight_layout()
-    plt.savefig('plots/{0}/{1}_{2}.png'.format(model,title,stock))
+    plt.savefig('plots/{0}/{1}_{2}.png'.format(model, title, stock))
     print()
     print('COMPLETE')
     plt.show()
@@ -60,28 +88,23 @@ def MDD(series):
     trough = min(series)
     peak = max(series)
     mdd = (peak - trough) / peak
-    return round(mdd,3)
+    return round(mdd, 3)
 
-
-def sharpe_ratio(series):
-    """S(x) = (rx - Rf) / StdDev(x)"""
-    pass
-
-def plot_3D(x,y,z,title):
-    fig = plt.figure()
-    ax = fig.add_subplot(111, projection='3d')
-    plt.xlabel('p')
-    plt.ylabel('sharePer')
-    plt.title(title)
-    ax.scatter3D(x, y, z, color='b')
-    plt.show()
 
 def save_results(dict, manager, ticker):
+    """
+    Saves the results of trading in the database
+    :param dict: results
+    :param manager: collection manager
+    :param ticker: stock ticker
+    :return:
+    """
     newDoc = MongoDocument(dict, ticker, [])
     manager.insert(newDoc)
 
+
 class ProgressBar(object):
-    def __init__(self,totalDays):
+    def __init__(self, totalDays):
         self.totalDays = totalDays
         self.d = 1.0
         self.threshold = 0.05
@@ -93,7 +116,7 @@ class ProgressBar(object):
     def progress(self):
         if self.d == self.totalDays:
             sys.stdout.flush()
-        percent = self.d/self.totalDays
+        percent = self.d / self.totalDays
         if percent > self.threshold:
             sys.stdout.write('|||')
             self.threshold = math.ceil(percent * 10.0) / 10.0
