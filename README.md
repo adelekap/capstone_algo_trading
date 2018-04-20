@@ -11,6 +11,20 @@ A capstone project developed and submitted for the fullfillment of the requireme
 pip install -r requirements.txt
 ```
 
+### Simulating trading of a single stock
+To run the trading system, you run tradingSystem.py with the virtual environment. The arguments are
+
+* Starting Date YYYY-MM-DD (default = 2017-09-05)
+* Starting Capital (default = 15000)
+* Predictive Model (Arima, SVM, or LSTM) (default = SVM)
+* Amount of loss you are willing to lose (default = 0.3)
+* Stock Ticker
+
+```
+python environment.py --model SVM --startDate 2017-09-05 --startingCapital 15000 --ticker googl  --loss 0.3
+```
+
+
 ### Running the Trading System
 To run the trading system, you run tradingSystem.py with the virtual environment. The arguments are
 
@@ -20,7 +34,7 @@ To run the trading system, you run tradingSystem.py with the virtual environment
 * Amount of loss you are willing to lose (default = 0.3)
 
 ```
-algoTradingVirtualEnv/bin/python tradingSystem.py 2017-09-05 15000 SVM 0.3
+python tradingSystem.py 2017-09-05 15000 SVM 0.3
 ```
 
 ## Built With
