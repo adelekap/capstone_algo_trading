@@ -11,7 +11,7 @@ A capstone project developed and submitted for the fullfillment of the requireme
 pip install -r requirements.txt
 ```
 
-You will also need to install [MongoDB] (https://docs.mongodb.com/manual/installation/)
+You will also need to install [MongoDB](https://docs.mongodb.com/manual/installation/)
 
 ### Setting up the database
 The two important collections that I have included in the repository are the fundamentals and the technicals. This data from the database was exported into two json files: Database/Fundamentals.json and database/Technicals.json. To import this data into collections in a new database on a local machine, run:
@@ -62,12 +62,12 @@ python tradingSystem.py 2017-09-05 15000 SVM 0.3
 * [sci-kit learn](http://scikit-learn.org/stable/documentation.html)
 * [StatsModels](https://www.statsmodels.org/stable/index.html)
 * [Pandas](https://pandas.pydata.org/pandas-docs/stable/)
-* [MongoDB] (https://docs.mongodb.com/)
+* [MongoDB](https://docs.mongodb.com/)
 
 
 ## Author
 
-* **[Adele Kapellusch]** (https://github.com/adelekap)
+* **[Adele Kapellusch]**(https://github.com/adelekap)
 
 
 ## License
