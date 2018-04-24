@@ -11,6 +11,23 @@ A capstone project developed and submitted for the fullfillment of the requireme
 pip install -r requirements.txt
 ```
 
+You will also need to install [MongoDB](https://docs.mongodb.com/manual/installation/)
+
+### Setting up the database
+The two important collections that I have included in the repository are the fundamentals and the technicals. This data from the database was exported into two json files: Database/Fundamentals.json and database/Technicals.json. To import this data into collections in a new database on a local machine, run:
+
+```
+mongo use AlgoTradingDB
+```
+
+```
+mongo import --db AlgoTradingDB --collection 10y_Fundamentals --file Database/Fundamentals.json --jsonArray
+
+mongo import --db AlgoTradingDB --collection 5Y_technicals --file Database/Technicals.json --jsonArray
+```
+
+This will create a mongo database called AlgoTradingDB and two collections within that database called 10y_Fundamentals and 5Y_technicals. The trading system will get data from these two collections and create new collections within this database from the trading results.
+
 ### Simulating trading of a single stock
 To run the trading system, you run tradingSystem.py with the virtual environment. The arguments are
 
