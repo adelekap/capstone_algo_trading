@@ -28,6 +28,8 @@ mongo import --db AlgoTradingDB --collection 5Y_technicals --file Database/Techn
 
 This will create a mongo database called AlgoTradingDB and two collections within that database called 10y_Fundamentals and 5Y_technicals. The trading system will get data from these two collections and create new collections within this database from the trading results.
 
+## Using the PrOFIT system
+
 ### Simulating trading of a single stock
 To run the trading system, you run tradingSystem.py with the virtual environment. The arguments are
 
