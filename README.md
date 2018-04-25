@@ -67,7 +67,7 @@ python tradingSystem.py 2017-09-05 15000 SVM 0.3
 
 ## Author
 
-* **[Adele Kapellusch]**(https://github.com/adelekap)
+[Adele Kapellusch](https://github.com/adelekap)
 
 
 ## License
