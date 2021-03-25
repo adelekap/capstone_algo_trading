@@ -25,7 +25,7 @@ pymongo==3.6.0
 pyparsing==2.2.0
 python-dateutil==2.6.1
 pytz==2017.3
-PyYAML==3.12
+PyYAML==5.4
 requests==2.18.4
 requests-file==1.4.3
 requests-ftp==0.3.1
